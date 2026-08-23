@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Verify Your Identity - Nestify</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* LOGO */
+        .logo {
+            text-align: center;
+            font-size: clamp(24px, 4vw, 32px);
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 25px;
+        }
+
+        /* MAIN TITLE */
+        h1 {
+            text-align: center;
+            font-size: clamp(22px, 4vw, 30px);
+            margin-bottom: 12px;
+            color: #222;
+        }
+
+        .description {
+            text-align: center;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-size: clamp(14px, 2vw, 16px);
+        }
+
+        /* STEP BOX */
+        .step {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .step-title {
+            font-size: clamp(17px, 3vw, 21px);
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 15px;
+        }
+
+        .step h2 {
+            font-size: clamp(16px, 2.5vw, 19px);
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .step p {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            font-size: clamp(14px, 2vw, 16px);
+        }
+
+        /* UPLOAD AREA */
+        .upload-box {
+            border: 2px dashed #bdbdbd;
+            border-radius: 10px;
+            padding: 30px 20px;
+            text-align: center;
+            background: #fafafa;
+            width: 100%;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        /* BUTTON */
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background: #2e7d32;
+            color: white;
+            padding: 13px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            min-height: 45px;
+        }
+
+        .btn:hover {
+            background: #1b5e20;
+            transform: translateY(-2px);
+        }
+
+        .examples {
+            margin-top: 20px;
+        }
+
+        .examples h3 {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .examples ul {
+            padding-left: 20px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .arrow {
+            text-align: center;
+            font-size: 30px;
+            color: #777;
+            margin: 15px 0;
+        }
+
+        .face-status,
+        .upload-status {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #2e7d32;
+            font-weight: bold;
+            word-break: break-word;
+        }
+
+        .selfie-box {
+            text-align: center;
+            padding: 10px;
+        }
+
+
+        /* =========================
+           SMALL MOBILE PHONES
+           ========================= */
+        @media (max-width: 480px) {
+
+            body {
+                padding: 10px;
+                align-items: flex-start;
+            }
+
+            .container {
+                padding: 20px 15px;
+                border-radius: 10px;
+                margin-top: 10px;
+            }
+
+            .logo {
+                margin-bottom: 15px;
+            }
+
+            h1 {
+                font-size: 23px;
+            }
+
+            .description {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+
+            .step {
+                padding: 18px 15px;
+                margin-top: 15px;
+                border-radius: 10px;
+            }
+
+            .step-title {
+                font-size: 18px;
+            }
+
+            .step h2 {
+                font-size: 16px;
+            }
+
+            .upload-box {
+                padding: 25px 10px;
+            }
+
+            /* Full-width buttons on small screens */
+            .btn {
+                width: 100%;
+                padding: 13px 15px;
+            }
+
+            .examples ul {
+                padding-left: 18px;
+                font-size: 14px;
+            }
+
+            .arrow {
+                margin: 10px 0;
+                font-size: 25px;
+            }
+
+            .selfie-box {
+                padding: 0;
+            }
+        }
+
+
+        /* =========================
+           TABLETS
+           ========================= */
+        @media (min-width: 481px) and (max-width: 768px) {
+
+            body {
+                padding: 20px;
+            }
+
+            .container {
+                max-width: 600px;
+                padding: 30px;
+            }
+
+            .step {
+                padding: 22px;
+            }
+        }
+
+
+        /* =========================
+           LARGE SCREENS
+           ========================= */
+        @media (min-width: 1200px) {
+
+            .container {
+                max-width: 800px;
+                padding: 50px;
+            }
+
+            .step {
+                padding: 30px;
+            }
+
+            .upload-box {
+                padding: 40px;
+            }
+        }
+
+        #camera {
+    display: none;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+    border-radius: 12px;
+}
+
+#photo {
+    display: none;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+    border-radius: 12px;
+}
+
+#canvas {
+    display: none;
+}
+
+.camera-buttons {
+    display: none;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.capture-btn {
+    background: #1976d2;
+}
+
+.capture-btn:hover {
+    background: #0d47a1;
+}
+
+.stop-btn {
+    background: #d32f2f;
+}
+
+.stop-btn:hover {
+    background: #b71c1c;
+}
+
+@media (max-width: 480px) {
+    .camera-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .camera-buttons .btn {
+        width: 100%;
+    }
+}
+
+/* VERIFICATION STATUS */
+.verification-status {
+    display: none;
+    text-align: center;
+    margin-top: 25px;
+}
+
+.success-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #2e7d32;
+    color: white;
+    font-size: 38px;
+    font-weight: bold;
+    border-radius: 50%;
+}
+
+.verification-status h2 {
+    font-size: 24px;
+    margin-bottom: 12px;
+    color: #222;
+}
+
+.verification-status p {
+    max-width: 450px;
+    margin: 0 auto 20px;
+}
+
+.status-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: #fff8e1;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 350px;
+}
+
+.status-box span {
+    color: #e65100;
+    font-weight: bold;
+}
+
+.continue-btn {
+    margin-top: 10px;
+}
+
+.submit-btn {
+    display: none;
+    margin-top: 15px;
+    background: #2e7d32;
+}
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="logo">Nestify</div>
+
+        <h1>Verify Your Identity</h1>
+
+        <p class="description">
+            Help us keep Nestify safe and trustworthy for renters and property owners.
+        </p>
+
+
+        <!-- STEP 1 -->
+        <div class="step">
+
+            <div class="step-title">
+                Step 1 — Government ID
+            </div>
+
+            <h2>Upload a valid government-issued ID</h2>
+
+            <div class="upload-box">
+
+                <label for="idUpload" class="btn">
+                    Upload ID
+                </label>
+
+                <input
+                    type="file"
+                    id="idUpload"
+                    accept="image/*,.pdf"
+                >
+
+                <div class="upload-status" id="uploadStatus"></div>
+
+            </div>
+
+
+            <div class="examples">
+
+                <h3>Examples:</h3>
+
+                <ul>
+                    <li>National ID</li>
+                    <li>Driver's License</li>
+                    <li>Passport</li>
+                    <li>Other accepted government ID</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        
+
+
+        <!-- STEP 2 -->
+       <!-- STEP 2 -->
+<div class="step">
+
+    <div class="step-title">
+        Step 2 — Face Verification
+    </div>
+
+    <div class="selfie-box">
+
+        <h2>Verify Your Face</h2>
+
+        <p>
+            Take a quick selfie to confirm that you are the person on your ID.
+        </p>
+
+        <button class="btn" id="startCameraBtn">
+            Start Face Verification
+        </button>
+
+        <!-- Camera preview -->
+        <video id="camera" autoplay playsinline></video>
+
+        <!-- Buttons -->
+        <div class="camera-buttons">
+            <button class="btn capture-btn" id="captureBtn">
+                Capture Selfie
+            </button>
+
+            <button class="btn stop-btn" id="stopCameraBtn">
+                Close Camera
+            </button>
+        </div>
+
+        <!-- Captured image -->
+        <canvas id="canvas"></canvas>
+
+        <img id="photo" alt="Captured selfie">
+
+        <div class="face-status" id="faceStatus"></div>
+
+    </div>
+
+    <button class="btn submit-btn" id="submitVerificationBtn">
+    Submit Verification
+</button>
+
+</div>
+
+<!-- STEP 3 — VERIFICATION STATUS -->
+<div class="step verification-status" id="verificationStatus">
+
+    <div class="success-icon">✓</div>
+
+    <h2>Verification Submitted</h2>
+
+    <p>
+        Your identity is being reviewed. We'll notify you once your
+        verification is complete.
+    </p>
+
+    <div class="status-box">
+        <strong>Status:</strong>
+        <span>Under Review</span>
+    </div>
+
+    <button class="btn continue-btn" onclick="continueToNestify()">
+        Continue to Nestify
+    </button>
+
+</div>
+
+<script>
+
+    // ID Upload
+    document.getElementById("idUpload").addEventListener("change", function () {
+
+        const file = this.files[0];
+
+        if (file) {
+            document.getElementById("uploadStatus").innerHTML =
+                "✓ ID uploaded: " + file.name;
+        }
+
+    });
+
+
+    // Camera variables
+    const startCameraBtn = document.getElementById("startCameraBtn");
+    const stopCameraBtn = document.getElementById("stopCameraBtn");
+    const captureBtn = document.getElementById("captureBtn");
+
+    const camera = document.getElementById("camera");
+    const canvas = document.getElementById("canvas");
+    const photo = document.getElementById("photo");
+
+    const faceStatus = document.getElementById("faceStatus");
+    const cameraButtons = document.querySelector(".camera-buttons");
+
+    let stream;
+
+
+    // START CAMERA
+    startCameraBtn.addEventListener("click", async function () {
+
+        try {
+
+            stream = await navigator.mediaDevices.getUserMedia({
+                video: {
+                    facingMode: "user"
+                },
+                audio: false
+            });
+
+            camera.srcObject = stream;
+
+            camera.style.display = "block";
+            cameraButtons.style.display = "flex";
+
+            faceStatus.innerHTML = "Camera is ready. Take your selfie.";
+
+            startCameraBtn.style.display = "none";
+
+        } catch (error) {
+
+            console.error(error);
+
+            faceStatus.innerHTML =
+                "Camera access was denied or your camera is unavailable.";
+
+        }
+
+    });
+
+
+    // CAPTURE SELFIE
+    captureBtn.addEventListener("click", function () {
+
+        canvas.width = camera.videoWidth;
+        canvas.height = camera.videoHeight;
+
+        const context = canvas.getContext("2d");
+
+        context.drawImage(
+            camera,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        photo.src = canvas.toDataURL("image/png");
+
+        photo.style.display = "block";
+
+        faceStatus.innerHTML =
+            "✓ Selfie captured successfully!";
+
+    });
+
+
+    // STOP CAMERA
+    stopCameraBtn.addEventListener("click", function () {
+
+        if (stream) {
+
+            stream.getTracks().forEach(track => {
+                track.stop();
+            });
+
+        }
+
+        camera.srcObject = null;
+
+        camera.style.display = "none";
+
+        cameraButtons.style.display = "none";
+
+        startCameraBtn.style.display = "inline-block";
+
+        faceStatus.innerHTML =
+            "Camera closed.";
+
+    });
+
+    const submitVerificationBtn =
+    document.getElementById("submitVerificationBtn");
+
+const verificationStatus =
+    document.getElementById("verificationStatus");
+
+
+// After capturing selfie, show Submit button
+captureBtn.addEventListener("click", function () {
+
+    canvas.width = camera.videoWidth;
+    canvas.height = camera.videoHeight;
+
+    const context = canvas.getContext("2d");
+
+    context.drawImage(
+        camera,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    photo.src = canvas.toDataURL("image/png");
+
+    photo.style.display = "block";
+
+    faceStatus.innerHTML =
+        "✓ Selfie captured successfully!";
+
+    // Show submit verification button
+    submitVerificationBtn.style.display = "inline-block";
+
+});
+
+
+// Submit verification
+submitVerificationBtn.addEventListener("click", function () {
+
+    // Check if ID was uploaded
+    const idFile = document.getElementById("idUpload").files[0];
+
+    if (!idFile) {
+        alert("Please upload your government ID first.");
+        return;
+    }
+
+    // Show verification status
+    verificationStatus.style.display = "block";
+
+    // Hide Step 1 and Step 2
+    document.querySelectorAll(".step")[0].style.display = "none";
+    document.querySelectorAll(".step")[1].style.display = "none";
+
+    document.querySelector(".arrow").style.display = "none";
+
+    // Scroll to status
+    verificationStatus.scrollIntoView({
+        behavior: "smooth"
+    });
+
+});
+
+
+// Continue to Nestify
+function continueToNestify() {
+
+    // Change dashboard.html to your actual page
+    window.location.href = "dashboard.html";
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Choose Account Type - Nestify</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            min-height: 100svh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: clamp(15px, 4vw, 40px);
+
+            background: linear-gradient(
+                135deg,
+                #1e3c72,
+                #2a5298
+            );
+        }
+
+        /* Main container */
+        .container {
+            width: 100%;
+            max-width: 900px;
+
+            background: white;
+            border-radius: clamp(15px, 3vw, 25px);
+
+            padding: clamp(25px, 5vw, 60px);
+
+            text-align: center;
+
+            animation: slowPop 0.8s ease-out;
+        }
+
+        /* Heading */
+        h1 {
+            font-size: clamp(26px, 5vw, 45px);
+            color: #1e3c72;
+
+            margin-bottom: 10px;
+        }
+
+        /* Subheading */
+        h2 {
+            font-size: clamp(18px, 3vw, 25px);
+            color: #333;
+
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: clamp(14px, 2.5vw, 18px);
+            color: #666;
+
+            margin-bottom: clamp(25px, 5vw, 40px);
+        }
+
+        /* Account choices */
+        .account-options {
+            display: flex;
+            justify-content: center;
+            gap: clamp(15px, 3vw, 30px);
+
+            width: 100%;
+        }
+
+        /* Account card */
+        .account-card {
+            flex: 1;
+            max-width: 400px;
+
+            padding: clamp(20px, 4vw, 40px);
+
+            border: 2px solid #e0e0e0;
+            border-radius: 20px;
+
+            cursor: pointer;
+
+            transition: 
+                transform 0.3s ease,
+                box-shadow 0.3s ease,
+                border-color 0.3s ease;
+
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Hover effect */
+        .account-card:hover {
+            transform: translateY(-8px);
+
+            border-color: #2a5298;
+
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        /* Icon */
+        .icon {
+            font-size: clamp(45px, 8vw, 75px);
+            margin-bottom: 15px;
+        }
+
+        /* Card title */
+        .account-card h3 {
+            font-size: clamp(20px, 3vw, 28px);
+            color: #1e3c72;
+
+            margin-bottom: 15px;
+        }
+
+        /* Card description */
+        .account-card p {
+            font-size: clamp(14px, 2vw, 17px);
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Slow popup animation */
+        @keyframes slowPop {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* MOBILE */
+        @media (max-width: 600px) {
+
+            body {
+                align-items: center;
+            }
+
+            .container {
+                padding: 30px 20px;
+            }
+
+            /* Put cards vertically on phones */
+            .account-options {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .account-card {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            /* Better mobile tap effect */
+            .account-card:active {
+                transform: scale(0.98);
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Choose your account type</h1>
+
+        <h2>Create your Nestify account</h2>
+
+        <p class="description">
+            Choose how you'll use Nestify.
+        </p>
+
+
+        <div class="account-options">
+
+            <!-- RENTER -->
+            <a href="renter.html" class="account-card">
+
+                <div class="icon">🏠</div>
+
+                <h3>I'm a Renter</h3>
+
+                <p>
+                    Find and book trusted rental accommodations.
+                </p>
+
+            </a>
+
+
+            <!-- PROPERTY OWNER -->
+            <a href="owner-signup.html" class="account-card">
+
+                <div class="icon">🏢</div>
+
+                <h3>I'm a Property Owner</h3>
+
+                <p>
+                    List and manage your rental property.
+                </p>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
