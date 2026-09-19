@@ -1,0 +1,4487 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nestify</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+
+
+  <!--SCREEN_____1 -->
+
+  <body>
+    <main class="app">
+      <section id="filters" class="screen active">
+        <header class="hero">
+        
+          <h1>Search &amp; Filters</h1>
+          <p>Find your perfect rental in Iloilo City</p>
+          <label class="search-box"
+            ><i class="fa-solid fa-magnifying-glass"></i>
+            <input 
+            id="locationSearch"
+            type="text"
+            placeholder="Barangay, street, landmark..."
+          /></label>
+        </header>
+
+        <div class="content">
+          <article class="card">
+            <h3>LOCATION</h3>
+            <div class="location-options">
+              <label>
+                <input type="radio" name="loc" value="Iloilo City (All)" checked/>
+                <span>Iloilo City (All)</span>
+                <b class="selected-label">Selected</b>
+              </label>
+
+              <label>
+                <input type="radio" name="loc" value="Arevalo"  />
+                <span>Arevalo</span>
+                <b class="selected-label"></b>
+              </label>
+
+              <label>
+                <input type="radio" name="loc" value="City Proper" />
+                <span>City Proper</span>
+                <b class="selected-label"></b>
+              </label>
+
+              <label>
+                <input type="radio" name="loc" value="Jaro" />
+                <span>Jaro</span>
+                <b class="selected-label"></b>
+              </label>
+
+              <label>
+                <input type="radio" name="loc" value="La Paz" />
+                <span>La Paz</span>
+                <b class="selected-label"></b>
+              </label>
+
+              <label>
+                <input type="radio" name="loc" value="Lapuz" />
+                <span>Lapuz</span>
+                <b class="selected-label"></b>
+              </label>
+
+              <label>
+                <input type="radio" name="loc" value="Mandurriao" />
+                <span>Mandurriao</span>
+                <b class="selected-label"></b>
+              </label>
+
+              <label>
+                <input type="radio" name="loc" value="Molo" />
+                <span>Molo</span>
+                <b class="selected-label"></b>
+              </label>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-title-row">
+  <h3>MONTHLY BUDGET</h3>
+  <strong id="budgetValue">₱500 - ₱10,000</strong>
+</div>
+            <input
+              id="budget"
+              type="range"
+              min="500"
+              max="15000"
+              value="10000"
+            />
+            <div class="range-labels">
+              <span>₱500</span><span>₱15,000+</span>
+            </div>
+          </article>
+
+          <article class="card">
+  <h3>PROPERTY TYPE</h3>
+
+  <div class="chips" id="propertyTypes">
+    <button  class="selected" onclick="selectPropertyType(this)">Boarding House</button>
+    <button onclick="selectPropertyType(this)">Apartment</button>
+    <button onclick="selectPropertyType(this)">Dormitory</button>
+    <button onclick="selectPropertyType(this)">Bed Space</button>
+    <button onclick="selectPropertyType(this)">Transient</button>
+  </div>
+</article>
+
+          <article class="card">
+            <h3>AMENITIES</h3>
+            <div class="amenity">
+              <span><i class="fa-solid fa-wifi"></i> Wi-Fi</span
+              ><button class="switch on"></button>
+            </div>
+            <div class="amenity">
+              <span><i class="fa-solid fa-snowflake"></i> Air Conditioning</span
+              ><button class="switch on"></button>
+            </div>
+            <div class="amenity">
+              <span><i class="fa-solid fa-shirt"></i> Laundry Area</span
+              ><button class="switch"></button>
+            </div>
+            <div class="amenity">
+              <span><i class="fa-solid fa-kitchen-set"></i> Kitchen</span
+              ><button class="switch"></button>
+            </div>
+            <div class="amenity">
+              <span><i class="fa-solid fa-car"></i> Parking</span
+              ><button class="switch"></button>
+            </div>
+          </article>
+
+          <article class="card compact-card">
+            <div>
+              <h2>Available Now</h2>
+              <p>Show only immediately available rooms</p>
+            </div>
+            <button class="switch on"></button>
+            <hr />
+            <div>
+              <h2>Smart Match <span class="gold">✦</span></h2>
+              <p>AI-powered personalized recommendations</p>
+            </div>
+            <button class="switch gold-switch"></button>
+          </article>
+        </div>
+        <div class="sticky-action">
+          <button class="primary" onclick="applyFilters()">
+            <i class="fa-solid fa-magnifying-glass"></i> Apply Filters
+          </button>
+        </div>
+      </section>
+
+      <section id="results" class="screen">
+        <header class="top-header">
+         
+          <div class="title-row">
+            <button class="icon-btn" onclick="showScreen('filters')">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+
+
+             <!--SCREEN_____2 -->  
+
+           <div>
+  <h1>Search Results</h1>
+
+  <p>
+    <i class="fa-solid fa-location-dot gold"></i>
+    <span id="resultLocation">Iloilo City (All)</span>
+  </p>
+
+  <div id="resultFilters" class="result-filters">
+    <span id="resultPropertyType">All Properties</span>
+    <span id="resultBudget">₱500 - ₱8,000</span>
+  </div>
+</div>
+            <button class="filter-btn">
+              <i class="fa-solid fa-filter"></i> Filter
+            </button>
+          </div>
+          <div class="view-tabs">
+            <button class="active"><i class="fa-solid fa-list"></i> List</button
+            ><button><i class="fa-regular fa-map"></i> Map</button>
+          </div>
+        </header>
+        <div class="sort-bar">
+          <b>24 rentals</b> found <span></span
+          ><i class="fa-solid fa-arrow-down-wide-short gold"></i
+          ><b>Recommended</b><i class="fa-solid fa-chevron-down"></i>
+        </div>
+
+
+       
+
+        <div class="list-content">
+
+          <!--BOARDING HOUSE-->
+
+           <!--JARO BH-->
+
+          <div class="rental-card"
+          data-location="Jaro"
+          data-price="4500"
+          data-type="Boarding House"
+          onclick="openPropertyShell()">
+            <div class="image-placeholder">
+              <img src="images/jaro bh3.jpg" alt="Sunrise Residences">
+              <span></span><em>Verified</em>
+              
+             <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+            </div>
+            <div class="rental-info">
+              <h2>
+                Sunrise Residences <strong>₱4,500<small>/mo</small></strong>
+              </h2>
+              <p>⌖ Jaro, Iloilo City</p>
+              <small>Near West Visayas State University</small>
+              <div class="tags">
+                <span>Boarding House</span
+                ><span class="available">12 rooms<br />available</span
+                ><span class="rating">★★★★★ 4.8<br />(32)</span>
+              </div>
+              
+            </div>
+          </div>
+
+          <!--LAPUZ BH-->
+
+
+          <div class="rental-card"
+          data-location="Lapuz"
+          data-price="2200"
+          data-type="Boarding House"
+          onclick="openPropertyShell_j_jbh()">
+            <div class="image-placeholder">
+              <img src="images/j&jbh1.jpg" alt="J&J Boarding House">
+              <span></span><em>Verified</em>
+              
+             <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+            </div>
+            <div class="rental-info">
+              <h2>
+                J&J Boarding House <strong>₱2,200<small>/mo</small></strong>
+              </h2>
+              <p>⌖ Lapuz, Iloilo City</p>
+              <small>Near at Museum IloILo</small>
+              <div class="tags">
+                <span>Boarding House</span
+                ><span class="available">2 rooms<br />available</span
+                ><span class="rating">★★★★★ 4.1<br />(3)</span>
+              </div>
+              
+            </div>
+          </div>
+
+
+            
+           <!--MANDURIAO BH1-->
+
+
+          <div class="rental-card"
+          data-location="Mandurriao"
+          data-price="2200"
+          data-type="Boarding House"
+          onclick="openPropertyShell_inybh()">
+            <div class="image-placeholder">
+              <img src="images/inybh1.jpg" alt="InY Residences">
+              <span></span><em>Verified</em>
+              
+             <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+            </div>
+             <div class="rental-info">
+              <h2>
+                Iny Residences <strong>₱2,200<small>/mo</small></strong>
+              </h2>
+              <p>⌖ Manduriao, Iloilo City</p>
+              <small>Near Western Visayas Medical Center</small>
+              <div class="tags">
+                <span>Boarding House</span
+                ><span class="available">2 rooms<br />available</span
+                ><span class="rating">★★★★★ 4.0<br />(9)</span>
+              </div>
+                    </div>
+                       </div>
+
+            
+          <!--MANDURIAO BH2-->
+
+
+          <div class="rental-card" 
+          data-location="Mandurriao"
+          data-price="3000"
+           data-type="Boarding House"
+          onclick="openPropertyShell_Shisbh()">
+            <div class="image-placeholder">
+              <img src="images/madu-bh-shi1.jpg" alt="Shi's Boarding House">
+              <span></span><em>Verified</em>
+              
+             <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+            </div>
+             <div class="rental-info">
+              <h2>
+                Shi's Place <strong>₱3,000<small>/mo</small></strong>
+              </h2>
+              <p>⌖ Manduriao, Iloilo City</p>
+              <small>1 ride to CPU, Festive Mall,Western Hospital</small>
+              <div class="tags">
+                <span>Boarding House</span
+                ><span class="available">1 rooms<br />available</span
+                ><span class="rating">★★★★★ 4.5<br />(5)</span>
+              </div>
+              
+            </div>
+              
+            </div>
+
+
+             <!--MANDURIAO BH3-->
+
+
+          <div class="rental-card" 
+          data-location="Mandurriao"
+          data-price="10000"
+          data-type="Boarding House/Transient"
+          onclick="openPropertyShell_DMpalbh()">
+            <div class="image-placeholder">
+              <img src="images/dmpalbh1.jpg" alt="DM PAl">
+              <span></span><em>Verified</em>
+              
+             <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+            </div>
+             <div class="rental-info">
+              <h2>
+                 DM Pal <strong>₱10,000<small>/mo</small></strong>
+              </h2>
+              <h3><strong>₱600<small>/day</small></strong>
+                 </h3>
+                 <h3><strong>+₱200<small>/per added person</small></strong></h3>
+              <p>⌖ Manduriao, Iloilo City</p>
+              <small>Along the road, Festive Mall,Western Hospital</small>
+              <div class="tags">
+                <span>Boarding House/Transient Room</span
+                ><span class="available">2nd floor<br />available</span
+                ><span class="rating">★★★★★ 5<br />(5)</span>
+              </div>
+              
+            </div>
+              
+            </div>
+
+              <!--VILLA AREVALO BH1-->
+
+
+          <div class="rental-card" 
+          data-location="Arevalo"
+          data-price="7000"
+          data-type="Boarding House"
+          onclick="openPropertyShell_isunza()">
+            <div class="image-placeholder">
+              <img src="images/arevalo bh1.jpg" alt="IBH/ISUNZA ">
+              <span></span><em>Verified</em>
+              
+             <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+            </div>
+             <div class="rental-info">
+              <h2>
+                 IBH/Isunza Boarding House<strong>₱7,000<small>/mo</small></strong>
+              </h2>
+             
+              <p>⌖ Villa Arevalo, Iloilo City</p>
+              <small>2 rides to SM City , Festive Walk</small>
+              <div class="tags">
+                <span>Boarding House</span
+                ><span class="available">2nd floor<br />available</span
+                ><span class="rating">★★★★★ 5<br />(2)</span>
+              </div>
+              
+            </div>
+              
+            </div>
+
+
+            <!--VILLA AREVALO BH2-->
+
+
+          <div class="rental-card" 
+          data-location="Arevalo"
+          data-price="1800"
+          data-type="Boarding House"
+          onclick="openPropertyShell_knjbh()">
+            <div class="image-placeholder">
+              <img src="images/knjbh2.jpg" alt="KNJ ">
+              <span></span><em>Verified</em>
+              
+             <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+            </div>
+             <div class="rental-info">
+              <h2>
+                 KNJ BOARDING HOUSE<strong>₱1,800<small>/mo</small></strong>
+              </h2>
+             
+              <p>⌖ Villa Arevalo, Iloilo City</p>
+              <small>Sto. Niño Sur, Arevalo, Iloilo City </small>
+              <div class="tags">
+                <span>Boarding House</span
+                ><span class="available">2nd floor<br />available</span
+                ><span class="rating">★★★<img src="images/haftstar.png" class="Star" ><br />(3.5)</span>
+              </div>
+              
+            </div>
+              
+            </div>
+
+
+
+
+            <!--CITY PROPER BH1-->
+
+
+          <div class="rental-card" 
+          data-location="City Proper"
+          data-price="4000"
+          data-type="Boarding House"
+          onclick="openPropertyShell_norma()">
+            <div class="image-placeholder">
+              <img src="images/knjbh2.jpg" alt="KNJ ">
+              <span></span><em>Verified</em>
+              
+             <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+            </div>
+             <div class="rental-info">
+              <h2>
+                 NORMA BOARDING HOUSE<strong>₱4,000<small>/mo</small></strong>
+              </h2>
+             
+              <p>⌖ City Proper, Iloilo City</p>
+              <small>Valeria St, Iloilo City Proper, Iloilo City, 5000 Iloilo </small>
+              <div class="tags">
+                <span>Boarding House</span
+                ><span class="available">2 Room<br />available</span
+                ><span class="rating">★★★★<br />(4)</span>
+              </div>
+              
+            </div>
+              
+            </div>
+
+            <!--APARTMENT-->
+
+          
+          
+            <!--LAPAZ APART1-->
+
+           <div class="rental-card" 
+           data-location="La Paz"
+          data-price="11500"
+          data-type="Apartment/Transient"
+           onclick="openPropertyShell_skyleiapart()">
+            <div class="image-placeholder">
+              <img src="images/skyleighapart3.jpg">
+              <span></span><em>Verified</em>
+              
+             <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+            </div>
+            <div class="rental-info">
+              <h2>
+                Skyleigh Apartment <strong>₱11,500<small>/mo</small></strong>
+              </h2>
+              <p>⌖ La Paz, Iloilo City</p>
+              <small>Salazar Compound , 214 Gustillo Street</small>
+              <div class="tags">
+                <span>Apartment/Transient</span
+                ><span class="available">1 Unit<br />available</span
+                ><span class="rating">★★★★ 4<br />(6)</span>
+              </div>
+           
+           
+            </div>
+          </div>
+
+
+           <!--LAPAZ APART2-->
+
+           <div class="rental-card" 
+           data-location="La Paz"
+          data-price="5500"
+           data-type="Boarding House"
+           onclick="openPropertyShell_AJapart()">
+            <div class="image-placeholder">
+              <img src="images/AJbh1.jpg">
+              <span></span><em>Verified</em>
+              
+             <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+            </div>
+            <div class="rental-info">
+              <h2>
+                AJ Boarding House<strong>₱5,500<small>/mo</small></strong>
+              </h2>
+              <p>⌖ La Paz, Iloilo City</p>
+              <small>Bet. Zone 4 & 5, Divinagracia St., La Paz, Iloilo City</small>
+              <div class="tags">
+                <span>Boarding House</span
+                ><span class="available">1 Room<br />available</span
+                ><span class="rating">★★★★ 4<br />(6)</span>
+              </div>
+           
+           
+            </div>
+          </div>
+
+
+         
+             <!--MANDURAIO APART1-->
+
+          <div class="rental-card" 
+          data-location="Mandurriao"
+          data-price="12500"
+           data-type="Apartment"
+          onclick="openPropertyShell_rexapart()">
+            <div class="image-placeholder">
+              <img src="images/rexapart1.avif">
+              <span></span><em>Verified</em>
+              
+             <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+            </div>
+            <div class="rental-info">
+              <h2>
+                Rex Apartment <strong>₱12,500<small>/mo</small></strong>
+              </h2>
+              <p>⌖ Mandurriao, Iloilo City</p>
+              <small>In front of Manduriao Elementary Schoool</small>
+              <div class="tags">
+                <span>Apartment/Studio Unit</span
+                ><span class="available">1 Unit<br />available</span
+                ><span class="rating">★★★★★ 5<br />(5)</span>
+              </div>
+           
+           
+            </div>
+          </div>
+
+
+            <!--VILLA AREVALO APART1-->
+
+          <div class="rental-card" 
+          data-location="Arevalo"
+          data-price="6000"
+           data-type="Apartment"
+          onclick="openPropertyShell_rian()">
+            <div class="image-placeholder">
+              <img src="images/rianapart2.avif">
+              <span></span><em>Verified</em>
+              
+             <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+            </div>
+            <div class="rental-info">
+              <h2>
+                Rian's Apartment <strong>₱6,000-12,500<small>/mo</small></strong>
+              </h2>
+              <p>⌖ Arevalo, Iloilo City</p>
+              <small> J.V Jocson St, San Jose (Arevalo), Villa Arevalo District</small>
+              <div class="tags">
+                <span>Apartment</span
+                ><span class="available">2 Unit<br />available</span
+                ><span class="rating">★★★★★ 5<br />(5)</span>
+              </div>
+           
+           
+            </div>
+          </div>
+
+
+
+            
+
+         <!--TRANSIENT-->
+
+         <!--La Paz Transient1-->
+   
+         
+
+          <div class="rental-card" 
+          data-location="La Paz"
+          data-price="600"
+           data-type="Transient"
+          onclick="openPropertyShell_ALtrans()">
+            <div class="image-placeholder">
+              <img src="images/a&lplace.jpg">
+              <span></span><em>Verified</em>
+              
+             <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+            </div>
+            <div class="rental-info">
+              <h2>
+                A&L Place<strong>₱600<small>/night</small></strong>
+              </h2>
+              <p>⌖ La Paz, Iloilo City</p>
+              <small>Bet. Zone 4 & 5, Divinagracia St., La Paz, Iloilo City</small>
+              <div class="tags">
+                <span>Transient</span
+                ><span class="available">1 Room<br />available</span
+                ><span class="rating">★★★★ 4<br />(6)</span>
+              </div>
+           
+           
+            </div>
+          </div>
+
+           <!--CITY PROPER TRANSIENT1-->
+   
+         
+
+          <div class="rental-card" 
+          data-location="City Proper"
+          data-price="869"
+           data-type="Transient"
+          onclick="openPropertyShell_madiaas()">
+            <div class="image-placeholder">
+              <img src="images/madiaastrans3.jpg">
+              <span></span><em>Verified</em>
+              
+             <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+            </div>
+            <div class="rental-info">
+              <h2>
+                Hotel Madiaas<strong>₱889<small>/night</small></strong>
+              </h2>
+              <p>⌖ City Proper, Iloilo City</p>
+              <small>14-A Aldeguer St., Iloilo City Proper, Iloilo City</small>
+              <div class="tags">
+                <span>Transient</span
+                ><span class="available">40 Room<br />available</span
+                ><span class="rating">★★★★ 4<br />(6)</span>
+              </div>
+           
+           
+            </div>
+          </div>
+
+          <!--DORMITORY-->
+
+
+          <!--MOLO DORMITORY1-->
+   
+         
+
+          <div class="rental-card" 
+          data-location="Molo"
+          data-price="3000"
+           data-type="Dormitory"
+          onclick="openPropertyShell_Eastville()">
+            <div class="image-placeholder">
+              <img src="images/eastvilledorm1.jpg">
+              <span></span><em>Verified</em>
+              
+             <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+            </div>
+            <div class="rental-info">
+              <h2>
+                Eastville Dormitory<strong>₱3,000<small>/mon</small></strong>
+              </h2>
+              <p>⌖ Molo, Iloilo City</p>
+              <small>148 Piston Compound, Molo, Iloilo City</small>
+              <div class="tags">
+                <span>Dormitory</span
+                ><span class="available">1 Room<br />available</span
+                ><span class="rating">★★★★ 4<br />(6)</span>
+              </div>
+           
+           
+            </div>
+          </div>
+
+
+           <!--AREVALO DORMITORY/TRANSIENT1-->
+   
+         
+
+          <div class="rental-card" 
+          data-location="Arevalo"
+          data-price="1100"
+           data-type="Dormitory/Transient"
+          onclick="openPropertyShell_b_b()">
+            <div class="image-placeholder">
+              <img src="images/bbdorm_trans1.jpg">
+              <span></span><em>Verified</em>
+              
+             <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+            </div>
+            <div class="rental-info">
+              <h2>
+                 Bernwoods Extyn B&B Dormitory<strong>₱1,100-6000<small>/night/Month</small></strong>
+              </h2>
+              <p>⌖ Arevalo, Iloilo City</p>
+              <small>Calumpang- Villa Arevalo District, Iloilo City, Iloilo</small>
+              <div class="tags">
+                <span>Dormitory/Transient</span
+                ><span class="available">1 Room<br />available</span
+                ><span class="rating">★★★★ 4<br />(6)</span>
+              </div>
+           
+           
+            </div>
+          </div>
+
+          <!--MOLO DORMITORY TRANSIENT2-->
+   
+         
+
+          <div class="rental-card" 
+          data-location="Molo"
+          data-price="1800"
+           data-type="Boarding House/Dormitory"
+          onclick="openPropertyShell_alabado()">
+            <div class="image-placeholder">
+              <img src="images/moloalabadodorm.avif">
+              <span></span><em>Verified</em>
+              
+             <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+            </div>
+            <div class="rental-info">
+              <h2>
+                E. Alabado's Dormitory<strong>₱1,800<small>/mon</small></strong>
+              </h2>
+              <p>⌖ Molo, Iloilo City</p>
+              <small>West Avenue(Infante)Brgy: Taal, Molo, Iloilo City</small>
+              <div class="tags">
+                <span>Dormitory/Boarding House</span
+                ><span class="available">1 Room<br />available</span
+                ><span class="rating">★★★★ 4<br />(6)</span>
+              </div>
+           
+           
+            </div>
+          </div>
+
+          
+
+         <!--BH & TRANSIENT-->
+
+
+         <!--MOLO  BH & TRANSIENT1-->
+
+
+          <div class="rental-card" 
+          data-location="Molo"
+          data-price="2500"
+           data-type="Boarding House/Transient"
+          onclick="openPropertyShell_W_Abhtrans()">
+            <div class="image-placeholder">
+              <img src="images/moloW&Abh1.jpg">
+              <span></span><em>Verified</em>
+              
+             <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+            </div>
+            <div class="rental-info">
+              <h2>
+                W & A Boarding House & Transient Room
+                <h2><strong>₱2,500<small>/month</small></strong></h2>
+                 </h2>
+              <h2> <h3><strong>500 <small>/day</small></strong></h3></h2>
+              
+              
+              
+              <p>⌖ Molo, Iloilo City</p>
+              <small>Zone 6,Molo Boulevard, Iloilo City</small>
+              <div class="tags">
+                <span>Transient/Boarding House</span
+                ><span class="available">1 Room<br />available</span
+                ><span class="rating">★★★★ 4<br />(6)</span>
+              </div>
+           
+           
+            </div>
+          </div>
+
+
+
+        </div>
+
+
+        <nav class="bottom-nav">
+          <button>⌂<span>Home</span></button
+          ><button class="nav-active">⌕<span>Search</span></button
+          ><button>♡<span>Saved</span></button
+          ><button>▢<span>Messages</span></button
+          ><button>♙<span>Profile</span></button>
+        </nav>
+      </section>
+
+          
+
+       <!--SCREEN_____3 -->
+
+
+       <!--BOARDING HOUSE-->
+
+
+       <!-- JARO BH -->
+
+       <section id="property" class="screen">
+    <section class="property-shell">
+     <header class="topbar1">
+    <button class="back-btn1" onclick="goBack()">
+        <i class="fa-solid fa-chevron-left"></i> </button> 
+
+    <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+</header>
+
+      <section class="gallery" aria-label="Property photos">
+        <div class="slides">
+          <img src="images/jaro bh3.jpg" alt="Sunrise Residences with swimming pool" class="slide active">
+          <img src="assets/property.jpg" alt="Sunrise Residences" class="slide">
+          <img src="assets/property.jpg" alt="Sunrise Residences" class="slide">
+          <img src="assets/property.jpg" alt="Sunrise Residences" class="slide">
+          
+        </div>
+        <div class="photo-count"><span class="photoNumber">1</span> / 4</div>
+        <div class="dots" aria-label="Photo navigation">
+          <button class="dot active" data-index="0"></button>
+          <button class="dot" data-index="1"></button>
+          <button class="dot" data-index="2"></button>
+          <button class="dot" data-index="3"></button>
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="hero-card">
+          <div class="verified">♢ <span>Verified</span></div>
+          <div class="title-row">
+            <div>
+              <h1>Sunrise Residences</h1>
+              <p class="location">⌖ &nbsp; Jaro, Iloilo City · ~200m from WVSU</p>
+              <div class="rating" aria-label="4.8 out of 5 stars">
+                <span>★ ★ ★ ★ ★</span>
+                <b>4.8</b> <em>(32)</em>
+              </div>
+            </div>
+            <div class="price"><strong>₱4,500</strong><small>/ month</small></div>
+          </div>
+        </div>
+
+        <div class="tags">
+          <span>🏠 &nbsp; Boarding House</span>
+          <span>🛏️ &nbsp; Single Room</span>
+          <span>👤 &nbsp; 1–2 Persons</span>
+          <span>📅 &nbsp; Min. 1 Month</span>
+        </div>
+
+        <div class="availability">
+          <div class="check">✓</div>
+          <div><strong>Available Now</strong><p>12 rooms available · Move-in ready</p></div>
+          <div class="availability-house">🏠</div>
+        </div>
+
+        <section class="card amenities">
+          <h2>AMENITIES</h2>
+          <div class="amenity-list">
+            <div class="amenity1"><span>⌁</span><label>Wi-Fi</label></div>
+            <div class="amenity1"><span>▱</span><label>Air Con</label></div>
+            <div class="amenity1"><span>▣</span><label>Laundry</label></div>
+            <div class="amenity1"><span>▤</span><label>Kitchen</label></div>
+          </div>
+        </section>
+
+        <section class="card rules">
+          <h2>HOUSE RULES</h2>
+          <ul>
+            <li>No overnight visitors</li>
+            <li>No cooking inside rooms</li>
+            <li>Curfew: 11:00 PM</li>
+            <li>No smoking on premises</li>
+            <li>Quiet hours: 10 PM – 7 AM</li>
+          </ul>
+        </section>
+
+        <section class="card owner">
+          <h2>PROPERTY OWNER</h2>
+          <div class="owner-row">
+            <img src="assets/owner.jpg" alt="Property owner">
+            <div class="owner-info">
+              <h3>Rodrigo Dela Cruz <span>♢ Verified</span></h3>
+              <p>Member since 2021 · Responds in &lt;2 hours</p>
+            </div>
+          </div>
+          <button class="message-btn" onclick="messageLandlord()">▢ &nbsp; Message landlord</button>
+        </section>
+
+        <section class="card reviews">
+          <div class="reviews-heading">
+            <h2>REVIEWS</h2>
+            <div><span class="big-star">★</span> <b>4.8</b> <em>(32 reviews)</em></div>
+          </div>
+
+          <article class="review">
+            <div class="review-avatar">MS</div>
+            <div>
+              <h3>Maria Santos</h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p>Very clean and well-maintained. The landlord is very responsive. Highly recommend!</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">JdC</div>
+            <div>
+              <h3>Juan dela Cruz</h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p>Good location, near WVSU. Water and electricity included. AC works fine.</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">AR</div>
+            <div>
+              <h3>Ana Reyes</h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>Quiet neighborhood, great internet connection. I felt very safe here.</p>
+            </div>
+          </article>
+        </section>
+
+        <section class="map-card">
+          <img src="assets/map.jpg" alt="Map showing Jaro, Iloilo City">
+          <div class="map-label">
+            <h2>Jaro, Iloilo City</h2>
+            <p>~200m from West Visayas State University</p>
+          </div>
+        </section>
+      </section>
+
+      <div class="reserve-bar">
+        <button class="reserve-btn" onclick="reserveNow('property1')">Reserve Now</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal" id="reserveModal" aria-hidden="true">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2>Reserve Sunrise Residences</h2>
+        <p>₱4,500 / month · Single Room</p>
+        <label>Move-in date</label>
+        <input type="date" id="moveIn">
+        <label>Number of persons</label>
+        <select>
+          <option>1 person</option>
+          <option>2 persons</option>
+        </select>
+        <button class="confirm-btn" onclick="confirmReservation()">Continue Reservation</button>
+      </div>
+    </div>
+       </section>
+       
+
+       <!-- LAPAZ BH1 -->
+
+       <section id="property7" class="screen">
+    <section class="property-shell">
+     <header class="topbar1">
+    <button class="back-btn1" onclick="goBack()">
+        <i class="fa-solid fa-chevron-left"></i> </button> 
+
+    <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+</header>
+
+      <section class="gallery" aria-label="Property photos">
+        <div class="slides">
+          <img src="images/AJbh1.jpg" alt="AJ Boarding House" class="slide active">
+          <img src="images/AJbh2.jpg" alt="AJ Boarding House" class="slide">
+          
+          
+          
+        </div>
+        <div class="photo-count"><span class="photoNumber">1</span> / 2</div>
+        <div class="dots" aria-label="Photo navigation">
+          <button class="dot active" data-index="0"></button>
+          <button class="dot" data-index="1"></button>
+         
+         
+          
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="hero-card">
+          <div class="verified">♢ <span>Verified</span></div>
+          <div class="title-row">
+            <div>
+              <h1>AJ Boarding House</h1>
+              <p class="location">⌖ &nbsp; La Paz Iloilo City · ~near La Paz Public Market</p>
+              <div class="rating" aria-label="4 out of 5 stars">
+                <span>★ ★ ★ ★ </span>
+                <b>4.0</b> <em>(6)</em>
+              </div>
+            </div>
+            <div class="price"><strong>₱5,500 </strong><small>/ month</small></div>
+          </div>
+        </div>
+
+        <div class="tags">
+          <span>🏠 &nbsp; Boarding House</span>
+          <span>🛏️ &nbsp; Upper-deck Bed</span>
+          <span>♀️ &nbsp; Female only</span>
+          <span>📅 &nbsp; 1 Month advance <br>  &nbsp;  &nbsp; &nbsp; 1 Month deposit</span>
+        
+        </div>
+
+        <div class="availability">
+          <div class="check">✓</div>
+          <div><strong>Available Now</strong><p>Last 2 upper-deck beds available · Move-in ready</p></div>
+          <div class="availability-house">🏠</div>
+        </div>
+
+        <section class="card amenities">
+          <h2>AMENITIES</h2>
+          <div class="amenity-list">
+            <div class="amenity1"><span><img src="images/garage.png" class="aminities-icon" alt=""></span><label>Provision garage</label></div>
+            <div class="amenity1"><span><img src="images/wifi.png"  class="aminities-icon" alt=""></span><label>Wi-Fi</label></div>
+            <div class="amenity1"><span><img src="images/cctv.png"  class="aminities-icon"></span><label>CCTV Protected</label></div>
+            <div class="amenity1"><span><img src="images/dining aria.png"  class="aminities-icon" alt=""></span><label>Dining Area</label></div>
+            <div class="amenity1"><span><img src="images/workout equipment.png"  class="aminities-icon" alt=""></span><label>Gym Equipment</label></div>
+          </div>
+        </section>
+
+        <section class="card rules">
+          <h2>HOUSE RULES</h2>
+          <ul>
+            <li>No overnight visitors/Prior notice required</li>
+            <li>Exclusive for girls</li>
+            <li>No Smoking</li>
+            <li>Keep shared areas clean</li>
+          </ul>
+        </section>
+
+        <section class="card owner">
+          <h2>PROPERTY OWNER</h2>
+          <div class="owner-row">
+            <img src="images/pro.png" alt="Property owner">
+            <div class="owner-info">
+              <h3>AJ Boarding House <span>♢ Verified</span></h3>
+              <p>Member since 2021 · Responds in &lt;2 hours</p>
+            </div>
+          </div>
+          <button class="message-btn" onclick="messageLandlord()">▢ &nbsp; Message landlord</button>
+        </section>
+
+        <section class="card reviews">
+          <div class="reviews-heading">
+            <h2>REVIEWS</h2>
+            <div><span class="big-star">★</span> <b>4.0</b> <em>(6 reviews)</em></div>
+          </div>
+
+          <article class="review">
+            <div class="review-avatar">ME</div>
+            <div>
+              <h3> Mae Ann Espinosa</h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p> “Dako nga tabang kay may sarang nga private bathroom kag sarang wifi inside room.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">RC</div>
+            <div>
+              <h3>Rhea Mae Cordero </h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p>“Affordable rent, accessible gid lakaron lang pa La Paz Public Market.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">JV</div>
+            <div>
+              <h3>Jason Villanueva </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p> “Tawo kag may sarang electricity kag water submeter nga tawhay basehan.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar">PB</div>
+            <div>
+              <h3> Patricia Nicole Biyo</h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p>“Tahimik ang dapit tupad sa simbahan, safe ring surroundings.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">AG</div>
+            <div>
+              <h3>Alyssa Jean Gomez</h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p>Alyssa Jean Gomez — “Sulit ang 5,500 per month kay complete na amenities kag lakaron lang ang sakayan.” </p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">KP</div>
+            <div>
+              <h3>Kevin Ray Piamonte </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>“One ride lang gid pakadto sa mall kag city centers, highly recommended!”</p>
+            </div>
+          </article>
+        </section>
+
+        <section class="map-card" onclick="window.open('https://www.google.com/maps/place/AJs+Boarding+house/@10.7147603,122.5800106,17z/data=!3m1!4b1!4m6!3m5!1s0x33aee500433a75a3:0xfd6d00688ef63281!8m2!3d10.714755!4d122.5825855!16s%2Fg%2F11wtf3871p?entry=ttu&g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D')">
+          <img src="images/ajmap.png" alt="Map showing Jaro, Iloilo City">
+          <div class="map-label">
+            <h2>La Paz, Iloilo City</h2>
+            <p>~Bet. Zone 4 & 5, Divinagracia St., La Paz, Iloilo City</p>
+          </div>
+        </section>
+      </section>
+
+      <div class="reserve-bar">
+        <button class="reserve-btn" onclick="reserveNow('property7')">Reserve Now</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal" id="reserveModal" aria-hidden="true">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2>Iny Residences</h2>
+        <p>₱5,500 / month · Single Room</p>
+        <label>Move-in date</label>
+        <input type="date" id="moveIn">
+        <label>Number of persons</label>
+        <select>
+          <option>1 person</option>
+          <option>2 persons</option>
+        </select>
+        <button class="confirm-btn" onclick="confirmReservation()">Continue Reservation</button>
+      </div>
+    </div>
+       </section>
+
+
+        <!-- LAPUZ BH1 -->
+
+       <section id="property12" class="screen">
+    <section class="property-shell">
+     <header class="topbar1">
+    <button class="back-btn1" onclick="goBack()">
+        <i class="fa-solid fa-chevron-left"></i> </button> 
+
+    <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+</header>
+
+      <section class="gallery" aria-label="Property photos">
+        <div class="slides">
+          <img src="images/j&jbh1.jpg" alt="" class="slide active">
+          <img src="images/j&jb2.jpg" alt="" class="slide">
+          <img src="images/j&jbh3.jpg" alt="" class="slide">
+          
+          
+        </div>
+        <div class="photo-count"><span class="photoNumber">1</span> / 3</div>
+        <div class="dots" aria-label="Photo navigation">
+          <button class="dot active" data-index="0"></button>
+          <button class="dot" data-index="1"></button>
+          <button class="dot" data-index="2"></button>
+         
+          
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="hero-card">
+          <div class="verified">♢ <span>Verified</span></div>
+          <div class="title-row">
+            <div>
+              <h1>J&J Boarding House</h1>
+              <p class="location">⌖ &nbsp; Lapuz Iloilo City · ~Housing Complex</p>
+              <div class="rating" aria-label="4 out of 5 stars">
+                <span>★ ★ ★ ★</span>
+                <b>4.0</b> <em>(4)</em>
+              </div>
+            </div>
+            <div class="price"><strong>₱2,000 </strong><small>/ month</small></div>
+          </div>
+        </div>
+
+        <div class="tags">
+          <span>🏠 &nbsp; Boarding House</span>
+          <span>🛏️ &nbsp; Upper-deck Bed</span>
+          <span><img src="images/bisex.png" style="height: 20px;width: 20px;"> &nbsp; Mixed Gender</span>
+          <span>📅 &nbsp; 1 Month advance <br>  &nbsp;  &nbsp; &nbsp; 1 Month deposit</span>
+        
+        </div>
+
+        <div class="availability">
+          <div class="check">✓</div>
+          <div><strong>Available Now</strong><p>Last 2 upper-deck beds available · Move-in ready</p></div>
+          <div class="availability-house">🏠</div>
+        </div>
+
+        <section class="card amenities">
+          <h2>AMENITIES</h2>
+          <div class="amenity-list">
+          
+            <div class="amenity1"><span><img src="images/wifi.png"  class="aminities-icon" alt=""></span><label>Wi-Fi</label></div>
+            <div class="amenity1"><span><img src="images/aircon.png"  class="aminities-icon" alt=""></span><label>Air Con</label></div>
+            <div class="amenity1"><span><img src="images/wallfan.png"  class="aminities-icon" alt=""></span><label>Wall Fan</label></div>
+            <div class="amenity1"><span><img src="images/cctv.png"  class="aminities-icon"></span><label>CCTV Protected</label></div>
+            <div class="amenity1"><span><img src="images/dining aria.png"  class="aminities-icon" alt=""></span><label>Dining Area</label></div>
+            
+          </div>
+        </section>
+
+        <section class="card rules">
+          <h2>HOUSE RULES</h2>
+          <ul>
+            <li>No Curfew</li>
+            <li>Visitors is allowed</li>
+          </ul>
+        </section>
+
+        <section class="card owner">
+          <h2>PROPERTY OWNER</h2>
+          <div class="owner-row">
+            <img src="images/pro.png" alt="Property owner">
+            <div class="owner-info">
+              <h3>J&J Manangement<span>♢ Verified</span></h3>
+              <p>Member since 2021 · Responds in &lt;2 hours</p>
+            </div>
+          </div>
+          <button class="message-btn" onclick="messageLandlord()">▢ &nbsp; Message landlord</button>
+        </section>
+
+        <section class="card reviews">
+          <div class="reviews-heading">
+            <h2>REVIEWS</h2>
+            <div><span class="big-star">★</span> <b>4.0</b> <em>(9 reviews)</em></div>
+          </div>
+
+          <article class="review">
+            <div class="review-avatar">AT</div>
+            <div>
+              <h3> Ariane Tan</h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p> “Dako nga tabang sang position halin sa WVMC, lakaron lang gid.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">BMV</div>
+            <div>
+              <h3>Bea Marie Villareal</h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p>“Affordable rent kag komportable galing upper-deck na lang vacant.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">AD</div>
+            <div>
+              <h3>ACamille Desales</h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>“Tahimik ang boarding house kag safe kay CCTV protected.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar">DS</div>
+            <div>
+              <h3> Dianne Solis</h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p>“Medyo strict ang no overnight visitors rule pero maayo gid ang location.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">FT</div>
+            <div>
+              <h3>Faye Tuazon</h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p>“Malimpyo ang dining area kag nami kay exclusive for females.” </p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">GL</div>
+            <div>
+              <h3>Gwyneth Ledesma </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>“May additional fee ang car garage pero sulit gihapon sa amenities.”</p>
+            </div>
+          </article>
+        </section>
+
+        <section class="map-card" onclick="window.open('https://www.google.com/maps/place/J+%26+J+Boarding+House/@10.7033741,122.5654929,14.4z/data=!4m6!3m5!1s0x33aee5007eabfd65:0xe7827eec7810e6bc!8m2!3d10.703191!4d122.579555!16s%2Fg%2F11yzp9k3wq?entry=ttu&g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D')">
+          <img src="images/Lapuzj&jmaps.png" alt="Map showing Jaro, Iloilo City">
+          <div class="map-label">
+            <h2>Manduriao, Iloilo City</h2>
+            <p>~200m from West Visayas State University</p>
+          </div>
+        </section>
+      </section>
+
+      <div class="reserve-bar">
+        <button class="reserve-btn" onclick="reserveNow('property12')">Reserve Now</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal" id="reserveModal" aria-hidden="true">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2>J&J Boarding House</h2>
+        <p>₱2,000 / month · Single Room</p>
+        <label>Move-in date</label>
+        <input type="date" id="moveIn">
+        <label>Number of persons</label>
+        <select>
+          <option>1 person</option>
+          <option>2 persons</option>
+        </select>
+        <button class="confirm-btn" onclick="confirmReservation()">Continue Reservation</button>
+      </div>
+    </div>
+       </section>
+
+
+        <!-- MANDURIAO BH1 -->
+
+       <section id="property2" class="screen">
+    <section class="property-shell">
+     <header class="topbar1">
+    <button class="back-btn1" onclick="goBack()">
+        <i class="fa-solid fa-chevron-left"></i> </button> 
+
+    <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+</header>
+
+      <section class="gallery" aria-label="Property photos">
+        <div class="slides">
+          <img src="images/madu-bh-InY1.jpg" alt="InY Residents" class="slide active">
+          <img src="images/madu-bh-InY3.jpg" alt="InY Residents" class="slide">
+          <img src="images/madu-bh-InY4.jpg" alt="InY Residences" class="slide">
+          
+          
+        </div>
+        <div class="photo-count"><span class="photoNumber">1</span> / 3</div>
+        <div class="dots" aria-label="Photo navigation">
+          <button class="dot active" data-index="0"></button>
+          <button class="dot" data-index="1"></button>
+          <button class="dot" data-index="2"></button>
+         
+          
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="hero-card">
+          <div class="verified">♢ <span>Verified</span></div>
+          <div class="title-row">
+            <div>
+              <h1>InY Residences</h1>
+              <p class="location">⌖ &nbsp; Manduraio Iloilo City · ~Walking distance to WVMC</p>
+              <div class="rating" aria-label="4.8 out of 5 stars">
+                <span>★ ★ ★ ★ ★</span>
+                <b>4.0</b> <em>(9)</em>
+              </div>
+            </div>
+            <div class="price"><strong>₱2,200 </strong><small>/ month</small></div>
+          </div>
+        </div>
+
+        <div class="tags">
+          <span>🏠 &nbsp; Boarding House</span>
+          <span>🛏️ &nbsp; Upper-deck Bed</span>
+          <span>♀️ &nbsp; Female only</span>
+          <span>📅 &nbsp; 1 Month advance <br>  &nbsp;  &nbsp; &nbsp; 1 Month deposit</span>
+        
+        </div>
+
+        <div class="availability">
+          <div class="check">✓</div>
+          <div><strong>Available Now</strong><p>Last 2 upper-deck beds available · Move-in ready</p></div>
+          <div class="availability-house">🏠</div>
+        </div>
+
+        <section class="card amenities">
+          <h2>AMENITIES</h2>
+          <div class="amenity-list">
+            <div class="amenity1"><span><img src="images/garage.png" class="aminities-icon" alt=""></span><label>Provision garage</label></div>
+            <div class="amenity1"><span><img src="images/wifi.png"  class="aminities-icon" alt=""></span><label>Wi-Fi</label></div>
+            <div class="amenity1"><span><img src="images/aircon.png"  class="aminities-icon" alt=""></span><label>Air Con</label></div>
+            <div class="amenity1"><span><img src="images/wallfan.png"  class="aminities-icon" alt=""></span><label>Wall Fan</label></div>
+            <div class="amenity1"><span><img src="images/cctv.png"  class="aminities-icon"></span><label>CCTV Protected</label></div>
+            <div class="amenity1"><span><img src="images/dining aria.png"  class="aminities-icon" alt=""></span><label>Dining Area</label></div>
+            <div class="amenity1"><span><img src="images/workout equipment.png"  class="aminities-icon" alt=""></span><label>Gym Equipment</label></div>
+          </div>
+        </section>
+
+        <section class="card rules">
+          <h2>HOUSE RULES</h2>
+          <ul>
+            <li>No overnight visitors</li>
+            <li>Exclusive for girls</li>
+            <li>No loud noice</li>
+            <li>Keep shared areas clean</li>
+          </ul>
+        </section>
+
+        <section class="card owner">
+          <h2>PROPERTY OWNER</h2>
+          <div class="owner-row">
+            <img src="images/pro.png" alt="Property owner">
+            <div class="owner-info">
+              <h3>Iny Residence<span>♢ Verified</span></h3>
+              <p>Member since 2021 · Responds in &lt;2 hours</p>
+            </div>
+          </div>
+          <button class="message-btn" onclick="messageLandlord()">▢ &nbsp; Message landlord</button>
+        </section>
+
+        <section class="card reviews">
+          <div class="reviews-heading">
+            <h2>REVIEWS</h2>
+            <div><span class="big-star">★</span> <b>4.0</b> <em>(9 reviews)</em></div>
+          </div>
+
+          <article class="review">
+            <div class="review-avatar">AT</div>
+            <div>
+              <h3> Ariane Tan</h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p> “Dako nga tabang sang position halin sa WVMC, lakaron lang gid.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">BMV</div>
+            <div>
+              <h3>Bea Marie Villareal</h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p>“Affordable rent kag komportable galing upper-deck na lang vacant.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">AD</div>
+            <div>
+              <h3>ACamille Desales</h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>“Tahimik ang boarding house kag safe kay CCTV protected.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar">DS</div>
+            <div>
+              <h3> Dianne Solis</h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p>“Medyo strict ang no overnight visitors rule pero maayo gid ang location.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">FT</div>
+            <div>
+              <h3>Faye Tuazon</h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p>“Malimpyo ang dining area kag nami kay exclusive for females.” </p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">GL</div>
+            <div>
+              <h3>Gwyneth Ledesma </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>“May additional fee ang car garage pero sulit gihapon sa amenities.”</p>
+            </div>
+          </article>
+        </section>
+
+        <section class="map-card" onclick="window.open('https://www.google.com/maps/place/InY+Residences/@10.7210985,122.5374793,17z/data=!3m1!4b1!4m6!3m5!1s0x33aee5006100a679:0x57a181b4b43e9249!8m2!3d10.7210932!4d122.5400542!16s%2Fg%2F11lf6ln7w5?entry=ttu&g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D')">
+          <img src="images/inymapbh.png" alt="Map showing Jaro, Iloilo City">
+          <div class="map-label">
+            <h2>Manduriao, Iloilo City</h2>
+            <p>~200m from West Visayas State University</p>
+          </div>
+        </section>
+      </section>
+
+      <div class="reserve-bar">
+        <button class="reserve-btn" onclick="reserveNow('property2')">Reserve Now</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal" id="reserveModal" aria-hidden="true">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2>Iny Residences</h2>
+        <p>₱2,200 / month · Single Room</p>
+        <label>Move-in date</label>
+        <input type="date" id="moveIn">
+        <label>Number of persons</label>
+        <select>
+          <option>1 person</option>
+          <option>2 persons</option>
+        </select>
+        <button class="confirm-btn" onclick="confirmReservation()">Continue Reservation</button>
+      </div>
+    </div>
+       </section>
+
+       <!-- MANDURIAO BH2 -->
+
+       <section id="property3" class="screen">
+    <section class="property-shell">
+     <header class="topbar1">
+    <button class="back-btn1" onclick="goBack()">
+        <i class="fa-solid fa-chevron-left"></i> </button> 
+
+    <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+</header>
+
+      <section class="gallery" aria-label="Property photos">
+        <div class="slides">
+          <img src="images/madu-bh-shi1.jpg" alt="Shi's Place" class="slide active">
+          <img src="images/madu-bh-shi2.jpg" alt="Shi's Place" class="slide">
+          <img src="images/madu-bh-shi3.jpg" alt="Shi's Place" class="slide">
+          <img src="images/madu-bh-shi4.jpg" alt="Shi's Place" class="slide">
+          
+          
+        </div>
+        <div class="photo-count"><span class="photoNumber">1</span> / 4</div>
+        <div class="dots" aria-label="Photo navigation">
+          <button class="dot active" data-index="0"></button>
+          <button class="dot" data-index="1"></button>
+          <button class="dot" data-index="2"></button>
+          <button class="dot" data-index="3"></button>
+         
+          
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="hero-card">
+          <div class="verified">♢ <span>Verified</span></div>
+          <div class="title-row">
+            <div>
+              <h1>Shi's Place</h1>
+              <p class="location">⌖ &nbsp; Manduraio Iloilo City · ~1 Ride to CPU,Festive Mall, Western Hospital </p>
+              <div class="rating" aria-label="4.5 out of 5 stars">
+                <span>★ ★ ★ ★ ★</span>
+                <b>4.5</b> <em>(5)</em>
+              </div>
+            </div>
+            <div class="price"><strong>₱3,000 </strong><small>/ month</small></div>
+          </div>
+        </div>
+
+        <div class="tags">
+          <span>🏠 &nbsp; Boarding House</span>
+          <span>🛏️ &nbsp; Single Room</span>
+          <span>👥 &nbsp; 1-2 Person</span>
+          <span>📅 &nbsp; 1 Month deposit only</span>
+        
+        </div>
+
+        <div class="availability">
+          <div class="check">✓</div>
+          <div><strong>Available Now</strong><p>1 room Available · Move-in ready</p></div>
+          <div class="availability-house">🏠</div>
+        </div>
+
+        <section class="card amenities">
+          <h2>AMENITIES</h2>
+          <div class="amenity-list">
+            <div class="amenity1"><span><img src="images/laundry.png" class="aminities-icon" alt=""></span><label>Laundry Area</label></div>
+            <div class="amenity1"><span><img src="images/wifi.png"  class="aminities-icon" alt=""></span><label>Wi-Fi</label></div>
+            <div class="amenity1"><span><img src="images/cabinet.png"  class="aminities-icon" alt=""></span><label>Cabinet</label></div>
+            <div class="amenity1"><span><img src="images/wallfan.png"  class="aminities-icon" alt=""></span><label>Wall Fan</label></div>
+            <div class="amenity1"><span><img src="images/cctv.png"  class="aminities-icon"></span><label>CCTV Protected</label></div>
+            <div class="amenity1"><span><img src="images/dining aria.png"  class="aminities-icon" alt=""></span><label>Kitchen Area</label></div>
+            <div class="amenity1"><span><img src="images/firealarm.png"  class="aminities-icon" alt=""></span><label>Fire Alarm</label></div>
+          </div>
+        </section>
+
+        <section class="card rules">
+          <h2>HOUSE RULES</h2>
+          <ul>
+            <li>No overnight visitors</li>
+            <li>No Pets</li>
+            <li>No loud noice</li>
+            <li>Exclusive for female Borders</li>
+          </ul>
+        </section>
+
+        <section class="card owner">
+          <h2>PROPERTY OWNER</h2>
+          <div class="owner-row">
+            <img src="images/pro.png" alt="Property owner">
+            <div class="owner-info">
+              <h3>Shirley Lopez<span>♢ Verified</span></h3>
+              <p>Member since 2024 · Responds in &lt;2 hours</p>
+            </div>
+          </div>
+          <button class="message-btn" onclick="messageLandlord()">▢ &nbsp; Message landlord</button>
+        </section>
+
+        <section class="card reviews">
+          <div class="reviews-heading">
+            <h2>REVIEWS</h2>
+            <div><span class="big-star">★</span> <b>4.5</b> <em>(5 reviews)</em></div>
+          </div>
+
+          <article class="review">
+            <div class="review-avatar">GL</div>
+            <div>
+              <h3> Gracia Lopez</h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p> "Easy to find a room near work."</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">MS</div>
+            <div>
+              <h3>Maria Santos</h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p> "Affordable and convenient."</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">JC</div>
+            <div>
+              <h3>Jessa Mae Cruz</h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>"The listings were helpful."</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar">AR</div>
+            <div>
+              <h3>Angelica Reyes</h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p>"Saved me time searching."</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">CF</div>
+            <div>
+              <h3>Christine Flores</h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p>"Easy to compare rooms</p>
+            </div>
+          </article>
+        </section>
+
+        <section class="map-card" onclick="window.open('https://maps.apple.com/place?coordinate=10.726357,122.538780&name=Marked%20Location&map=transit')">
+          <img src="images/shi'smap.png" alt="Map showing manduriao, Iloilo City">
+          <div class="map-label">
+            <h2>Manduriao, Iloilo City</h2>
+            <p>~Dungon - C New Homes subdivision</p>
+          </div>
+        </section>
+      </section>
+
+      <div class="reserve-bar">
+        <button class="reserve-btn" onclick="reserveNow('property3')">Reserve Now</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal" id="reserveModal" aria-hidden="true">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2>Reserve Shi's Place</h2>
+        <p>₱3,000 / month · Single Room</p>
+        <label>Move-in date</label>
+        <input type="date" id="moveIn">
+        <label>Number of persons</label>
+        <select>
+          <option>1 person</option>
+          <option>2 persons</option>
+        </select>
+        <button class="confirm-btn" onclick="confirmReservation()">Continue Reservation</button>
+      </div>
+    </div>
+       </section>
+
+       <!--BOARDING HOUSE & TRANSIENT-->
+
+
+       <!-- MANDURIAO TRANSIENT_BH3 -->
+
+       <section id="property4" class="screen">
+    <section class="property-shell">
+     <header class="topbar1">
+    <button class="back-btn1" onclick="goBack()">
+        <i class="fa-solid fa-chevron-left"></i> </button> 
+
+    <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+</header>
+
+      <section class="gallery" aria-label="Property photos">
+        <div class="slides">
+          <img src="images/dmpalbh1.jpg" alt="Shi's Place" class="slide active">
+          <img src="images/dmpabh2.jpg" alt="Shi's Place" class="slide">
+          <img src="images/dmpalbh3.jpg" alt="Shi's Place" class="slide">
+         
+          
+          
+        </div>
+        <div class="photo-count"><span class="photoNumber">1</span> / 3</div>
+        <div class="dots" aria-label="Photo navigation">
+          <button class="dot active" data-index="0"></button>
+          <button class="dot" data-index="1"></button>
+          <button class="dot" data-index="2"></button>
+         
+          
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="hero-card">
+          <div class="verified">♢ <span>Verified</span></div>
+          <div class="title-row">
+            <div>
+              <h1>DM Pal</h1>
+              <p class="location">⌖ &nbsp; Manduraio Iloilo City · ~1 Ride to CPU,Festive Mall, Western Hospital </p>
+              <div class="rating" aria-label="4.5 out of 5 stars">
+                <span>★ ★ ★ ★ ★</span>
+                <b>5</b> <em>(5)</em>
+              </div>
+            </div>
+            <div class="price"><strong>₱10,000 </strong><small>/ month</small></div>
+          </div>
+        </div>
+
+        <div class="tags">
+          <span>🏠 &nbsp; Boarding House/Transient</span>
+          <span>🛏️ &nbsp; Single Room</span>
+          <span>👥 &nbsp; 4 Persons</span>
+          <span>📅 &nbsp; 1 Month deposit only</span>
+        
+        </div>
+
+        <div class="availability">
+          <div class="check">✓</div>
+          <div><strong>Available Now</strong><p>1 room Available · Move-in ready</p></div>
+          <div class="availability-house">🏠</div>
+        </div>
+
+        <section class="card amenities">
+          <h2>AMENITIES</h2>
+          <div class="amenity-list">
+            <div class="amenity1"><span><img src="images/laundry.png" class="aminities-icon" alt=""></span><label>Laundry Area</label></div>
+            <div class="amenity1"><span><img src="images/wifi.png"  class="aminities-icon" alt=""></span><label>Wi-Fi</label></div>
+            <div class="amenity1"><span><img src="images/bed_pillows.png"  class="aminities-icon" alt=""></span><label>Bed/Pillow</label></div>
+            <div class="amenity1"><span><img src="images/wallfan.png"  class="aminities-icon" alt=""></span><label>Wall Fan</label></div>
+            <div class="amenity1"><span><img src="images/cctv.png"  class="aminities-icon"></span><label>CCTV Protected</label></div>
+            <div class="amenity1"><span><img src="images/submeter.png"  class="aminities-icon" alt=""></span><label>Submeter</label></div>
+            
+          </div>
+        </section>
+
+        <section class="card rules">
+          <h2>HOUSE RULES</h2>
+          <ul>
+            <li>No Curfew</li>
+           
+          </ul>
+        </section>
+
+        <section class="card owner">
+          <h2>PROPERTY OWNER</h2>
+          <div class="owner-row">
+            <img src="images/pro.png" alt="Property owner">
+            <div class="owner-info">
+              <h3>Not included<span>♢ Verified</span></h3>
+              <p>For inquires send a direct message· Responds in &lt;2 hours</p>
+            </div>
+          </div>
+          <button class="message-btn" onclick="messageLandlord()">▢ &nbsp; Message landlord</button>
+        </section>
+
+        <section class="card reviews">
+          <div class="reviews-heading">
+            <h2>REVIEWS</h2>
+            <div><span class="big-star">★</span> <b>5</b> <em>(5 reviews)</em></div>
+          </div>
+
+          <article class="review">
+            <div class="review-avatar">Gs</div>
+            <div>
+              <h3> John Smith </h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p> “Super convenient stay near Western Hospital, ka-accessible gid going around Iloilo!"</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">LL</div>
+            <div>
+              <h3>Liam Lopez</h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p> “Affordable daily rate, safe sa CCTV, kag wala pa curfew.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">KA</div>
+            <div>
+              <h3>Kenji Arieta</h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>“Very smooth move-in, complete ang aircon and strong Wi-Fi connection.” </p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar">ME</div>
+            <div>
+              <h3>Mark Evans</h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p>  “Easy to find location along the road, lakaron lang gid ang tanan.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">DM</div>
+            <div>
+              <h3>David Miller</h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p>  “Great value for transient stay, nami kag komportable gid ang room!”</p>
+            </div>
+          </article>
+        </section>
+
+        <section class="map-card" onclick="window.open('https://www.google.com/maps/@10.7207161,122.5408904,17.2z?entry=ttu&g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D')">
+          <img src="images/dmpalmaps.png" alt="Map showing manduriao, Iloilo City">
+          <div class="map-label">
+            <h2>Manduriao, Iloilo City</h2>
+            <p>~</p>
+          </div>
+        </section>
+      </section>
+
+      <div class="reserve-bar">
+        <button class="reserve-btn" onclick="reserveNow('property4')">Reserve Now</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal" id="reserveModal" aria-hidden="true">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2>Reserve DM Pal</h2>
+        <p>₱10,000 / month · Single Room</p>
+        <label>Move-in date</label>
+        <input type="date" id="moveIn">
+        <label>Number of persons</label>
+        <select>
+          <option>1 person</option>
+          <option>2 persons</option>
+          <option>3person</option>
+          <option>4 persons</option>
+        </select>
+        <button class="confirm-btn" onclick="confirmReservation()">Continue Reservation</button>
+      </div>
+    </div>
+       </section>
+
+
+
+       <!--MOLO TRANS & BH-->
+
+
+       <section id="property10" class="screen">
+    <section class="property-shell"> 
+     <header class="topbar1">
+    <button class="back-btn1" onclick="goBack()">
+        <i class="fa-solid fa-chevron-left"></i> </button> 
+
+    <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+</header>
+
+      <section class="gallery" aria-label="Property photos">
+        <div class="slides" id="slides">
+          <img src="images/moloW&Abh1.jpg" alt="Manduriao apartment" class="slide active">
+           <img src="images/moloW&Abh2.jpg" alt="A&L Place" class="slide">
+         
+         
+        </div>
+        <div class="photo-count"><span id="photoNumber">1</span>/2</div>
+        <div class="dots" id="dots" aria-label="Photo navigation">
+          <button class="dot active" data-index="0"></button>
+           <button class="dot" data-index="1"></button>
+         
+          
+
+          
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="hero-card">
+          <div class="verified">♢ <span>Verified</span></div>
+          <div class="title-row">
+            <div>
+              <h1>W & A Boarding House and Transient</h1>
+              <p class="location">⌖ &nbsp; Molo, Iloilo City · ~1 ride to City Proper,UI,Terminal Market</p>
+              <div class="rating" aria-label="4 out of 5 stars">
+                <span>★ ★ ★ ★</span>
+                <b>4</b> <em>(6)</em>
+              </div>
+            </div>
+            <div class="price"><strong>₱2,500</strong><small>/month</small></div>
+          </div>
+        </div>
+
+        <div class="tags">
+          <span>🏠 &nbsp; Boarding House / Transient</span>
+          <span>🛏️ &nbsp; Single Room</span>
+          <span>👤 &nbsp; 1–4 Persons</span>
+          <span>📅 &nbsp; 1 montht</span>
+        </div>
+
+        <div class="availability">
+          <div class="check">✓</div>
+          <div><strong>Available Now</strong><p>4 rooms available · Move-in ready</p></div>
+          <div class="availability-house">🏠</div>
+        </div>
+
+        <section class="card amenities">
+          <h2>AMENITIES</h2>
+          <div class="amenity-list">
+             <div class="amenity1"><span><img src="images/electricfan.png" class="aminities-icon" alt=""></span><label>Electric Fan</label></div>
+            <div class="amenity1"><span><img src="images/wifi.png"  class="aminities-icon" alt=""></span><label>300 Mbps Wi-Fi</label></div>
+            <div class="amenity1"><span><img src="images/aircon.png"  class="aminities-icon" alt=""></span><label>Air Condition</label></div>
+            <div class="amenity1"><span><img src="images/cctv.png"  class="aminities-icon"></span><label>CCTV Protected</label></div>
+              <div class="amenity1"><span><img src="images/dining aria.png"  class="aminities-icon" alt=""></span><label>Dining Area</label></div>
+              <div class="amenity1"><span><img src="images/submeter.png"  class="aminities-icon" alt=""></span><label>Submeter</label></div>
+                <div class="amenity1"><span><img src="images/bed_pillows.png"  class="aminities-icon" alt=""></span><label>Double deck Bed</label></div>
+                  <div class="amenity1"><span><img src="images/laundry.png"  class="aminities-icon" alt=""></span><label>Laundry Area</label></div>
+          
+            
+          </div>
+        </section>
+
+        <section class="card rules">
+          <h2>HOUSE RULES</h2>
+          <ul>
+            <li>No pets allowed</li>
+            <li>Keep shared/common areas clean and tidy</li>
+            <li>Observe quiet hours (No loud noises past 10:00 PM)</li>
+            <li>No unannounced overnight visitors / Prior notice required</li>
+            <li>Respect property boundaries and other boarders</li>
+
+
+          </ul>
+        </section>
+
+        <section class="card owner">
+          <h2>PROPERTY OWNER</h2>
+          <div class="owner-row">
+            <img src="images/pro.png" alt="Property owner">
+            <div class="owner-info">
+              <h3>W & A Boarding House Manangement<span>♢ Verified</span></h3>
+              <p>Member since 2019 · Responds in &lt;2 hours</p>
+            </div>
+          </div>
+          <button class="message-btn" onclick="messageLandlord()">▢ &nbsp; Message landlord</button>
+        </section>
+
+        <section class="card reviews">
+          <div class="reviews-heading">
+            <h2>REVIEWS</h2>
+            <div><span class="big-star">★★★★</span> <b>4</b> <em>(6 reviews)</em></div>
+          </div>
+
+          <article class="review">
+            <div class="review-avatar">ME</div>
+            <div>
+              <h3>Mae Ann Espinosa  </h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p> “Kusog gid sang 300Mbps WiFi kag legal pa magluto, ka-convenient gid!”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">RC</div>
+            <div>
+              <h3>Rhea Mae Cordero   </h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p>“One ride lang pakadto UI kag Super Market, galing common lang ang CR.” </p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">JV</div>
+            <div>
+              <h3>Jason Villanueva</h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p> “Safe ang dapit kay may CCTV, tapos may sariling submeter kada kwarto.”</p>
+            </div>
+          </article>
+
+           <article class="review">
+            <div class="review-avatar orange">PB</div>
+            <div>
+              <h3>Patricia Nicole Biyo </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>   “Wide room choices kag tawhay lang maglaba, galing bawal lang pets.”  </p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">AG</div>
+            <div>
+              <h3>Alyssa Jean Gomez  </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>  “Sulit ang stay para sa mga estudyante, dako nga tabang ang bed and table inclusions.”  </p>
+            </div>
+          </article>
+        </section>
+
+        <section class="map-card" onclick="window.open('https://www.google.com/maps/place/W+%26+A+Boarding+House+and+Transient+Rooms/@10.6897121,122.550005,16.66z/data=!4m6!3m5!1s0x33aeefb856af9bb3:0x5f6d3a5dc35b483e!8m2!3d10.6882142!4d122.5504811!16s%2Fg%2F11v6f631sb?entry=ttu&g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D')">
+          <img src="images/moloW&Amaps.png" alt="Map showing Molo, Iloilo City">
+          <div class="map-label">
+            <h2>Molo, Iloilo City</h2>
+            <p>~1 ride to City Proper, UI , Terminal Market </p>
+          </div>
+        </section>
+      </section>
+
+      <div class="reserve-bar">
+        <button class="reserve-btn" onclick="reserveNow('property10')">Reserve Now</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal" id="reserveModal" aria-hidden="true">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2>W & A Borading Boarding House /  Transient</h2>
+        <p>₱2,500/month · Single Room</p>
+        <label>Move-in date</label>
+        <input type="date" id="moveIn">
+        <label>Number of persons</label>
+        <select>
+          <option>1 person</option>
+          <option>2 persons</option>
+        </select>
+        <button class="confirm-btn" onclick="confirmReservation()">Continue Reservation</button>
+      </div>
+    </div>
+       </section>
+
+
+       <!--VILLIA AREVALO BH1-->
+
+
+       <section id="property13" class="screen">
+    <section class="property-shell"> 
+     <header class="topbar1">
+    <button class="back-btn1" onclick="goBack()">
+        <i class="fa-solid fa-chevron-left"></i> </button> 
+
+    <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+</header>
+
+      <section class="gallery" aria-label="Property photos">
+        <div class="slides" id="slides">
+          <img src="images/arevalo bh1.jpg" alt="Villa Arevalo BH" class="slide active">
+           <img src="images/arevalo bh2.jpg" alt="A&L Place" class="slide">
+            <img src="images/arevalo bh3.jpg" alt="A&L Place" class="slide">
+         
+         
+        </div>
+        <div class="photo-count"><span id="photoNumber">1</span>/3</div>
+        <div class="dots" id="dots" aria-label="Photo navigation">
+          <button class="dot active" data-index="0"></button>
+           <button class="dot" data-index="1"></button>
+           <button class="dot" data-index="1"></button>
+         
+          
+
+          
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="hero-card">
+          <div class="verified">♢ <span>Verified</span></div>
+          <div class="title-row">
+            <div>
+              <h1>IBH/ Isonza Boarding House</h1>
+              <p class="location">⌖ &nbsp; Villa Arevalo, Iloilo City · ~2 ride to SM City,Festive Walk</p>
+              <div class="rating" aria-label="4 out of 5 stars">
+                <span>★ ★ ★ ★ ★</span>
+                <b>5</b> <em>(5)</em>
+              </div>
+            </div>
+            <div class="price"><strong>₱7,000</strong><small>/month</small></div>
+          </div>
+        </div>
+
+        <div class="tags">
+          <span>🏠 &nbsp; Boarding House</span>
+          <span>🛏️ &nbsp; Single Room</span>
+          <span>👤 &nbsp; 1–2 Persons</span>
+          <span>📅 &nbsp; 1 montht</span>
+        </div>
+
+        <div class="availability">
+          <div class="check">✓</div>
+          <div><strong>Available Now</strong><p>2 rooms available · Move-in ready</p></div>
+          <div class="availability-house">🏠</div>
+        </div>
+
+        <section class="card amenities">
+          <h2>AMENITIES</h2>
+          <div class="amenity-list">
+             <div class="amenity1"><span><img src="images/electricfan.png" class="aminities-icon" alt=""></span><label>Electric Fan</label></div>
+            <div class="amenity1"><span><img src="images/wifi.png"  class="aminities-icon" alt=""></span><label>Wi-Fi</label></div>
+            <div class="amenity1"><span><img src="images/aircon.png"  class="aminities-icon" alt=""></span><label>Air Condition</label></div>
+            <div class="amenity1"><span><img src="images/cctv.png"  class="aminities-icon"></span><label>CCTV Protected</label></div>
+              <div class="amenity1"><span><img src="images/dining aria.png"  class="aminities-icon" alt=""></span><label>Dining Area</label></div>
+              <div class="amenity1"><span><img src="images/submeter.png"  class="aminities-icon" alt=""></span><label>Submeter</label></div>
+                <div class="amenity1"><span><img src="images/bed_pillows.png"  class="aminities-icon" alt=""></span><label>Double deck Bed</label></div>
+                  <div class="amenity1"><span><img src="images/laundry.png"  class="aminities-icon" alt=""></span><label>Laundry Area</label></div>
+          
+            
+          </div>
+        </section>
+
+        <section class="card rules">
+          <h2>HOUSE RULES</h2>
+          <ul>
+            <li>No pets allowed</li>
+            <li>No Babies allowed</li>
+             <li>No Curfew</li>
+            <li>Observe quiet hours (No loud noises past 10:00 PM)</li>
+            <li>No unannounced overnight visitors / Prior notice required</li>
+            <li>Respect property boundaries and other boarders</li>
+
+
+          </ul>
+        </section>
+
+        <section class="card owner">
+          <h2>PROPERTY OWNER</h2>
+          <div class="owner-row">
+            <img src="images/pro.png" alt="Property owner">
+            <div class="owner-info">
+              <h3>IBH/Isonza Boarding House Manangement<span>♢ Verified</span></h3>
+              <p>Member since 2019 · Responds in &lt;2 hours</p>
+            </div>
+          </div>
+          <button class="message-btn" onclick="messageLandlord()">▢ &nbsp; Message landlord</button>
+        </section>
+
+        <section class="card reviews">
+          <div class="reviews-heading">
+            <h2>REVIEWS</h2>
+            <div><span class="big-star">★★★★</span> <b>4</b> <em>(6 reviews)</em></div>
+          </div>
+
+          <article class="review">
+            <div class="review-avatar">ME</div>
+            <div>
+              <h3>Mae Ann Espinosa  </h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p> “Kusog gid sang 300Mbps WiFi kag legal pa magluto, ka-convenient gid!”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">RC</div>
+            <div>
+              <h3>Rhea Mae Cordero   </h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p>“One ride lang pakadto UI kag Super Market, galing common lang ang CR.” </p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">JV</div>
+            <div>
+              <h3>Jason Villanueva</h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p> “Safe ang dapit kay may CCTV, tapos may sariling submeter kada kwarto.”</p>
+            </div>
+          </article>
+
+           <article class="review">
+            <div class="review-avatar orange">PB</div>
+            <div>
+              <h3>Patricia Nicole Biyo </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>   “Wide room choices kag tawhay lang maglaba, galing bawal lang pets.”  </p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">AG</div>
+            <div>
+              <h3>Alyssa Jean Gomez  </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>  “Sulit ang stay para sa mga estudyante, dako nga tabang ang bed and table inclusions.”  </p>
+            </div>
+          </article>
+        </section>
+
+        <section class="map-card" onclick="window.open('https://www.google.com/maps/place/Isunza+Boarding+House/@10.6831915,122.518515,17.62z/data=!4m6!3m5!1s0x33aef00d8a024631:0x2dffdc3584f5041f!8m2!3d10.682732!4d122.5185301!16s%2Fg%2F11g6mvpd1k?entry=ttu&g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D')">
+          <img src="images/arevaloisunzamap.png" alt="Map showing Villa Arevalo, Iloilo City">
+          <div class="map-label">
+            <h2>Villa Arevaolo, Iloilo City</h2>
+            <p>~1 ride to John B,Doctors,UP,San Agustin </p>
+          </div>
+        </section>
+      </section>
+
+      <div class="reserve-bar">
+        <button class="reserve-btn" onclick="reserveNow('property13')">Reserve Now</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal" id="reserveModal" aria-hidden="true">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2>IBH/Isonza Boarding House /  Transient</h2>
+        <p>₱7,000/month · Single Room</p>
+        <label>Move-in date</label>
+        <input type="date" id="moveIn">
+        <label>Number of persons</label>
+        <select>
+          <option>1 person</option>
+          <option>2 persons</option>
+        </select>
+        <button class="confirm-btn" onclick="confirmReservation()">Continue Reservation</button>
+      </div>
+    </div>
+       </section>
+
+
+       <!--VILLIA AREVALO BH2-->
+
+
+       <section id="property14" class="screen">
+    <section class="property-shell"> 
+     <header class="topbar1">
+    <button class="back-btn1" onclick="goBack()">
+        <i class="fa-solid fa-chevron-left"></i> </button> 
+
+    <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+</header>
+
+      <section class="gallery" aria-label="Property photos">
+        <div class="slides" id="slides">
+          <img src="images/arevalo bh1.jpg" alt="Villa Arevalo BH" class="slide active">
+           <img src="images/arevalo bh2.jpg" alt="A&L Place" class="slide">
+            <img src="images/arevalo bh3.jpg" alt="A&L Place" class="slide">
+         
+         
+        </div>
+        <div class="photo-count"><span id="photoNumber">1</span>/3</div>
+        <div class="dots" id="dots" aria-label="Photo navigation">
+          <button class="dot active" data-index="0"></button>
+           <button class="dot" data-index="1"></button>
+           <button class="dot" data-index="1"></button>
+         
+          
+
+          
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="hero-card">
+          <div class="verified">♢ <span>Verified</span></div>
+          <div class="title-row">
+            <div>
+              <h1>KNJ BOARDING HOUSE</h1>
+              <p class="location">⌖ &nbsp; Villa Arevalo, Iloilo City · ~Walking distance to John B. Lacson Maritime Foundation Maritime University</p>
+              <div class="rating" aria-label="4 out of 5 stars">
+                <span>★ ★ ★ </span>
+                <b>3.5</b> <em>(4)</em>
+              </div>
+            </div>
+            <div class="price"><strong>₱1,800</strong><small>/month</small></div>
+          </div>
+        </div>
+
+        <div class="tags">
+          <span>🏠 &nbsp; Boarding House</span>
+          <span>🛏️ &nbsp; Single Room</span>
+          <span>👤 &nbsp; 1–2 Persons</span>
+          <span>📅 &nbsp; 1 montht</span>
+        </div>
+
+        <div class="availability">
+          <div class="check">✓</div>
+          <div><strong>Available Now</strong><p>2 rooms available · Move-in ready</p></div>
+          <div class="availability-house">🏠</div>
+        </div>
+
+        <section class="card amenities">
+          <h2>AMENITIES</h2>
+          <div class="amenity-list">
+             <div class="amenity1"><span><img src="images/electricfan.png" class="aminities-icon" alt=""></span><label>Electric Fan</label></div>
+            <div class="amenity1"><span><img src="images/wifi.png"  class="aminities-icon" alt=""></span><label>Wi-Fi</label></div>
+            <div class="amenity1"><span><img src="images/aircon.png"  class="aminities-icon" alt=""></span><label>Air Condition</label></div>
+            <div class="amenity1"><span><img src="images/cctv.png"  class="aminities-icon"></span><label>CCTV Protected</label></div>
+              <div class="amenity1"><span><img src="images/dining aria.png"  class="aminities-icon" alt=""></span><label>Dining Area</label></div>
+              <div class="amenity1"><span><img src="images/submeter.png"  class="aminities-icon" alt=""></span><label>Submeter</label></div>
+                <div class="amenity1"><span><img src="images/bed_pillows.png"  class="aminities-icon" alt=""></span><label>Double deck Bed</label></div>
+                  <div class="amenity1"><span><img src="images/laundry.png"  class="aminities-icon" alt=""></span><label>Laundry Area</label></div>
+          
+            
+          </div>
+        </section>
+
+        <section class="card rules">
+          <h2>HOUSE RULES</h2>
+          <ul>
+            <li>No pets allowed</li>
+            <li>No Babies allowed</li>
+             <li>No Curfew</li>
+            <li>Observe quiet hours (No loud noises past 10:00 PM)</li>
+            <li>No unannounced overnight visitors / Prior notice required</li>
+            <li>Respect property boundaries and other boarders</li>
+
+
+          </ul>
+        </section>
+
+        <section class="card owner">
+          <h2>PROPERTY OWNER</h2>
+          <div class="owner-row">
+            <img src="images/pro.png" alt="Property owner">
+            <div class="owner-info">
+              <h3>KNJ BOARDING HOUSE<span>♢ Verified</span></h3>
+              <p>Member since 2019 · Responds in &lt;2 hours</p>
+            </div>
+          </div>
+          <button class="message-btn" onclick="messageLandlord()">▢ &nbsp; Message landlord</button>
+        </section>
+
+        <section class="card reviews">
+          <div class="reviews-heading">
+            <h2>REVIEWS</h2>
+            <div><span class="big-star">★★★★</span> <b>4</b> <em>(6 reviews)</em></div>
+          </div>
+
+          <article class="review">
+            <div class="review-avatar">ME</div>
+            <div>
+              <h3>Mae Ann Espinosa  </h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p> “Kusog gid sang 300Mbps WiFi kag legal pa magluto, ka-convenient gid!”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">RC</div>
+            <div>
+              <h3>Rhea Mae Cordero   </h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p>“One ride lang pakadto UI kag Super Market, galing common lang ang CR.” </p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">JV</div>
+            <div>
+              <h3>Jason Villanueva</h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p> “Safe ang dapit kay may CCTV, tapos may sariling submeter kada kwarto.”</p>
+            </div>
+          </article>
+
+           <article class="review">
+            <div class="review-avatar orange">PB</div>
+            <div>
+              <h3>Patricia Nicole Biyo </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>   “Wide room choices kag tawhay lang maglaba, galing bawal lang pets.”  </p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">AG</div>
+            <div>
+              <h3>Alyssa Jean Gomez  </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>  “Sulit ang stay para sa mga estudyante, dako nga tabang ang bed and table inclusions.”  </p>
+            </div>
+          </article>
+        </section>
+
+        <section class="map-card" onclick="window.open('https://www.google.com/maps/place/KNJ+Boarding+House/@10.6805272,122.5025358,17z/data=!4m6!3m5!1s0x33aef139526c07e3:0x7b01a441c964065f!8m2!3d10.6803005!4d122.5028577!16s%2Fg%2F11n4wrwzrz?entry=ttu&g_ep=EgoyMDI2MDkwOS4wIKXMDSoASAFQAw%3D%3D')">
+          <img src="images/arevaloknjmaps.png" alt="Map showing Villa Arevalo, Iloilo City">
+          <div class="map-label">
+            <h2>Villa Arevaolo, Iloilo City</h2>
+            <p>~Walking distance to John B. Lacson Maritime Foundation Maritime University </p>
+          </div>
+        </section>
+      </section>
+
+      <div class="reserve-bar">
+        <button class="reserve-btn" onclick="reserveNow('property14')">Reserve Now</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal" id="reserveModal" aria-hidden="true">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2>IBH/Isonza Boarding House /  Transient</h2>
+        <p>₱1,800/month · Single Room</p>
+        <label>Move-in date</label>
+        <input type="date" id="moveIn">
+        <label>Number of persons</label>
+        <select>
+          <option>1 person</option>
+          <option>2 persons</option>
+        </select>
+        <button class="confirm-btn" onclick="confirmReservation()">Continue Reservation</button>
+      </div>
+    </div>
+       </section>
+
+
+    <!--City Proper BH1-->
+
+        <section id="property16" class="screen">
+    <section class="property-shell"> 
+     <header class="topbar1">
+    <button class="back-btn1" onclick="goBack()">
+        <i class="fa-solid fa-chevron-left"></i> </button> 
+
+    <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+</header>
+
+      <section class="gallery" aria-label="Property photos">
+        <div class="slides" id="slides">
+          <img src="images/propernormabh1.jpg" alt="Villa Arevalo BH" class="slide active">
+           <img src="images/propernormabh2.jpg" alt="A&L Place" class="slide">
+            
+         
+         
+        </div>
+        <div class="photo-count"><span id="photoNumber">1</span>/2</div>
+        <div class="dots" id="dots" aria-label="Photo navigation">
+          <button class="dot active" data-index="0"></button>
+           <button class="dot" data-index="1"></button>
+          
+         
+          
+
+          
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="hero-card">
+          <div class="verified">♢ <span>Verified</span></div>
+          <div class="title-row">
+            <div>
+              <h1>NORMA BOARDING HOUSE</h1>
+              <p class="location">⌖ &nbsp;  Valeria St, Iloilo City Proper, Iloilo City· ~ It is located near several major downtown</p>
+              <div class="rating" aria-label="4 out of 5 stars">
+                <span>★ ★ ★ </span>
+                <b>4</b> <em>(4)</em>
+              </div>
+            </div>
+            <div class="price"><strong>₱4,000</strong><small>/month</small></div>
+          </div>
+        </div>
+
+        <div class="tags">
+          <span>🏠 &nbsp; Boarding House</span>
+          <span>🛏️ &nbsp; Single Room</span>
+          <span>👤 &nbsp; 1–2 Persons</span>
+          <span>📅 &nbsp; 1 montht</span>
+        </div>
+
+        <div class="availability">
+          <div class="check">✓</div>
+          <div><strong>Available Now</strong><p>2 rooms available · Move-in ready</p></div>
+          <div class="availability-house">🏠</div>
+        </div>
+
+        <section class="card amenities">
+          <h2>AMENITIES</h2>
+          <div class="amenity-list">
+             <div class="amenity1"><span><img src="images/electricfan.png" class="aminities-icon" alt=""></span><label>Electric Fan</label></div>
+            <div class="amenity1"><span><img src="images/wifi.png"  class="aminities-icon" alt=""></span><label>Wi-Fi</label></div>
+            <div class="amenity1"><span><img src="images/aircon.png"  class="aminities-icon" alt=""></span><label>Air Condition</label></div>
+            <div class="amenity1"><span><img src="images/cctv.png"  class="aminities-icon"></span><label>CCTV Protected</label></div>
+              <div class="amenity1"><span><img src="images/dining aria.png"  class="aminities-icon" alt=""></span><label>Dining Area</label></div>
+              <div class="amenity1"><span><img src="images/submeter.png"  class="aminities-icon" alt=""></span><label>Submeter</label></div>
+                <div class="amenity1"><span><img src="images/bed_pillows.png"  class="aminities-icon" alt=""></span><label>Double deck Bed</label></div>
+                  <div class="amenity1"><span><img src="images/laundry.png"  class="aminities-icon" alt=""></span><label>Laundry Area</label></div>
+          
+            
+          </div>
+        </section>
+
+        <section class="card rules">
+          <h2>HOUSE RULES</h2>
+          <ul>
+            <li>No pets allowed</li>
+            <li>No Babies allowed</li>
+             <li>No Curfew</li>
+            <li>Observe quiet hours (No loud noises past 10:00 PM)</li>
+            <li>No unannounced overnight visitors / Prior notice required</li>
+            <li>Respect property boundaries and other boarders</li>
+
+
+          </ul>
+        </section>
+
+        <section class="card owner">
+          <h2>PROPERTY OWNER</h2>
+          <div class="owner-row">
+            <img src="images/pro.png" alt="Property owner">
+            <div class="owner-info">
+              <h3>Norma Management<span>♢ Verified</span></h3>
+              <p>Member since 2019 · Responds in &lt;2 hours</p>
+            </div>
+          </div>
+          <button class="message-btn" onclick="messageLandlord()">▢ &nbsp; Message landlord</button>
+        </section>
+
+        <section class="card reviews">
+          <div class="reviews-heading">
+            <h2>REVIEWS</h2>
+            <div><span class="big-star">★★★★</span> <b>4</b> <em>(6 reviews)</em></div>
+          </div>
+
+          <article class="review">
+            <div class="review-avatar">ME</div>
+            <div>
+              <h3>Mae Ann Espinosa  </h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p> “Kusog gid sang 300Mbps WiFi kag legal pa magluto, ka-convenient gid!”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">RC</div>
+            <div>
+              <h3>Rhea Mae Cordero   </h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p>“One ride lang pakadto UI kag Super Market, galing common lang ang CR.” </p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">JV</div>
+            <div>
+              <h3>Jason Villanueva</h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p> “Safe ang dapit kay may CCTV, tapos may sariling submeter kada kwarto.”</p>
+            </div>
+          </article>
+
+           <article class="review">
+            <div class="review-avatar orange">PB</div>
+            <div>
+              <h3>Patricia Nicole Biyo </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>   “Wide room choices kag tawhay lang maglaba, galing bawal lang pets.”  </p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">AG</div>
+            <div>
+              <h3>Alyssa Jean Gomez  </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>  “Sulit ang stay para sa mga estudyante, dako nga tabang ang bed and table inclusions.”  </p>
+            </div>
+          </article>
+        </section>
+
+        <section class="map-card" onclick="window.open('http://google.com/maps/place/Norma+Boarding+House/@10.6946128,122.564726,17z/data=!3m1!4b1!4m6!3m5!1s0x33aee56347efd7b1:0xb78075dedf754262!8m2!3d10.6946075!4d122.5673009!16s%2Fg%2F11ybpnrgd5?entry=ttu&g_ep=EgoyMDI2MDkxMy4wIKXMDSoASAFQAw%3D%3D')">
+          <img src="images/normamap.png" alt="Map showing Villa Arevalo, Iloilo City">
+          <div class="map-label">
+            <h2>City Proper, Iloilo City</h2>
+            <p>~ It is located near several major downtown </p>
+          </div>
+        </section>
+      </section>
+
+      <div class="reserve-bar">
+        <button class="reserve-btn" onclick="reserveNow('property16')">Reserve Now</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal" id="reserveModal" aria-hidden="true">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2>Norma Boarding House /  Transient</h2>
+        <p>₱4,000/month · Single Room</p>
+        <label>Move-in date</label>
+        <input type="date" id="moveIn">
+        <label>Number of persons</label>
+        <select>
+          <option>1 person</option>
+          <option>2 persons</option>
+        </select>
+        <button class="confirm-btn" onclick="confirmReservation()">Continue Reservation</button>
+      </div>
+    </div>
+       </section>
+
+
+       <!--APARTMENT-->
+
+       <!-- LA PAZ APARTMENT1-->
+
+        <section id="property6" class="screen">
+    <section class="property-shell">
+     <header class="topbar1">
+    <button class="back-btn1" onclick="goBack()">
+        <i class="fa-solid fa-chevron-left"></i> </button> 
+
+    <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+</header>
+
+      <section class="gallery" aria-label="Property photos">
+        <div class="slides" id="slides">
+          <img src="images/skyleighapart2.webp" alt="La Paz apartment" class="slide active">
+         
+        </div>
+        <div class="photo-count"><span id="photoNumber">1</span>/1</div>
+        <div class="dots" id="dots" aria-label="Photo navigation">
+          <button class="dot active" data-index="0"></button>
+          
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="hero-card">
+          <div class="verified">♢ <span>Verified</span></div>
+          <div class="title-row">
+            <div>
+              <h1>Skyleigh Appartment</h1>
+              <p class="location">⌖ &nbsp; Manduriao, Iloilo City · ~In front of Manduriao Elementary School</p>
+              <div class="rating" aria-label="5 out of 5 stars">
+                <span>★ ★ ★ ★ </span>
+                <b>4</b> <em>(5)</em>
+              </div>
+            </div>
+            <div class="price"><strong>₱11,500</strong><small>/ month</small></div>
+           
+          </div>
+        </div>
+
+        <div class="tags">
+          <span>🏠 &nbsp; Apartment/Transient</span>
+          <span>🛏️ &nbsp; Single Room</span>
+          <span>👤 &nbsp; 1–2 Persons</span>
+          <span>📅 &nbsp; Min. 1 Month</span>
+        </div>
+
+        <div class="availability">
+          <div class="check">✓</div>
+          <div><strong>Available Now</strong><p>4 rooms available · Move-in ready</p></div>
+          <div class="availability-house">🏠</div>
+        </div>
+
+        <section class="card amenities">
+          <h2>AMENITIES</h2>
+          <div class="amenity-list">
+           <div class="amenity1"><span><img src="images/Sofa.png" class="aminities-icon" alt=""></span><label>Sofa</label></div>
+            <div class="amenity1"><span><img src="images/Tv.png"  class="aminities-icon" alt=""></span><label>TV</label></div>
+            <div class="amenity1"><span><img src="images/dining aria.png"  class="aminities-icon" alt=""></span><label>Kitchen Area</label></div>
+            <div class="amenity1"><span><img src="images/bed_pillows.png"  class="aminities-icon" alt=""></span><label>Bed/Pillow</label></div>
+            <div class="amenity1"><span><img src="images/cctv.png"  class="aminities-icon"></span><label>CCTV Protected</label></div>
+            <div class="amenity1"><span><img src="images/motrparking.png" class="aminities-icon" alt=""></span><label>Motorcycle Parking only</label></div>
+            <div class="amenity1"><span><img src="images/submeter.png"  class="aminities-icon" alt=""></span><label>Submeter</label></div>
+          </div>
+        </section>
+
+        <section class="card rules">
+          <h2>HOUSE RULES</h2>
+          <ul>
+            <li>Observe quiet hours (10pm)</li>
+            <li>No Smoking </li>
+            <li>Respect property boundaries</li>
+
+          </ul>
+        </section>
+
+        <section class="card owner">
+          <h2>PROPERTY OWNER</h2>
+          <div class="owner-row">
+            <img src="assets/owner.jpg" alt="Property owner">
+            <div class="owner-info">
+              <h3>Skyleigh Apartment <span>♢ Verified</span></h3>
+              <p>Member since 2021 · Responds in &lt;2 hours</p>
+            </div>
+          </div>
+          <button class="message-btn" onclick="messageLandlord()">▢ &nbsp; Message landlord</button>
+        </section>
+
+        <section class="card reviews">
+          <div class="reviews-heading">
+            <h2>REVIEWS</h2>
+            <div><span class="big-star">★</span> <b>4</b> <em>(6 reviews)</em></div>
+          </div>
+
+          <article class="review">
+            <div class="review-avatar">GL</div>
+            <div>
+              <h3>Gracia Lopez </h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p> “Easy to find a room near work.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">MS</div>
+            <div>
+              <h3>Maria Santos </h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p> “Affordable and convenient.</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">JC</div>
+            <div>
+              <h3>Jessa Mae Cruz </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p> “The listings were helpful.”</p>
+            </div>
+          </article>
+
+           <article class="review">
+            <div class="review-avatar orange">AR</div>
+            <div>
+              <h3>Angelica Reyes </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>  “Saved me time searching.”</p>
+            </div>
+          </article>
+        </section>
+
+        <section class="map-card" onclick="window.open('https://www.google.com/maps/place/Skyleigh+apartelle+by+red+doorz/@10.718718,122.5762892,17z/data=!3m1!4b1!4m6!3m5!1s0x33aee500460753fd:0x144e4df879a76ac4!8m2!3d10.7187127!4d122.5788641!16s%2Fg%2F11x82wq9tw?entry=ttu&g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D')">
+          <img src="images/skyleimap.png" alt="Map showing Jaro, Iloilo City">
+          <div class="map-label">
+            <h2>Manduriao, Iloilo City</h2>
+            <p>~Very accessible to all public transportation</p>
+          </div>
+        </section>
+      </section>
+
+      <div class="reserve-bar">
+        <button class="reserve-btn" onclick="reserveNow('property6')">Reserve Now</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal" id="reserveModal" aria-hidden="true">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2>Reserve Rex Appartment</h2>
+        <p>₱12,500 / month · Single Room</p>
+        <label>Move-in date</label>
+        <input type="date" id="moveIn">
+        <label>Number of persons</label>
+        <select>
+          <option>1 person</option>
+          <option>2 persons</option>
+        </select>
+        <button class="confirm-btn" onclick="confirmReservation()">Continue Reservation</button>
+      </div>
+    </div>
+       </section>
+
+
+
+
+       <!-- MANDURIAO APARTMENT1-->
+
+        <section id="property5" class="screen">
+    <section class="property-shell">
+     <header class="topbar1">
+    <button class="back-btn1" onclick="goBack()">
+        <i class="fa-solid fa-chevron-left"></i> </button> 
+
+    <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+</header>
+
+      <section class="gallery" aria-label="Property photos">
+        <div class="slides" id="slides">
+          <img src="images/rexapart1.avif" alt="Manduriao apartment" class="slide active">
+         
+        </div>
+        <div class="photo-count"><span id="photoNumber">1</span>/1</div>
+        <div class="dots" id="dots" aria-label="Photo navigation">
+          <button class="dot active" data-index="0"></button>
+          
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="hero-card">
+          <div class="verified">♢ <span>Verified</span></div>
+          <div class="title-row">
+            <div>
+              <h1>Rex Appartment</h1>
+              <p class="location">⌖ &nbsp; Manduriao, Iloilo City · ~In front of Manduriao Elementary School</p>
+              <div class="rating" aria-label="5 out of 5 stars">
+                <span>★ ★ ★ ★ ★</span>
+                <b>5</b> <em>(5)</em>
+              </div>
+            </div>
+            <div class="price"><strong>₱12,500</strong><small>/ month</small></div>
+          </div>
+        </div>
+
+        <div class="tags">
+          <span>🏠 &nbsp; Apartment/Studio Unit</span>
+          <span>🛏️ &nbsp; Single Room</span>
+          <span>👤 &nbsp; 1–2 Persons</span>
+          <span>📅 &nbsp; Min. 1 Month</span>
+        </div>
+
+        <div class="availability">
+          <div class="check">✓</div>
+          <div><strong>Available Now</strong><p>2 rooms available · Move-in ready</p></div>
+          <div class="availability-house">🏠</div>
+        </div>
+
+        <section class="card amenities">
+          <h2>AMENITIES</h2>
+          <div class="amenity-list">
+           <div class="amenity1"><span><img src="images/Sofa.png" class="aminities-icon" alt=""></span><label>Sofa</label></div>
+            <div class="amenity1"><span><img src="images/Tv.png"  class="aminities-icon" alt=""></span><label>TV</label></div>
+            <div class="amenity1"><span><img src="images/dining aria.png"  class="aminities-icon" alt=""></span><label>Kitchen Area</label></div>
+            <div class="amenity1"><span><img src="images/bed_pillows.png"  class="aminities-icon" alt=""></span><label>Bed/Pillow</label></div>
+            <div class="amenity1"><span><img src="images/cctv.png"  class="aminities-icon"></span><label>CCTV Protected</label></div>
+            <div class="amenity1"><span><img src="images/motrparking.png" class="aminities-icon" alt=""></span><label>Motorcycle Parking only</label></div>
+            <div class="amenity1"><span><img src="images/submeter.png"  class="aminities-icon" alt=""></span><label>Submeter</label></div>
+          </div>
+        </section>
+
+        <section class="card rules">
+          <h2>HOUSE RULES</h2>
+          <ul>
+            <li>No Curfew</li>
+
+          </ul>
+        </section>
+
+        <section class="card owner">
+          <h2>PROPERTY OWNER</h2>
+          <div class="owner-row">
+            <img src="assets/owner.jpg" alt="Property owner">
+            <div class="owner-info">
+              <h3>Rex Huervara <span>♢ Verified</span></h3>
+              <p>Member since 2021 · Responds in &lt;2 hours</p>
+            </div>
+          </div>
+          <button class="message-btn" onclick="messageLandlord()">▢ &nbsp; Message landlord</button>
+        </section>
+
+        <section class="card reviews">
+          <div class="reviews-heading">
+            <h2>REVIEWS</h2>
+            <div><span class="big-star">★</span> <b>4.8</b> <em>(32 reviews)</em></div>
+          </div>
+
+          <article class="review">
+            <div class="review-avatar">GL</div>
+            <div>
+              <h3>Gracia Lopez </h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p> “Easy to find a room near work.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">MS</div>
+            <div>
+              <h3>Maria Santos </h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p> “Affordable and convenient.</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">JC</div>
+            <div>
+              <h3>Jessa Mae Cruz </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p> “The listings were helpful.”</p>
+            </div>
+          </article>
+
+           <article class="review">
+            <div class="review-avatar orange">AR</div>
+            <div>
+              <h3>Angelica Reyes </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>  “Saved me time searching.”</p>
+            </div>
+          </article>
+        </section>
+
+        <section class="map-card">
+          <img src="images/rexapartmap.png" alt="Map showing Jaro, Iloilo City">
+          <div class="map-label">
+            <h2>Manduriao, Iloilo City</h2>
+            <p>~Very accessible to all public transportation</p>
+          </div>
+        </section>
+      </section>
+
+      <div class="reserve-bar">
+        <button class="reserve-btn" onclick="reserveNow('property5')">Reserve Now</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal" id="reserveModal" aria-hidden="true">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2>Reserve Rex Appartment</h2>
+        <p>₱12,500 / month · Single Room</p>
+        <label>Move-in date</label>
+        <input type="date" id="moveIn">
+        <label>Number of persons</label>
+        <select>
+          <option>1 person</option>
+          <option>2 persons</option>
+        </select>
+        <button class="confirm-btn" onclick="confirmReservation()">Continue Reservation</button>
+      </div>
+    </div>
+       </section>
+
+
+        <!-- AREVALO APARTMENT1-->
+
+        <section id="property17" class="screen">
+    <section class="property-shell">
+     <header class="topbar1">
+    <button class="back-btn1" onclick="goBack()">
+        <i class="fa-solid fa-chevron-left"></i> </button> 
+
+    <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+</header>
+
+      <section class="gallery" aria-label="Property photos">
+        <div class="slides" id="slides">
+          <img src="images/rianapart2.avif" alt="Manduriao apartment" class="slide active">
+          <img src="images/rianapart3.avif" alt="" class="slide">
+          <img src="images/rianapart4.jpg" alt="" class="slide">
+         
+        </div>
+        <div class="photo-count"><span id="photoNumber">1</span>/3</div>
+        <div class="dots" id="dots" aria-label="Photo navigation">
+          <button class="dot active" data-index="0"></button>
+           <button class="dot" data-index="1"></button>
+          <button class="dot" data-index="2"></button>
+          
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="hero-card">
+          <div class="verified">♢ <span>Verified</span></div>
+          <div class="title-row">
+            <div>
+              <h1>Rian's Appartment</h1>
+              <p class="location">⌖ &nbsp; Jocson St, San Jose (Arevalo), Villa Arevalo District, Iloilo City</p>
+              <div class="rating" aria-label="5 out of 5 stars">
+                <span>★ ★ ★ ★ ★</span>
+                <b>5</b> <em>(5)</em>
+              </div>
+            </div>
+            <div class="price"><strong>₱6000-12,000</strong><small>/ month</small></div>
+          </div>
+        </div>
+
+        <div class="tags">
+          <span>🏠 &nbsp; Apartment/Studio Unit</span>
+          <span>🛏️ &nbsp; Single Room</span>
+          <span>👤 &nbsp; 1–2 Persons</span>
+          <span>📅 &nbsp; Min. 1 Month</span>
+        </div>
+
+        <div class="availability">
+          <div class="check">✓</div>
+          <div><strong>Available Now</strong><p>2 rooms available · Move-in ready</p></div>
+          <div class="availability-house">🏠</div>
+        </div>
+
+        <section class="card amenities">
+          <h2>AMENITIES</h2>
+          <div class="amenity-list">
+           <div class="amenity1"><span><img src="images/Sofa.png" class="aminities-icon" alt=""></span><label>Sofa</label></div>
+            <div class="amenity1"><span><img src="images/Tv.png"  class="aminities-icon" alt=""></span><label>TV</label></div>
+            <div class="amenity1"><span><img src="images/dining aria.png"  class="aminities-icon" alt=""></span><label>Kitchen Area</label></div>
+            <div class="amenity1"><span><img src="images/bed_pillows.png"  class="aminities-icon" alt=""></span><label>Bed/Pillow</label></div>
+            <div class="amenity1"><span><img src="images/cctv.png"  class="aminities-icon"></span><label>CCTV Protected</label></div>
+            <div class="amenity1"><span><img src="images/motrparking.png" class="aminities-icon" alt=""></span><label>Motorcycle Parking only</label></div>
+            <div class="amenity1"><span><img src="images/submeter.png"  class="aminities-icon" alt=""></span><label>Submeter</label></div>
+          </div>
+        </section>
+
+        <section class="card rules">
+          <h2>HOUSE RULES</h2>
+          <ul>
+            <li>No Curfew</li>
+
+          </ul>
+        </section>
+
+        <section class="card owner">
+          <h2>PROPERTY OWNER</h2>
+          <div class="owner-row">
+            <img src="assets/owner.jpg" alt="Property owner">
+            <div class="owner-info">
+              <h3>Rex Huervara <span>♢ Verified</span></h3>
+              <p>Member since 2021 · Responds in &lt;2 hours</p>
+            </div>
+          </div>
+          <button class="message-btn" onclick="messageLandlord()">▢ &nbsp; Message landlord</button>
+        </section>
+
+        <section class="card reviews">
+          <div class="reviews-heading">
+            <h2>REVIEWS</h2>
+            <div><span class="big-star">★</span> <b>4.8</b> <em>(32 reviews)</em></div>
+          </div>
+
+          <article class="review">
+            <div class="review-avatar">GL</div>
+            <div>
+              <h3>Gracia Lopez </h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p> “Easy to find a room near work.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">MS</div>
+            <div>
+              <h3>Maria Santos </h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p> “Affordable and convenient.</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">JC</div>
+            <div>
+              <h3>Jessa Mae Cruz </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p> “The listings were helpful.”</p>
+            </div>
+          </article>
+
+           <article class="review">
+            <div class="review-avatar orange">AR</div>
+            <div>
+              <h3>Angelica Reyes </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>  “Saved me time searching.”</p>
+            </div>
+          </article>
+        </section>
+
+        <section class="map-card">
+          <img src="images/rianapartmap.png" alt="Map showing Jaro, Iloilo City">
+          <div class="map-label">
+            <h2>Arevalo, Iloilo City</h2>
+            <p>~ Villa Arevalo District, Iloilo City</p>
+          </div>
+        </section>
+      </section>
+
+      <div class="reserve-bar">
+        <button class="reserve-btn" onclick="reserveNow('property17')">Reserve Now</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal" id="reserveModal" aria-hidden="true">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2>Reserve Rian's Appartment</h2>
+        <p>₱6,000 / month · Single Room</p>
+        <label>Move-in date</label>
+        <input type="date" id="moveIn">
+        <label>Number of persons</label>
+        <select>
+          <option>1 person</option>
+          <option>2 persons</option>
+        </select>
+        <button class="confirm-btn" onclick="confirmReservation()">Continue Reservation</button>
+      </div>
+    </div>
+       </section>
+
+
+
+       <!--TRANSIENT-->
+
+
+       <!--La Paz Transient1-->
+
+
+       <section id="property8" class="screen">
+    <section class="property-shell"> 
+     <header class="topbar1">
+    <button class="back-btn1" onclick="goBack()">
+        <i class="fa-solid fa-chevron-left"></i> </button> 
+
+    <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+</header>
+
+      <section class="gallery" aria-label="Property photos">
+        <div class="slides" id="slides">
+          <img src="images/a&lplace.jpg" alt="Manduriao apartment" class="slide active">
+           <img src="images/a&lplace1.jpg" alt="A&L Place" class="slide">
+          <img src="images/a&lplace2.jpg" alt="A&L Place" class="slide">
+         
+        </div>
+        <div class="photo-count"><span id="photoNumber">1</span>/3</div>
+        <div class="dots" id="dots" aria-label="Photo navigation">
+          <button class="dot active" data-index="0"></button>
+           <button class="dot" data-index="1"></button>
+          <button class="dot" data-index="2"></button>
+          
+
+          
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="hero-card">
+          <div class="verified">♢ <span>Verified</span></div>
+          <div class="title-row">
+            <div>
+              <h1>A&L Place</h1>
+              <p class="location">⌖ &nbsp; La Paz, Iloilo City · ~inside Ledesco Village</p>
+              <div class="rating" aria-label="4 out of 5 stars">
+                <span>★ ★ ★ ★</span>
+                <b>4</b> <em>(6)</em>
+              </div>
+            </div>
+            <div class="price"><strong>₱600</strong><small>/ night</small></div>
+          </div>
+        </div>
+
+        <div class="tags">
+          <span>🏠 &nbsp; Transient</span>
+          <span>🛏️ &nbsp; Single Room</span>
+          <span>👤 &nbsp; 1–2 Persons</span>
+          <span>📅 &nbsp; 1 night</span>
+        </div>
+
+        <div class="availability">
+          <div class="check">✓</div>
+          <div><strong>Available Now</strong><p>2 rooms available · Move-in ready</p></div>
+          <div class="availability-house">🏠</div>
+        </div>
+
+        <section class="card amenities">
+          <h2>AMENITIES</h2>
+          <div class="amenity-list">
+             <div class="amenity1"><span><img src="images/garage.png" class="aminities-icon" alt=""></span><label>Parking Space</label></div>
+            <div class="amenity1"><span><img src="images/wifi.png"  class="aminities-icon" alt=""></span><label>Wi-Fi</label></div>
+            <div class="amenity1"><span><img src="images/aircon.png"  class="aminities-icon" alt=""></span><label>Air Condition</label></div>
+            <div class="amenity1"><span><img src="images/cctv.png"  class="aminities-icon"></span><label>CCTV Protected</label></div>
+              <div class="amenity1"><span><img src="images/bed_pillows.png"  class="aminities-icon" alt=""></span><label>Queen Size Bed</label></div>
+              <div class="amenity1"><span><img src="images/submeter.png"  class="aminities-icon" alt=""></span><label>Submeter</label></div>
+          
+            
+          </div>
+        </section>
+
+        <section class="card rules">
+          <h2>HOUSE RULES</h2>
+          <ul>
+            <li>Standard Check-in: 2:00 PM | Check-out: 12:00 NN</li>
+            <li>Late check-out extension: ₱100 per hour (until 1:00 PM max)</li>
+            <li>Observe quiet hours (No loud noises past 10:00 PM)</li>
+            <li>Keep room and common areas clean and orderly</li>
+            <li>Treat property amenities with care and respect</li>
+
+
+          </ul>
+        </section>
+
+        <section class="card owner">
+          <h2>PROPERTY OWNER</h2>
+          <div class="owner-row">
+            <img src="images/pro.png" alt="Property owner">
+            <div class="owner-info">
+              <h3>A&L Place Manangement <span>♢ Verified</span></h3>
+              <p>Member since 2021 · Responds in &lt;2 hours</p>
+            </div>
+          </div>
+          <button class="message-btn" onclick="messageLandlord()">▢ &nbsp; Message landlord</button>
+        </section>
+
+        <section class="card reviews">
+          <div class="reviews-heading">
+            <h2>REVIEWS</h2>
+            <div><span class="big-star">★★★★</span> <b>4</b> <em>(6 reviews)</em></div>
+          </div>
+
+          <article class="review">
+            <div class="review-avatar">ME</div>
+            <div>
+              <h3>Mae Ann Espinosa </h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p> “Sulit gid ang ₱600 per night! Nami ang aircon kag may hot shower pa.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">RC</div>
+            <div>
+              <h3>Rhea Mae Cordero  </h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p>“Tahimik kag safe ang Ledesco Village, dako man ang parking space.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">JV</div>
+            <div>
+              <h3>Jason Villanueva</h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>“Very comfortable ang queen size bed kag fast ang WiFi, perfect for short stay.” </p>
+            </div>
+          </article>
+
+           <article class="review">
+            <div class="review-avatar orange">PB</div>
+            <div>
+              <h3>Patricia Nicole Biyo </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>  “Overall okay gid ang room, medyo strict lang sa 12 NN check-out time.” </p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">AG</div>
+            <div>
+              <h3>Alyssa Jean Gomez  </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>  “Clean room with complete toiletries, smooth gid ang transaction via GCash.” </p>
+            </div>
+          </article>
+        </section>
+
+        <section class="map-card" onclick="window.open('https://www.google.com/maps/place/Rians+Apartelle/@10.6881051,122.5155513,17z/data=!3m1!4b1!4m6!3m5!1s0x33aef1cad3c3c759:0x5526330b35458ba0!8m2!3d10.6880998!4d122.5181262!16s%2Fg%2F11rmq3b7my?entry=ttu&g_ep=EgoyMDI2MDkxMy4wIKXMDSoASAFQAw%3D%3D')">
+          <img src="images/rianapartmap.png" alt="Map showing La Paz, Iloilo City">
+          <div class="map-label">
+            <h2>La Paz, Iloilo City</h2>
+            <p>~Accessible location inside Ledesco Village </p>
+          </div>
+        </section>
+      </section>
+
+      <div class="reserve-bar">
+        <button class="reserve-btn" onclick="reserveNow('property8')">Reserve Now</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal" id="reserveModal" aria-hidden="true">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2>A&L Transient</h2>
+        <p>₱600 / night · Single Room</p>
+        <label>Move-in date</label>
+        <input type="date" id="moveIn">
+        <label>Number of persons</label>
+        <select>
+          <option>1 person</option>
+          <option>2 persons</option>
+        </select>
+        <button class="confirm-btn" onclick="confirmReservation()">Continue Reservation</button>
+      </div>
+    </div>
+       </section>
+
+
+       <!-- City Proper Transient1-->
+
+
+       <section id="property15" class="screen">
+    <section class="property-shell"> 
+     <header class="topbar1">
+    <button class="back-btn1" onclick="goBack()">
+        <i class="fa-solid fa-chevron-left"></i> </button> 
+
+    <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+</header>
+
+      <section class="gallery" aria-label="Property photos">
+        <div class="slides" id="slides">
+          <img src="images/madiaastrans3.jpg" alt="City Proper Transient" class="slide active">
+           <img src="images/madiaastrans2.jpg" alt="" class="slide">
+          <img src="images/madiaastrans1.jpg" alt="" class="slide">
+         
+        </div>
+        <div class="photo-count"><span id="photoNumber">1</span>/3</div>
+        <div class="dots" id="dots" aria-label="Photo navigation">
+          <button class="dot active" data-index="0"></button>
+           <button class="dot" data-index="1"></button>
+          <button class="dot" data-index="2"></button>
+          
+
+          
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="hero-card">
+          <div class="verified">♢ <span>Verified</span></div>
+          <div class="title-row">
+            <div>
+              <h1>Hotel Madiaas</h1>
+              <p class="location">⌖ &nbsp; walking distance of places such as Calle Real and Plaza Libertad.</p>
+              <div class="rating" aria-label="4 out of 5 stars">
+                <span>★ ★ ★ ★</span>
+                <b>4</b> <em>(6)</em>
+              </div>
+            </div>
+            <div class="price"><strong>₱889</strong><small>/ night</small></div>
+          </div>
+        </div>
+
+        <div class="tags">
+          <span>🏠 &nbsp; Transient</span>
+          <span>🛏️ &nbsp; Single Room</span>
+          <span>👤 &nbsp; 1–2 Persons</span>
+          <span>📅 &nbsp; 1 night</span>
+        </div>
+
+        <div class="availability">
+          <div class="check">✓</div>
+          <div><strong>Available Now</strong><p>40 rooms available · Move-in ready</p></div>
+          <div class="availability-house">🏠</div>
+        </div>
+
+        <section class="card amenities">
+          <h2>AMENITIES</h2>
+          <div class="amenity-list">
+             <div class="amenity1"><span><img src="images/garage.png" class="aminities-icon" alt=""></span><label>Parking Space</label></div>
+            <div class="amenity1"><span><img src="images/wifi.png"  class="aminities-icon" alt=""></span><label>Wi-Fi</label></div>
+            <div class="amenity1"><span><img src="images/aircon.png"  class="aminities-icon" alt=""></span><label>Air Condition</label></div>
+            <div class="amenity1"><span><img src="images/cctv.png"  class="aminities-icon"></span><label>CCTV Protected</label></div>
+              <div class="amenity1"><span><img src="images/bed_pillows.png"  class="aminities-icon" alt=""></span><label>Queen Size Bed</label></div>
+              <div class="amenity1"><span><img src="images/submeter.png"  class="aminities-icon" alt=""></span><label>Submeter</label></div>
+          
+            
+          </div>
+        </section>
+
+        <section class="card rules">
+          <h2>HOUSE RULES</h2>
+          <ul>
+            <li>Standard Check-in: 2:00 PM | Check-out: 12:00 NN</li>
+            <li>Late check-out extension: ₱100 per hour (until 1:00 PM max)</li>
+            <li>Observe quiet hours (No loud noises past 10:00 PM)</li>
+            <li>Keep room and common areas clean and orderly</li>
+            <li>Treat property amenities with care and respect</li>
+
+
+          </ul>
+        </section>
+
+        <section class="card owner">
+          <h2>PROPERTY OWNER</h2>
+          <div class="owner-row">
+            <img src="images/pro.png" alt="Property owner">
+            <div class="owner-info">
+              <h3>Hotel Madiaas by RedDoorz<span>♢ Verified</span></h3>
+              <p>Member since 2021 · Responds in &lt;2 hours</p>
+            </div>
+          </div>
+          <button class="message-btn" onclick="messageLandlord()">▢ &nbsp; Message landlord</button>
+        </section>
+
+        <section class="card reviews">
+          <div class="reviews-heading">
+            <h2>REVIEWS</h2>
+            <div><span class="big-star">★★★★</span> <b>4</b> <em>(6 reviews)</em></div>
+          </div>
+
+          <article class="review">
+            <div class="review-avatar">ME</div>
+            <div>
+              <h3>Mae Ann Espinosa </h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p> “Sulit gid ang ₱889 per night! Nami ang aircon kag may hot shower pa.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">RC</div>
+            <div>
+              <h3>Rhea Mae Cordero  </h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p>“Tahimik kag safe ang Ledesco Village, dako man ang parking space.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">JV</div>
+            <div>
+              <h3>Jason Villanueva</h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>“Very comfortable ang queen size bed kag fast ang WiFi, perfect for short stay.” </p>
+            </div>
+          </article>
+
+           <article class="review">
+            <div class="review-avatar orange">PB</div>
+            <div>
+              <h3>Patricia Nicole Biyo </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>  “Overall okay gid ang room, medyo strict lang sa 12 NN check-out time.” </p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">AG</div>
+            <div>
+              <h3>Alyssa Jean Gomez  </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>  “Clean room with complete toiletries, smooth gid ang transaction via GCash.” </p>
+            </div>
+          </article>
+        </section>
+
+        <section class="map-card" onclick="window.open('https://www.google.com/maps/place/Hotel+Madiaas+by+RedDoorz/@10.694502,122.5674267,17z/data=!4m10!3m9!1s0x33aee5653c6ae25d:0x384bac576d6acc8f!5m3!1s2026-09-26!4m1!1i2!8m2!3d10.6944967!4d122.5700016!16s%2Fg%2F1vp719kr?entry=ttu&g_ep=EgoyMDI2MDkxMy4wIKXMDSoASAFQAw%3D%3D')">
+          <img src="images/madiaasmaps.png" alt="Map showing La Paz, Iloilo City">
+          <div class="map-label">
+            <h2>City Proper, Iloilo City</h2>
+            <p>~14-A Aldeguer St., Iloilo City Proper</p>
+          </div>
+        </section>
+      </section>
+
+      <div class="reserve-bar">
+        <button class="reserve-btn" onclick="reserveNow('property15')">Reserve Now</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal" id="reserveModal" aria-hidden="true">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2>A&L Transient</h2>
+        <p>₱889 / night · Single Room</p>
+        <label>Move-in date</label>
+        <input type="date" id="moveIn">
+        <label>Number of persons</label>
+        <select>
+          <option>1 person</option>
+          <option>2 persons</option>
+          <option>Family</option>
+        </select>
+        <button class="confirm-btn" onclick="confirmReservation()">Continue Reservation</button>
+      </div>
+    </div>
+       </section>
+
+
+
+
+       <!--DORMITORY-->
+
+
+       <!--MOLO DORMITORY1-->
+
+
+       <section id="property9" class="screen">
+    <section class="property-shell"> 
+     <header class="topbar1">
+    <button class="back-btn1" onclick="goBack()">
+        <i class="fa-solid fa-chevron-left"></i> </button> 
+
+    <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+</header>
+
+      <section class="gallery" aria-label="Property photos">
+        <div class="slides" id="slides">
+          <img src="images/eastvilledorm1.jpg" alt="Manduriao apartment" class="slide active">
+           <img src="images/eastvilledorm2.jpg" alt="A&L Place" class="slide">
+          <img src="images/eastvilledorm3.jpg" alt="A&L Place" class="slide">
+         
+        </div>
+        <div class="photo-count"><span id="photoNumber">1</span>/3</div>
+        <div class="dots" id="dots" aria-label="Photo navigation">
+          <button class="dot active" data-index="0"></button>
+           <button class="dot" data-index="1"></button>
+          <button class="dot" data-index="2"></button>
+          
+
+          
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="hero-card">
+          <div class="verified">♢ <span>Verified</span></div>
+          <div class="title-row">
+            <div>
+              <h1>Eeastville Dormitory</h1>
+              <p class="location">⌖ &nbsp; Molo, Iloilo City · ~Near Molo Plza  and major Schools</p>
+              <div class="rating" aria-label="4 out of 5 stars">
+                <span>★ ★ ★ ★</span>
+                <b>4</b> <em>(6)</em>
+              </div>
+            </div>
+            <div class="price"><strong>₱3,000</strong><small>/month</small></div>
+          </div>
+        </div>
+
+        <div class="tags">
+          <span>🏠 &nbsp; Dormitory</span>
+          <span>🛏️ &nbsp; Single Room</span>
+          <span>👤 &nbsp; 1–4 Persons</span>
+          <span>📅 &nbsp; 1 montht</span>
+        </div>
+
+        <div class="availability">
+          <div class="check">✓</div>
+          <div><strong>Available Now</strong><p>2 rooms available · Move-in ready</p></div>
+          <div class="availability-house">🏠</div>
+        </div>
+
+        <section class="card amenities">
+          <h2>AMENITIES</h2>
+          <div class="amenity-list">
+             <div class="amenity1"><span><img src="images/locker.png" class="aminities-icon" alt=""></span><label>Personal Locker</label></div>
+            <div class="amenity1"><span><img src="images/wifi.png"  class="aminities-icon" alt=""></span><label>Wi-Fi</label></div>
+            <div class="amenity1"><span><img src="images/aircon.png"  class="aminities-icon" alt=""></span><label>Air Condition</label></div>
+            <div class="amenity1"><span><img src="images/cctv.png"  class="aminities-icon"></span><label>CCTV Protected</label></div>
+              <div class="amenity1"><span><img src="images/cleaningservice.png"  class="aminities-icon" alt=""></span><label>Cleaning Service</label></div>
+              <div class="amenity1"><span><img src="images/submeter.png"  class="aminities-icon" alt=""></span><label>Submeter</label></div>
+               <div class="amenity1"><span><img src="images/dining aria.png"  class="aminities-icon" alt=""></span><label>Kitchen Area</label></div>
+                <div class="amenity1"><span><img src="images/matt.png"  class="aminities-icon" alt=""></span><label>Mattress Ready</label></div>
+          
+            
+          </div>
+        </section>
+
+        <section class="card rules">
+          <h2>HOUSE RULES</h2>
+          <ul>
+            <li>Keep shared/common areas clean and tidy</li>
+            <li>Observe quiet hours (No loud noise   past 10:00 PM)</li>
+            <li>No unannounced overnight visitors / Prior notice required</li>
+            <li>No illegal substances or smoking inside the premises</li>
+            <li>Respect property boundaries and other boarders</li>
+
+
+          </ul>
+        </section>
+
+        <section class="card owner">
+          <h2>PROPERTY OWNER</h2>
+          <div class="owner-row">
+            <img src="images/pro.png" alt="Property owner">
+            <div class="owner-info">
+              <h3>Eastville Dorm Manangement <span>♢ Verified</span></h3>
+              <p>Member since 2018 · Responds in &lt;2 hours</p>
+            </div>
+          </div>
+          <button class="message-btn" onclick="messageLandlord()">▢ &nbsp; Message landlord</button>
+        </section>
+
+        <section class="card reviews">
+          <div class="reviews-heading">
+            <h2>REVIEWS</h2>
+            <div><span class="big-star">★★★★</span> <b>4</b> <em>(6 reviews)</em></div>
+          </div>
+
+          <article class="review">
+            <div class="review-avatar">ME</div>
+            <div>
+              <h3>Mae Ann Espinosa  </h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p> “Nami ang dormitory kay inclusive na sang water tapos may free WiFi pa.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">RC</div>
+            <div>
+              <h3>Rhea Mae Cordero   </h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p>“Safe kag malimpyo kay may cleaning services, galing medyo gamay lang ang locker.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">JV</div>
+            <div>
+              <h3>Jason Villanueva</h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>“Very convenient gid para sa mga estudyante, lakaron lang sa Molo area.”</p>
+            </div>
+          </article>
+
+           <article class="review">
+            <div class="review-avatar orange">PB</div>
+            <div>
+              <h3>Patricia Nicole Biyo </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>   “May sarang option nga may sariling CR kag kitchenette, ka-comfortable puy-an.”  </p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">AG</div>
+            <div>
+              <h3>Alyssa Jean Gomez  </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>  “Sulit gid ang stay kay complete amenities, may mattress na pag-move in.” </p>
+            </div>
+          </article>
+        </section>
+
+        <section class="map-card" onclick="window.open('https://www.google.com/maps/place/Eastville+Dormitory+-+Molo/@10.6985299,122.5515796,17.81z/data=!4m6!3m5!1s0x33aee544d45812b9:0x72494917a6e03cc3!8m2!3d10.6984818!4d122.5516155!16s%2Fg%2F11ggs17d0z?entry=ttu&g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D')">
+          <img src="images/eastvillemap.png" alt="Map showing Molo, Iloilo City">
+          <div class="map-label">
+            <h2>Molo, Iloilo City</h2>
+            <p>~Near at Molo Plaza and major Schools/establishments in Molo </p>
+          </div>
+        </section>
+      </section>
+
+      <div class="reserve-bar">
+        <button class="reserve-btn" onclick="reserveNow('property9')">Reserve Now</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal" id="reserveModal" aria-hidden="true">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2>Eastville Dormitory</h2>
+        <p>₱ 3,000/month · Single Room</p>
+        <label>Move-in date</label>
+        <input type="date" id="moveIn">
+        <label>Number of persons</label>
+        <select>
+          <option>1 person</option>
+          <option>2 persons</option>
+        </select>
+        <button class="confirm-btn" onclick="confirmReservation()">Continue Reservation</button>
+      </div>
+    </div>
+       </section>
+
+
+       <!--MOLO DORMITORY/BH-->
+
+
+       <section id="property11" class="screen">
+    <section class="property-shell"> 
+     <header class="topbar1">
+    <button class="back-btn1" onclick="goBack()">
+        <i class="fa-solid fa-chevron-left"></i> </button> 
+
+    <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+</header>
+
+      <section class="gallery" aria-label="Property photos">
+        <div class="slides" id="slides">
+          <img src="images/moloalabadodorm.avif" alt="Manduriao apartment" class="slide active">
+           <img src="images/moloalabadodorm2.avif" alt="Alabado Place" class="slide">
+          <img src="images/moloalabadodorm3.jpg" alt="Alabado Place" class="slide">
+         
+        </div>
+        <div class="photo-count"><span id="photoNumber">1</span>/3</div>
+        <div class="dots" id="dots" aria-label="Photo navigation">
+          <button class="dot active" data-index="0"></button>
+           <button class="dot" data-index="1"></button>
+          <button class="dot" data-index="2"></button>
+          
+
+          
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="hero-card">
+          <div class="verified">♢ <span>Verified</span></div>
+          <div class="title-row">
+            <div>
+              <h1>E. Alabado's Dormitory</h1>
+              <p class="location">⌖ &nbsp; Molo, Iloilo City · ~Accessible location along West Avenue(Infante)</p>
+              <div class="rating" aria-label="4 out of 5 stars">
+                <span>★ ★ ★ ★</span>
+                <b>4</b> <em>(6)</em>
+              </div>
+            </div>
+            <div class="price"><strong>₱1,800</strong><small>/month</small></div>
+          </div>
+        </div>
+
+        <div class="tags">
+          <span>🏠 &nbsp; Dormitory/Boarding House</span>
+          <span>🛏️ &nbsp; Single Room</span>
+          <span>👤 &nbsp; 1 Persons</span>
+          <span>📅 &nbsp; 1 montht</span>
+        </div>
+
+        <div class="availability">
+          <div class="check">✓</div>
+          <div><strong>Available Now</strong><p>1 rooms available · Move-in ready</p></div>
+          <div class="availability-house">🏠</div>
+        </div>
+
+        <section class="card amenities">
+          <h2>AMENITIES</h2>
+          <div class="amenity-list">
+           
+            <div class="amenity1"><span><img src="images/wifi.png"  class="aminities-icon" alt=""></span><label>Wi-Fi</label></div>
+            <div class="amenity1"><span><img src="images/cctv.png"  class="aminities-icon"></span><label>CCTV Protected</label></div>
+              <div class="amenity1"><span><img src="images/submeter.png"  class="aminities-icon" alt=""></span><label>Submeter</label></div>
+               <div class="amenity1"><span><img src="images/furnature.png"  class="aminities-icon" alt=""></span><label>Basic Furniture</label></div>
+               
+            
+          </div>
+        </section>
+
+        <section class="card rules">
+          <h2>HOUSE RULES</h2>
+          <ul>
+            <li>Keep shared/common areas clean and tidy</li>
+            <li>Observe quiet hours (No loud noise   past 10:00 PM)</li>
+            <li>No unannounced overnight visitors / Prior notice required</li>
+            <li>No illegal substances or smoking inside the premises</li>
+            <li>Respect property boundaries and other boarders</li>
+
+
+          </ul>
+        </section>
+
+        <section class="card owner">
+          <h2>PROPERTY OWNER</h2>
+          <div class="owner-row">
+            <img src="images/pro.png" alt="Property owner">
+            <div class="owner-info">
+              <h3>Ethelbert Alabado <span>♢ Verified</span></h3>
+              <p>Member since 2018 · Responds in &lt;2 hours</p>
+            </div>
+          </div>
+          <button class="message-btn" onclick="messageLandlord()">▢ &nbsp; Message landlord</button>
+        </section>
+
+        <section class="card reviews">
+          <div class="reviews-heading">
+            <h2>REVIEWS</h2>
+            <div><span class="big-star">★★★★</span> <b>4</b> <em>(6 reviews)</em></div>
+          </div>
+
+          <article class="review">
+            <div class="review-avatar">ME</div>
+            <div>
+              <h3>Mae Ann Espinosa  </h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p> “Tahimik ang dapit kag napaka-convenient kay malapit lang sa Molo area.” </p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">RC</div>
+            <div>
+              <h3>Rhea Mae Cordero   </h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p>“Affordable and accessible gid, galing medyo mahinay ang signal sa sulod.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">JV</div>
+            <div>
+              <h3>Jason Villanueva</h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>Clean common areas kag safe ang dapit, recommended for students.”</p>
+            </div>
+          </article>
+
+           <article class="review">
+            <div class="review-avatar orange">PB</div>
+            <div>
+              <h3>Patricia Nicole Biyo </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>   “May sarang option nga may sariling CR kag kitchenette, ka-comfortable puy-an.”  </p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">AG</div>
+            <div>
+              <h3>Alyssa Jean Gomez  </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>  “Sulit gid ang stay kay complete amenities, may mattress na pag-move in.” </p>
+            </div>
+          </article>
+        </section>
+
+        <section class="map-card" onclick="window.open('https://www.google.com/maps/place/E.+Alabados+Dormitory/@10.6980085,122.5543747,17.44z/data=!4m6!3m5!1s0x33aee55b55d5af25:0xdf17f5fea8b06ac9!8m2!3d10.697837!4d122.5540794!16s%2Fg%2F11gd9_c3gr?entry=ttu&g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D')">
+          <img src="images/moloalabadomaps.png" alt="Map showing Molo, Iloilo City">
+          <div class="map-label">
+            <h2>Molo, Iloilo City</h2>
+            <p>~Accessible location along west Avenue</p>
+          </div>
+        </section>
+      </section>
+
+      <div class="reserve-bar">
+        <button class="reserve-btn" onclick="reserveNow('property11')">Reserve Now</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal" id="reserveModal" aria-hidden="true">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2>E. Alabado's Dormitory</h2>
+        <p>₱ 1,800/month · Single Room</p>
+        <label>Move-in date</label>
+        <input type="date" id="moveIn">
+        <label>Number of persons</label>
+        <select>
+          <option>1 person</option>
+          <option>2 persons</option>
+        </select>
+        <button class="confirm-btn" onclick="confirmReservation()">Continue Reservation</button>
+      </div>
+    </div>
+       </section>
+
+
+        <!--AREVALO DORMITORY/TRANSIENT1-->
+
+
+       <section id="property18" class="screen">
+    <section class="property-shell"> 
+     <header class="topbar1">
+    <button class="back-btn1" onclick="goBack()">
+        <i class="fa-solid fa-chevron-left"></i> </button> 
+
+    <button class="heart" onclick="toggleHeart(event, this)">♡</button>
+</header>
+
+      <section class="gallery" aria-label="Property photos">
+        <div class="slides" id="slides">
+          <img src="images/bbdorm_trans1.jpg" alt="Manduriao apartment" class="slide active">
+           <img src="images/bbdorm_trans2.jpg" alt="Alabado Place" class="slide">
+         
+         
+        </div>
+        <div class="photo-count"><span id="photoNumber">1</span>/2</div>
+        <div class="dots" id="dots" aria-label="Photo navigation">
+          <button class="dot active" data-index="0"></button>
+           <button class="dot" data-index="1"></button>
+          
+          
+
+          
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="hero-card">
+          <div class="verified">♢ <span>Verified</span></div>
+          <div class="title-row">
+            <div>
+              <h1> Bernwoods Extyn B&B Dormitory</h1>
+              <p class="location">⌖ &nbsp; Baluarte - Calumpang - Villa - Oton Blvd, Villa Arevalo District, Iloilo City</p>
+              <div class="rating" aria-label="4 out of 5 stars">
+                <span>★ ★ ★ ★</span>
+                <b>4</b> <em>(6)</em>
+              </div>
+            </div>
+            <div class="price"><strong>₱1,100-6000</strong><small>night/month</small></div>
+          </div>
+        </div>
+
+        <div class="tags">
+          <span>🏠 &nbsp; Dormitory/Transient</span>
+          <span>🛏️ &nbsp; Single Room</span>
+          <span>👤 &nbsp; 1 Persons</span>
+          <span>📅 &nbsp; 1 montht</span>
+        </div>
+
+        <div class="availability">
+          <div class="check">✓</div>
+          <div><strong>Available Now</strong><p>1 rooms available · Move-in ready</p></div>
+          <div class="availability-house">🏠</div>
+        </div>
+
+        <section class="card amenities">
+          <h2>AMENITIES</h2>
+          <div class="amenity-list">
+           
+            <div class="amenity1"><span><img src="images/wifi.png"  class="aminities-icon" alt=""></span><label>Wi-Fi</label></div>
+            <div class="amenity1"><span><img src="images/cctv.png"  class="aminities-icon"></span><label>CCTV Protected</label></div>
+              <div class="amenity1"><span><img src="images/submeter.png"  class="aminities-icon" alt=""></span><label>Submeter</label></div>
+               <div class="amenity1"><span><img src="images/furnature.png"  class="aminities-icon" alt=""></span><label>Basic Furniture</label></div>
+               
+            
+          </div>
+        </section>
+
+        <section class="card rules">
+          <h2>HOUSE RULES</h2>
+          <ul>
+            <li>Keep shared/common areas clean and tidy</li>
+            <li>Observe quiet hours (No loud noise   past 10:00 PM)</li>
+            <li>No unannounced overnight visitors / Prior notice required</li>
+            <li>No illegal substances or smoking inside the premises</li>
+            <li>Respect property boundaries and other boarders</li>
+
+
+          </ul>
+        </section>
+
+        <section class="card owner">
+          <h2>PROPERTY OWNER</h2>
+          <div class="owner-row">
+            <img src="images/pro.png" alt="Property owner">
+            <div class="owner-info">
+              <h3> Bernwoods Extyn B&B Dormitory <span>♢ Verified</span></h3>
+              <p>Member since 2018 · Responds in &lt;2 hours</p>
+            </div>
+          </div>
+          <button class="message-btn" onclick="messageLandlord()">▢ &nbsp; Message landlord</button>
+        </section>
+
+        <section class="card reviews">
+          <div class="reviews-heading">
+            <h2>REVIEWS</h2>
+            <div><span class="big-star">★★★★</span> <b>4</b> <em>(6 reviews)</em></div>
+          </div>
+
+          <article class="review">
+            <div class="review-avatar">ME</div>
+            <div>
+              <h3>Mae Ann Espinosa  </h3>
+              <div class="review-meta"><span>★★★★★</span> July 2025</div>
+              <p> “Tahimik ang dapit kag napaka-convenient kay malapit lang sa Molo area.” </p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar green">RC</div>
+            <div>
+              <h3>Rhea Mae Cordero   </h3>
+              <div class="review-meta"><span>★★★★☆</span> May 2025</div>
+              <p>“Affordable and accessible gid, galing medyo mahinay ang signal sa sulod.”</p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">JV</div>
+            <div>
+              <h3>Jason Villanueva</h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>Clean common areas kag safe ang dapit, recommended for students.”</p>
+            </div>
+          </article>
+
+           <article class="review">
+            <div class="review-avatar orange">PB</div>
+            <div>
+              <h3>Patricia Nicole Biyo </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>   “May sarang option nga may sariling CR kag kitchenette, ka-comfortable puy-an.”  </p>
+            </div>
+          </article>
+
+          <article class="review">
+            <div class="review-avatar orange">AG</div>
+            <div>
+              <h3>Alyssa Jean Gomez  </h3>
+              <div class="review-meta"><span>★★★★★</span> March 2025</div>
+              <p>  “Sulit gid ang stay kay complete amenities, may mattress na pag-move in.” </p>
+            </div>
+          </article>
+        </section>
+
+        <section class="map-card" onclick="window.open('https://www.google.com/maps/place/Extyn+B%26B+Dormitory+(Transient+%26+Long+Staying)/@10.6967495,122.5060478,14z/data=!4m10!1m2!2m1!1s+Bernwoods+Extyn+B%26B+Dormitory!3m6!1s0x33aef1dbaab0cdd5:0xb12dfbc9e7065bdf!8m2!3d10.6808089!4d122.5027584!15sCh1CZXJud29vZHMgRXh0eW4gQiZCIERvcm1pdG9yeZIBDmluZG9vcl9sb2RnaW5n4AEA!16s%2Fg%2F11fp2m5kl9?entry=ttu&g_ep=EgoyMDI2MDkxMy4wIKXMDSoASAFQAw%3D%3D')">
+          <img src="images/bbdorm_transmap.png" alt="Map showing Molo, Iloilo City">
+          <div class="map-label">
+            <h2>Arevalo, Iloilo City</h2>
+            <p>~Accessible location several famous heritage houses, cultural spots.</p>
+          </div>
+        </section>
+      </section>
+
+      <div class="reserve-bar">
+        <button class="reserve-btn" onclick="reserveNow('property18')">Reserve Now</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal" id="reserveModal" aria-hidden="true">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2>Bernwoods Extyn B&B Dormitory</h2>
+        <p>₱6,000/month · Single Room</p>
+        <label>Move-in date</label>
+        <input type="date" id="moveIn">
+        <label>Number of persons</label>
+        <select>
+          <option>1 person</option>
+          <option>2 persons</option>
+        </select>
+        <button class="confirm-btn" onclick="confirmReservation()">Continue Reservation</button>
+      </div>
+    </div>
+       </section>
+
+
+
+       
+
+
+        <!--SCREEN_____4 -->
+
+
+
+      <section id="booking" class="screen">
+        <header class="top-header_">
+
+          <div class="title-row1_">
+            <button class="icon-btn_" 
+            onclick="backToProperty()">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <div>
+              <h1>Booking Request</h1>
+              <p class="reviewss">Review your reservation details</p>
+            </div>
+          </div>
+        </header>
+        <div class="content booking-content">
+         <article class="property-summary card">
+  <div class="thumb-placeholder">
+    <img id="bookingImage" src="images/madu-bh-InY1.jpg" alt="Property Image">
+  </div>
+
+  <div>
+    <em>♢ Verified</em>
+    <h2 id="bookingName">Iny Residences</h2>
+    <p id="bookingLocation">⌖ Manduriao, Iloilo City</p>
+    <span class="gold">★★★★★</span>
+    <span id="bookingRating">4.0 (9)</span>
+  </div>
+</article>
+         <article class="card">
+    <h3>SELECTED ROOM</h3>
+
+    <div class="select-box" id="roomBox">
+        <div>
+            <b id="bookingRoom">Select a room</b>
+            <span id="bookingOccupants">Choose an available room</span>
+        </div>
+
+        <i class="fa-solid fa-chevron-down"></i>
+    </div>
+
+    <div class="room-options" id="roomOptions">
+
+        <!-- Rooms will be added here by JavaScript -->
+
+
+    </div>
+</article>
+         <article class="card">
+  <h3>MOVE-IN DATE</h3>
+
+  <div class="select-box" id="dateBox">
+    <b>
+      <i class="fa-regular fa-calendar gold"></i>
+      <span id="selectedDate">September 1, 2026</span>
+    </b>
+
+    <i class="fa-solid fa-chevron-down"></i>
+
+    <input
+      type="date"
+      id="moveInDate"
+      style="position:absolute; opacity:0; pointer-events:none;"
+    />
+  </div>
+</article>
+         <article class="card">
+  <h3>RESERVATION SUMMARY</h3>
+
+  <div class="summary">
+    <span>
+      Monthly Rent
+      <b id="monthlyRent">₱4,500.00</b>
+    </span>
+
+    <span>
+      Reservation Payment
+      <b id="reservationPayment">₱4,500.00</b>
+    </span>
+
+    <span>
+      Service Fee
+      <i>To be disclosed</i>
+    </span>
+
+    <hr>
+
+    <strong>
+      Due Today
+      <b class="gold" id="dueToday">₱4,500.00</b>
+    </strong>
+  </div>
+</article>
+          <article class="notice">
+            <b>⏰ &nbsp; 48-Hour Response Window</b>
+            <p>
+              The landlord has 48 hours to confirm or decline your booking
+              request. You will be notified via the app once a decision is made.
+            </p>
+          </article>
+        </div>
+        <div class="sticky-action">
+          <button class="primary" onclick="showScreen('payment')">
+            <i class="fa-solid fa-lock"></i> Continue to Payment
+          </button>
+        </div>
+      </section>
+
+      <section id="payment" class="screen">
+        <header class="top-header">
+         
+          <div class="title-row">
+            <button class="icon-btn" onclick="showScreen('booking')">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <div>
+              <h1>Secure Payment</h1>
+              <p>Step 2 of 2</p>
+            </div>
+          </div>
+        </header>
+        <div class="content">
+          <article class="property-summary card">
+  <div class="thumb-placeholder">
+    <img id="paymentImage" src="images/madu-bh-InY2.jpg" alt="Property Image">
+  </div>
+
+  <div>
+    <h2 id="paymentName">Iny Residences</h2>
+
+    <p id="paymentDetails">
+      Room A-12 (Single) · Manduriao, Iloilo City
+    </p>
+
+    <p>
+      Reservation Payment
+      <b class="gold" id="paymentPrice">₱4,500.00</b>
+    </p>
+  </div>
+</article>
+          <article class="card">
+            <h3>PAYMENT METHOD</h3>
+            <div class="payment-method selected-method" data-method="GCash">
+  <span>
+    <img src="images/gcash.png" alt="GCash" class="payment-logo">
+
+    <b>
+      GCash
+      <small>Mobile payment via GCash</small>
+    </b>
+  </span>
+
+  <i class="fa-solid fa-circle-dot payment-select-icon"></i>
+</div>
+           <div class="payment-method" data-method="Maya">
+  <span>
+    <img src="images/maya.png" alt="Maya" class="payment-logo">
+
+    <b>
+      Maya
+      <small>Mobile payment via Maya</small>
+    </b>
+  </span>
+
+  <i class="fa-regular fa-circle payment-select-icon"></i>
+</div>
+           <div class="payment-method" data-method="Online Banking">
+    <span>
+        🏦
+        <b>
+            Online Banking
+            <small>BPI, BDO, UnionBank &amp; more</small>
+        </b>
+    </span>
+
+    <i class="fa-regular fa-circle payment-select-icon"></i>
+</div>
+
+<div class="payment-method" data-method="Card">
+    <span>
+        💳
+        <b>
+            Debit / Credit Card
+            <small>Visa, Mastercard accepted</small>
+        </b>
+    </span>
+
+    <i class="fa-regular fa-circle payment-select-icon"></i>
+</div>
+            
+             
+        <div class="sticky-action payment-action">
+          <button
+  class="gold-button"
+  id="confirmPaymentButton"
+  onclick="showScreen('success')">
+
+  <i class="fa-solid fa-lock"></i>
+  
+</button>
+          <p>
+            By proceeding, you agree to Nestify's Terms of Service and Payment
+            Policy.
+          </p>
+        </div>
+      </section>
+
+      <section id="success" class="screen">
+        <header class="success-hero">
+         
+          <div class="check">✓</div>
+          <h1>Booking Request Submitted!</h1>
+          <p>Your reservation is pending landlord confirmation</p>
+          <div class="waiting">
+            <span></span> Waiting for Landlord Confirmation
+          </div>
+        </header>
+        <div class="success-content">
+<div class="image-placeholder success-image">
+  <img id="successImage" src="images/madu-bh-InY3.jpg" alt="Property Image">
+</div>
+
+<article class="success-card">
+  <h2>
+    <span id="successName">Iny Residences</span>
+    <em>♢ Verified</em>
+  </h2>
+
+  <p id="successLocation">⌖ Manduriao, Iloilo City</p>
+
+  <div class="booking-grid">
+    <div>
+      <small>ROOM</small>
+      <b id="successRoom">Room A-12 (Single)</b>
+    </div>
+
+    <div>
+  <small>MOVE-IN DATE</small>
+  <b id="successMoveInDate">September 1, 2026</b>
+</div>
+    <div>
+      <small>RESERVATION PAID</small>
+      <b id="successPrice">₱4,500.00</b>
+    </div>
+
+    <div>
+      <small>PAYMENT METHOD</small>
+      <b id="successPaymentMethod">GCash</b>
+    </div>
+  </div>
+</article>
+          <button class="primary" onclick="updateMyBooking();showScreen('myBooking')">
+            View My Booking
+          </button>
+          <button class="secondary" onclick="showScreen('filters')">
+            Back to Home
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!--VIEW BOOKING-->
+
+
+
+    <section id="myBooking" class="screen">
+
+    <header class="top-header_2">
+        <div class="title-row_2">
+            <button class="icon-btn_2" onclick="showScreen('success')">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+
+            <div>
+                <h1>My Booking</h1>
+                <p>View your reservation details</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="content booking-details-content">
+
+        <article class="property-summary card">
+
+            <div class="thumb-placeholder">
+                <img id="myBookingImage"
+                     src="images/madu-bh-InY3.jpg"
+                     alt="Property Image">
+            </div>
+
+            <div>
+                <em>♢ Verified</em>
+
+                <h2 id="myBookingName">
+                    Iny Residences
+                </h2>
+
+                <p id="myBookingLocation">
+                    ⌖ Manduriao, Iloilo City
+                </p>
+
+                <span class="gold">★★★★★</span>
+                <span id="myBookingRating">4.0 (9)</span>
+            </div>
+
+        </article>
+
+
+        <article class="card">
+
+            <h3>BOOKING DETAILS</h3>
+
+            <div class="booking-info">
+
+                <div>
+                    <small>BOOKING STATUS</small>
+                    <b class="booking-status">
+                        Pending Confirmation
+                    </b>
+                </div>
+
+                <div>
+                    <small>ROOM</small>
+                    <b id="myBookingRoom">
+                        Room A-12 (Single)
+                    </b>
+                </div>
+
+                <div>
+                    <small>OCCUPANTS</small>
+                    <b id="myBookingOccupants">
+                        1 occupant · 12 sqm
+                    </b>
+                </div>
+
+                <div>
+                    <small>MOVE-IN DATE</small>
+                    <b id="myBookingDate">
+                        September 1, 2026
+                    </b>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <article class="card">
+
+            <h3>PAYMENT DETAILS</h3>
+
+            <div class="booking-info">
+
+                <div>
+                    <small>MONTHLY RENT</small>
+                    <b id="myBookingRent">
+                        ₱4,500.00
+                    </b>
+                </div>
+
+                <div>
+                    <small>RESERVATION PAYMENT</small>
+                    <b id="myBookingPayment">
+                        ₱4,500.00
+                    </b>
+                </div>
+
+                <div>
+                    <small>PAYMENT METHOD</small>
+                    <b id="myBookingMethod">
+                        GCash
+                    </b>
+                </div>
+
+                <div>
+                    <small>AMOUNT PAID</small>
+                    <b class="gold" id="myBookingPaid">
+                        ₱4,500.00
+                    </b>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <article class="notice">
+
+            <b>
+                ⏰ 48-Hour Response Window
+            </b>
+
+            <p>
+                Your booking request has been submitted.
+                The landlord has 48 hours to confirm or decline
+                your reservation.
+            </p>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+
+    <script src="script.js"></script>
+  </body>
+</html>
