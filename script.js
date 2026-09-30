@@ -1,5 +1,100 @@
 
 
+
+
+// RESTORE FILTERS
+
+
+function restoreFilters() {
+
+    const savedLocation =
+        localStorage.getItem("selectedLocation");
+
+    const savedPropertyType =
+        localStorage.getItem("selectedPropertyType");
+
+    const savedBudget =
+        localStorage.getItem("selectedBudget");
+
+
+    // Restore location
+    if (savedLocation) {
+
+        const radios =
+            document.querySelectorAll(
+                'input[name="loc"]'
+            );
+
+        radios.forEach(radio => {
+
+            if (radio.value === savedLocation) {
+                radio.checked = true;
+                radio.dataset.wasChecked = "true";
+
+                const label =
+                    radio.closest("label");
+
+                if (label) {
+                    const selectedLabel =
+                        label.querySelector(".selected-label");
+
+                    if (selectedLabel) {
+                        selectedLabel.textContent = "Selected";
+                    }
+                }
+            }
+        });
+    }
+
+
+    // Restore property type
+    if (savedPropertyType) {
+
+        const buttons =
+            document.querySelectorAll(
+                "#propertyTypes button"
+            );
+
+        buttons.forEach(button => {
+
+            if (
+                button.textContent.trim() ===
+                savedPropertyType
+            ) {
+                button.classList.add("selected");
+            } else {
+                button.classList.remove("selected");
+            }
+
+        });
+    }
+
+
+    // Restore budget
+    if (savedBudget) {
+
+        const budgetSlider =
+            document.getElementById("budget");
+
+        if (budgetSlider) {
+            budgetSlider.value = savedBudget;
+        }
+    }
+
+
+    // Reapply filters
+    if (
+        savedLocation ||
+        savedPropertyType ||
+        savedBudget
+    ) {
+        applyFilters(false);
+    }
+
+ 
+}
+
+
 const locationSearch = document.getElementById("locationSearch");
 const locationOptions = document.querySelectorAll(".location-options label");
 
@@ -331,7 +426,7 @@ updateBudget();
 
 
 
-function applyFilters() {
+function applyFilters(goToResults = true) {
 
   
     // LOCATION
@@ -339,12 +434,18 @@ function applyFilters() {
     const selectedLocation = document.querySelector(
         'input[name="loc"]:checked'
     );
+let locationText = "Iloilo City (All)";
 
-    let locationText = "Iloilo City (All)";
+if (selectedLocation) {
+    locationText = selectedLocation.value;
 
-    if (selectedLocation) {
-        locationText = selectedLocation.value;
-    }
+    localStorage.setItem(
+        "selectedLocation",
+        locationText
+    );
+} else {
+    localStorage.removeItem("selectedLocation");
+}
 
     const resultLocation =
         document.getElementById("resultLocation");
@@ -364,10 +465,22 @@ function applyFilters() {
 
     let propertyTypeText = "All Properties";
 
-    if (selectedPropertyType) {
-        propertyTypeText =
-            selectedPropertyType.textContent.trim();
-    }
+if (selectedPropertyType) {
+
+    propertyTypeText =
+        selectedPropertyType.textContent.trim();
+
+    localStorage.setItem(
+        "selectedPropertyType",
+        propertyTypeText
+    );
+
+} else {
+
+    localStorage.removeItem(
+        "selectedPropertyType"
+    );
+}
 
     const resultPropertyType =
         document.getElementById("resultPropertyType");
@@ -387,6 +500,11 @@ function applyFilters() {
 
     const maxBudget =
         Number(budgetSlider.value);
+
+        localStorage.setItem(
+    "selectedBudget",
+    maxBudget
+);
 
     const resultBudget =
         document.getElementById("resultBudget");
@@ -487,8 +605,10 @@ rentalCards.forEach(card => {
     
     // GO TO RESULTS
     
-
+if (goToResults) {
     showScreen("results");
+}
+
 }
 
 
@@ -553,8 +673,7 @@ function goBack() {
     showScreen("results");
 }
 
-
-function openPropertyShell1() {
+function openPropertyShell_barrida() {
     showScreen("property1");
 }
 
@@ -643,63 +762,207 @@ function openPropertyShell_b_b() {
     showScreen("property18");
 }
 
+function openPropertyShell_andeng() {
+    showScreen("property19");
+}
 
 
-function toggleHeart(event, button) {
+function openPropertyShell_rac() {
+    showScreen("property20");
+}
+
+function openPropertyShell_angel() {
+    showScreen("property21");
+}
+
+function openPropertyShell_dignity() {
+    showScreen("property22");
+}
+
+function openPropertyShell_deion() {
+    showScreen("property23");
+}
+
+function openPropertyShell_juvy() {
+    showScreen("property24");
+}
+
+function openPropertyShell_nina() {
+    showScreen("property25");
+}
+
+function openPropertyShell_d3a() {
+    showScreen("property26");
+}
+
+
+function openPropertyShell_jrd() {
+    showScreen("property27");
+}
+
+function openPropertyShell_sl() {
+    showScreen("property28");
+}
+
+function openPropertyShell_bertz() {
+    showScreen("property28");
+}
+
+
+
+
+function toggleHeart(event, heart) {
+
     event.stopPropagation();
 
-    if (button.textContent.trim() === "♡") {
-        button.textContent = "♥";
-        button.style.color = "#d2aa4a";
+    const card = heart.closest(".rental-card");
+    const propertyId = card.dataset.id;
+
+    let savedProperties =
+        JSON.parse(localStorage.getItem("savedProperties")) || [];
+
+    if (savedProperties.includes(propertyId)) {
+
+        // Remove from saved
+        savedProperties =
+            savedProperties.filter(id => id !== propertyId);
+
+        heart.textContent = "♡";
+        heart.classList.remove("saved");
+
     } else {
-        button.textContent = "♡";
-        button.style.color = "#9ba2aa";
+
+        // Add to saved
+        savedProperties.push(propertyId);
+
+        heart.textContent = "♥";
+        heart.classList.add("saved");
     }
+
+    localStorage.setItem(
+        "savedProperties",
+        JSON.stringify(savedProperties)
+    );
+}
+
+function restoreSavedHearts() {
+
+    const savedProperties =
+        JSON.parse(localStorage.getItem("savedProperties")) || [];
+
+    document.querySelectorAll(".rental-card").forEach(card => {
+
+        const propertyId = card.dataset.id;
+        const heart = card.querySelector(".heart");
+
+        if (!heart) return;
+
+        if (savedProperties.includes(propertyId)) {
+            heart.textContent = "♥";
+            heart.classList.add("saved");
+        }
+
+    });
+}
+
+/*  SAVE PROPERTIES */
+
+function displaySavedProperties() {
+
+    const savedContainer =
+        document.getElementById("savedProperties");
+
+    if (!savedContainer) return;
+
+    const savedIds =
+        JSON.parse(localStorage.getItem("savedProperties")) || [];
+
+    savedContainer.innerHTML = "";
+
+    if (savedIds.length === 0) {
+
+        savedContainer.innerHTML = `
+            <div class="empty-saved">
+                <img src="images/save.png">
+                <h2>No Saved Properties</h2>
+                <p>Properties you save will appear here.</p>
+            </div>
+        `;
+
+        return;
+    }
+
+    const allProperties =
+        document.querySelectorAll(".rental-card");
+
+    allProperties.forEach(card => {
+
+        const propertyId = card.dataset.id;
+
+        if (savedIds.includes(propertyId)) {
+
+            const clone = card.cloneNode(true);
+
+            // Prevent duplicate/incorrect click behavior
+            clone.onclick = null;
+
+            const heart = clone.querySelector(".heart");
+
+            if (heart) {
+                heart.onclick = function(event) {
+                    toggleHeart(event, this);
+                    displaySavedProperties();
+                };
+            }
+
+            savedContainer.appendChild(clone);
+        }
+    });
 }
 
 const properties = [
-    {
+   {
         id: "property1",
-        name: "Sunrise Residences",
-        image: "images/manduriao apart1.jpg",
+        name: "Barrida Boarding House",
+        image: "images//barridabh1.jpg",
         location: "Jaro, Iloilo City",
-        rating: "4.8 (32)",
+        rating: "5 (6)",
         price: 4500,
-
-
-
-
         rooms: [
             {
                 id: "room_1_01",
-                name: "Room A-12",
-                type: "Single",
-                occupants: "1 occupant",
-                size: "12 sqm",
+                name: "Room A",
+                type: "Double",
+                occupants: "4-5 occupant",
+                size: "16 sqm",
                 available: true
             },
             {
                 id: "room_1_02",
-                name: "Room A-13",
-                type: "Single",
-                occupants: "1 occupant",
-                size: "12 sqm",
+                name: "Room B",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "15 sqm",
                 available: true
             },
             {
-                id: "room_1_03",
-                name: "Room B-01",
-                type: "Double",
-                occupants: "2 occupants",
-                size: "18 sqm",
+                id: "room_1_01",
+                name: "Room C",
+                type: "Family Room",
+                occupants: "8-10 occupant",
+                size: "25 sqm",
+                available: true
+            },
+            {
+                id: "room_1_02",
+                name: "Room D",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "13 sqm",
                 available: true
             }
         ]
     },
-
-    
-    
-    
     
     
     
@@ -1362,6 +1625,498 @@ const properties = [
         ]
     },
 
+    {
+        id: "property19",
+        name: " Andeng's Boarding House Rental",
+        image: "images/andengarevalospace1.jpg",
+        location: "Arevalo, Iloilo City",
+        rating: "5 (6)",
+        price: 6000,
+         price: 7500,
+
+        rooms: [
+            {
+                id: "room_19_01",
+                name: "Room A",
+                type: "Double",
+                occupants: "4-5 occupant",
+                size: "16 sqm",
+                available: true
+            },
+            {
+                id: "room_19_02",
+                name: "Room B",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "15 sqm",
+                available: true
+            },
+            {
+                id: "room_19_01",
+                name: "Room C",
+                type: "Family Room",
+                occupants: "8-10 occupant",
+                size: "25 sqm",
+                available: true
+            },
+            {
+                id: "room_19_02",
+                name: "Room D",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "13 sqm",
+                available: true
+            }
+        ]
+    },
+
+     {
+        id: "property20",
+        name: "RAC Homes Apartment",
+        image: "images/racapart2.avif",
+        location: "City Proper, Iloilo City",
+        rating: "5 (6)",
+        price: 4500,
+         price: 7500,
+
+        rooms: [
+            {
+                id: "room_20_01",
+                name: "Room A",
+                type: "Double",
+                occupants: "4-5 occupant",
+                size: "16 sqm",
+                available: true
+            },
+            {
+                id: "room_20_02",
+                name: "Room B",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "15 sqm",
+                available: true
+            },
+            {
+                id: "room_20_01",
+                name: "Room C",
+                type: "Family Room",
+                occupants: "8-10 occupant",
+                size: "25 sqm",
+                available: true
+            },
+            {
+                id: "room_20_02",
+                name: "Room D",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "13 sqm",
+                available: true
+            }
+        ]
+    },
+
+    {
+        id: "property21",
+        name: "Angel Heart Ladies Dormitory",
+        image: "images/angeldorm1.avif",
+        location: "City Proper, Iloilo City",
+        rating: "5 (6)",
+        price: 6000,
+        rooms: [
+            {
+                id: "room_21_01",
+                name: "Room A",
+                type: "Double",
+                occupants: "4-5 occupant",
+                size: "16 sqm",
+                available: true
+            },
+            {
+                id: "room_21_02",
+                name: "Room B",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "15 sqm",
+                available: true
+            },
+            {
+                id: "room_21_01",
+                name: "Room C",
+                type: "Family Room",
+                occupants: "8-10 occupant",
+                size: "25 sqm",
+                available: true
+            },
+            {
+                id: "room_21_02",
+                name: "Room D",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "13 sqm",
+                available: true
+            }
+        ]
+    },
+
+    {
+        id: "property22",
+        name: "Dignity Boarding House",
+        image: "images/Dignitybed1.jpg",
+        location: "Mandurriao, Iloilo City",
+        rating: "5 (6)",
+        price: 7800,
+        rooms: [
+            {
+                id: "room_22_01",
+                name: "Room A",
+                type: "Double",
+                occupants: "4-5 occupant",
+                size: "16 sqm",
+                available: true
+            },
+            {
+                id: "room_22_02",
+                name: "Room B",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "15 sqm",
+                available: true
+            },
+            {
+                id: "room_22_01",
+                name: "Room C",
+                type: "Family Room",
+                occupants: "8-10 occupant",
+                size: "25 sqm",
+                available: true
+            },
+            {
+                id: "room_22_02",
+                name: "Room D",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "13 sqm",
+                available: true
+            }
+        ]
+    },
+
+     {
+        id: "property23",
+        name: "Deion Apartment",
+        image: "images/dionapart2.avif",
+        location: "Jaro, Iloilo City",
+        rating: "5 (6)",
+        price: 8200,
+        rooms: [
+            {
+                id: "room_23_01",
+                name: "Room A",
+                type: "Double",
+                occupants: "4-5 occupant",
+                size: "16 sqm",
+                available: true
+            },
+            {
+                id: "room_23_02",
+                name: "Room B",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "15 sqm",
+                available: true
+            },
+            {
+                id: "room_23_01",
+                name: "Room C",
+                type: "Family Room",
+                occupants: "8-10 occupant",
+                size: "25 sqm",
+                available: true
+            },
+            {
+                id: "room_23_02",
+                name: "Room D",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "13 sqm",
+                available: true
+            }
+        ]
+    },
+
+      {
+        id: "property24",
+        name: "Juvy's Dormitory",
+        image: "images/juvydorm3.jpg",
+        location: "Jaro, Iloilo City",
+        rating: "5 (6)",
+        price: 10000,
+        rooms: [
+            {
+                id: "room_24_01",
+                name: "Room A",
+                type: "Double",
+                occupants: "4-5 occupant",
+                size: "16 sqm",
+                available: true
+            },
+            {
+                id: "room_24_02",
+                name: "Room B",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "15 sqm",
+                available: true
+            },
+            {
+                id: "room_24_01",
+                name: "Room C",
+                type: "Family Room",
+                occupants: "8-10 occupant",
+                size: "25 sqm",
+                available: true
+            },
+            {
+                id: "room_24_02",
+                name: "Room D",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "13 sqm",
+                available: true
+            }
+        ]
+    },
+
+     {
+        id: "property25",
+        name: "Nina's Townhouse",
+        image: "images/ninatrans1.png",
+        location: "Jaro, Iloilo City",
+        rating: "5 (6)",
+         price: 3500,
+        price: 13000,
+
+        rooms: [
+            {
+                id: "room_25_01",
+                name: "Room A",
+                type: "Double",
+                occupants: "4-5 occupant",
+                size: "16 sqm",
+                available: true
+            },
+            {
+                id: "room_25_02",
+                name: "Room B",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "15 sqm",
+                available: true
+            },
+            {
+                id: "room_25_01",
+                name: "Room C",
+                type: "Family Room",
+                occupants: "8-10 occupant",
+                size: "25 sqm",
+                available: true
+            },
+            {
+                id: "room_25_02",
+                name: "Room D",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "13 sqm",
+                available: true
+            }
+        ]
+    },
+
+    {
+        id: "property26",
+        name: " D3A RESIDENCE ",
+        image: "images/tjgarciaapart1.avif",
+        location: "La Paz, Iloilo City",
+        rating: "5 (6)",
+         price: 4500,
+        
+
+        rooms: [
+            {
+                id: "room_26_01",
+                name: "Room A",
+                type: "Double",
+                occupants: "4-5 occupant",
+                size: "16 sqm",
+                available: true
+            },
+            {
+                id: "room_26_02",
+                name: "Room B",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "15 sqm",
+                available: true
+            },
+            {
+                id: "room_26_01",
+                name: "Room C",
+                type: "Family Room",
+                occupants: "8-10 occupant",
+                size: "25 sqm",
+                available: true
+            },
+            {
+                id: "room_26_02",
+                name: "Room D",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "13 sqm",
+                available: true
+            }
+        ]
+    },
+
+     {
+        id: "property27",
+        name: "JRD BED SPACE ",
+        image: "images/jrdbed1.jpg",
+        location: "La Paz, Iloilo City",
+        rating: "5 (6)",
+         price: 4000,
+        
+
+        rooms: [
+            {
+                id: "room_27_01",
+                name: "Room A",
+                type: "Double",
+                occupants: "4-5 occupant",
+                size: "16 sqm",
+                available: true
+            },
+            {
+                id: "room_27_02",
+                name: "Room B",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "15 sqm",
+                available: true
+            },
+            {
+                id: "room_27_01",
+                name: "Room C",
+                type: "Family Room",
+                occupants: "8-10 occupant",
+                size: "25 sqm",
+                available: true
+            },
+            {
+                id: "room_27_02",
+                name: "Room D",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "13 sqm",
+                available: true
+            }
+        ]
+    },
+
+     {
+        id: "property28",
+        name: "S&L Apartment ",
+        image: "images/slapart1.jpg",
+        location: "Lapuz, Iloilo City",
+        rating: "5 (6)",
+         price: 4000,
+        
+
+        rooms: [
+            {
+                id: "room_28_01",
+                name: "Room A",
+                type: "Double",
+                occupants: "4-5 occupant",
+                size: "16 sqm",
+                available: true
+            },
+            {
+                id: "room_28_02",
+                name: "Room B",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "15 sqm",
+                available: true
+            },
+            {
+                id: "room_28_01",
+                name: "Room C",
+                type: "Family Room",
+                occupants: "8-10 occupant",
+                size: "25 sqm",
+                available: true
+            },
+            {
+                id: "room_28_02",
+                name: "Room D",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "13 sqm",
+                available: true
+            }
+        ]
+    },
+
+     {
+        id: "property29",
+        name: "S&L Apartment ",
+        image: "images/bertzdorm1.jpg",
+        location: "Lapuz, Iloilo City",
+        rating: "5 (6)",
+         price: 6000,
+        
+
+        rooms: [
+            {
+                id: "room_29_01",
+                name: "Room A",
+                type: "Double",
+                occupants: "4-5 occupant",
+                size: "16 sqm",
+                available: true
+            },
+            {
+                id: "room_29_02",
+                name: "Room B",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "15 sqm",
+                available: true
+            },
+            {
+                id: "room_29_01",
+                name: "Room C",
+                type: "Family Room",
+                occupants: "8-10 occupant",
+                size: "25 sqm",
+                available: true
+            },
+            {
+                id: "room_29_02",
+                name: "Room D",
+                type: "Deluxe ",
+                occupants: "2-3 occupant",
+                size: "13 sqm",
+                available: true
+            }
+        ]
+    },
+
+    
+
+   
+  
+
     
 
 ];
@@ -1612,30 +2367,40 @@ moveInDate.addEventListener("change", function () {
 });
 
 //Show Screen//
-
 function showScreen(screenId) {
 
     // Hide all screens
     document.querySelectorAll(".screen").forEach(screen => {
         screen.classList.remove("active");
+        screen.style.display = "none";
     });
 
     // Show selected screen
-    const targetScreen = document.getElementById(screenId);
+    const selectedScreen = document.getElementById(screenId);
 
-    if (targetScreen) {
-        targetScreen.classList.add("active");
-
-        // SAVE CURRENT SCREEN
-        localStorage.setItem("currentScreen", screenId);
+    if (selectedScreen) {
+        selectedScreen.classList.add("active");
+        selectedScreen.style.display = "block";
     }
 
-    window.scrollTo(0, 0);
+    // Update active navigation button
+    document.querySelectorAll(".bottom-nav button").forEach(button => {
+        button.classList.remove("nav-active");
+    });
+
+    const activeButton = document.querySelector(
+        `.bottom-nav button[data-screen="${screenId}"]`
+    );
+
+    if (activeButton) {
+        activeButton.classList.add("nav-active");
+    }
+
+    // Save current screen
+    localStorage.setItem("currentScreen", screenId);
 }
 
-
 // RESTORE SCREEN AFTER REFRESH
-
 document.addEventListener("DOMContentLoaded", function () {
 
     const savedScreen = localStorage.getItem("currentScreen");
@@ -1708,7 +2473,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Restore current screen
+    // Restore saved hearts
+    restoreSavedHearts();
+
+    // Restore saved properties
+    displaySavedProperties();
+
+    restoreFilters();
+
+    // Restore the last screen
     if (savedScreen && document.getElementById(savedScreen)) {
 
         showScreen(savedScreen);

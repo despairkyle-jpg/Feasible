@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Owner Dashboard - Nestify</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet" href="owner.css">
+</head>
+
+<body>
+
+<!-- =========================
+     DASHBOARD
+========================= -->
+
+<section id="dashboard" class="screen">
+
+    <header class="owner-header">
+
+        <div class="header-top">
+
+            <div>
+                <p class="small-text">Welcome back</p>
+                <h1>Owner Dashboard</h1>
+            </div>
+
+           <div class="owner-profile">
+
+    <div class="profile-icon">
+        <i class="fa-solid fa-user"></i>
+    </div>
+
+    <div class="owner-details">
+
+        <strong>Rodrigo Dela Cruz</strong>
+
+        <span>Property Owner</span>
+
+        <button class="logout-btn" onclick="logoutOwner()">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </button>
+
+    </div>
+
+</div>
+
+        </div>
+
+    </header>
+
+
+    <main class="content">
+
+        <!-- =========================
+             STATISTICS
+        ========================= -->
+
+        <section class="stats">
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fa-solid fa-house"></i>
+                </div>
+
+                <div>
+                    <span>My Properties</span>
+                    <h2>3</h2>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fa-solid fa-door-open"></i>
+                </div>
+
+                <div>
+                    <span>Total Rooms</span>
+                    <h2>24</h2>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-icon available">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+
+                <div>
+                    <span>Available</span>
+                    <h2>8</h2>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-icon occupied">
+                    <i class="fa-solid fa-user-group"></i>
+                </div>
+
+                <div>
+                    <span>Occupied</span>
+                    <h2>16</h2>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             QUICK ACTIONS
+        ========================= -->
+
+        <section class="section">
+
+            <div class="section-title">
+
+                <div>
+                    <h2>Quick Actions</h2>
+                    <p>Manage your rental properties</p>
+                </div>
+
+            </div>
+
+
+            <div class="quick-actions">
+
+                <button onclick="showScreen('properties')">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    <div>
+                        <strong>My Properties</strong>
+                        <span>View and edit properties</span>
+                    </div>
+
+                    <i class="fa-solid fa-chevron-right arrow"></i>
+
+                </button>
+
+
+                <button onclick="showScreen('rooms')">
+
+                    <i class="fa-solid fa-door-open"></i>
+
+                    <div>
+                        <strong>Manage Rooms</strong>
+                        <span>Availability and room details</span>
+                    </div>
+
+                    <i class="fa-solid fa-chevron-right arrow"></i>
+
+                </button>
+
+
+                <button onclick="openAddProperty()">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    <div>
+                        <strong>Add Property</strong>
+                        <span>Add a new rental property</span>
+                    </div>
+
+                    <i class="fa-solid fa-chevron-right arrow"></i>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             MY PROPERTIES PREVIEW
+        ========================= -->
+
+        <section class="section">
+
+            <div class="section-title">
+
+                <div>
+                    <h2>My Properties</h2>
+                    <p>Recently managed properties</p>
+                </div>
+
+                <button class="view-all"
+                        onclick="showScreen('properties')">
+                    View All
+                </button>
+
+            </div>
+
+
+            <div class="property-card">
+
+                <img src="images/barridabh1.jpg"
+                     onerror="this.src='images/bg.jpg';">
+
+                <div class="property-info">
+
+                    <div class="property-top">
+
+                        <div>
+                            <h3>Barrida Boarding House</h3>
+
+                            <p>
+                                <i class="fa-solid fa-location-dot"></i>
+                                Jaro, Iloilo City
+                            </p>
+                        </div>
+
+                        <span class="status approved">
+                            Approved
+                        </span>
+
+                    </div>
+
+
+                    <div class="property-details">
+
+                        <div>
+                            <span>Price</span>
+                            <strong>₱4,500/month</strong>
+                        </div>
+
+                        <div>
+                            <span>Rooms</span>
+                            <strong>12</strong>
+                        </div>
+
+                        <div>
+                            <span>Available</span>
+                            <strong>4</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="property-actions">
+
+                        <button
+                            class="secondary-btn"
+                            onclick="editProperty()">
+
+                            <i class="fa-solid fa-pen"></i>
+                            Edit Property
+
+                        </button>
+
+
+                        <button
+                            class="primary-btn"
+                            onclick="showScreen('rooms')">
+
+                            <i class="fa-solid fa-door-open"></i>
+                            Manage Rooms
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</section>
+
+
+<!-- =========================
+     PROPERTIES
+========================= -->
+
+<section id="properties" class="screen">
+
+    <header class="page-header">
+
+        <button class="back-button"
+                onclick="showScreen('dashboard')">
+
+            <i class="fa-solid fa-arrow-left"></i>
+            Back
+
+        </button>
+
+        <h1>My Properties</h1>
+
+        <p>Manage your rental accommodations</p>
+
+    </header>
+
+
+    <main class="content">
+
+        <button class="add-property-btn"
+                onclick="openAddProperty()">
+
+            <i class="fa-solid fa-plus"></i>
+            Add Property
+
+        </button>
+
+
+        <div class="property-list">
+
+            <div class="property-card">
+
+                <img src="images/barridabh1.jpg"
+                     onerror="this.src='images/bg.jpg';">
+
+                <div class="property-info">
+
+                    <div class="property-top">
+
+                        <div>
+
+                            <h3>Sunrise Residences</h3>
+
+                            <p>
+                                <i class="fa-solid fa-location-dot"></i>
+                                Jaro, Iloilo City
+                            </p>
+
+                        </div>
+
+                        <span class="status approved">
+                            Approved
+                        </span>
+
+                    </div>
+
+
+                    <div class="property-details">
+
+                        <div>
+                            <span>Monthly Price</span>
+                            <strong>₱4,500</strong>
+                        </div>
+
+                        <div>
+                            <span>Total Rooms</span>
+                            <strong>12</strong>
+                        </div>
+
+                        <div>
+                            <span>Available</span>
+                            <strong>4</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="amenities">
+
+                        <span>
+                            <i class="fa-solid fa-wifi"></i>
+                            Wi-Fi
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-snowflake"></i>
+                            Aircon
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-car"></i>
+                            Parking
+                        </span>
+
+                    </div>
+
+
+                    <div class="property-actions">
+
+                        <button
+                            class="secondary-btn"
+                            onclick="editProperty()">
+
+                            <i class="fa-solid fa-pen"></i>
+                            Edit
+
+                        </button>
+
+
+                        <button
+                            class="primary-btn"
+                            onclick="showScreen('rooms')">
+
+                            <i class="fa-solid fa-door-open"></i>
+                            Rooms
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</section>
+
+
+<!-- =========================
+     ROOMS
+========================= -->
+
+<section id="rooms" class="screen">
+
+    <header class="page-header">
+
+        <button class="back-button"
+                onclick="showScreen('dashboard')">
+
+            <i class="fa-solid fa-arrow-left"></i>
+            Back
+
+        </button>
+
+        <h1>Manage Rooms</h1>
+
+        <p>Update room availability and pricing</p>
+
+    </header>
+
+
+    <main class="content">
+
+        <div class="room-property-header">
+
+            <div>
+                <h2>Sunrise Residences</h2>
+
+                <p>
+                    Jaro, Iloilo City
+                </p>
+            </div>
+
+            <span>
+                12 Rooms
+            </span>
+
+        </div>
+
+
+        <div class="room-list">
+
+
+            <!-- ROOM A-01 -->
+
+            <div class="room-card">
+
+                <div class="room-number">
+
+                    <i class="fa-solid fa-door-closed"></i>
+
+                    <div>
+                        <strong>Room A-01</strong>
+                        <span>2 Beds</span>
+                    </div>
+
+                </div>
+
+
+                <div class="room-price">
+
+                    <span>Monthly Price</span>
+
+                    <strong>₱4,500</strong>
+
+                </div>
+
+
+                <div class="room-status available-status">
+
+                    <i class="fa-solid fa-circle"></i>
+                    Available
+
+                </div>
+
+
+                <button class="edit-room"
+                        onclick="editRoom('Room A-01', 4500)">
+
+                    <i class="fa-solid fa-pen"></i>
+
+                </button>
+
+            </div>
+
+
+            <!-- ROOM A-02 -->
+
+            <div class="room-card">
+
+                <div class="room-number">
+
+                    <i class="fa-solid fa-door-closed"></i>
+
+                    <div>
+                        <strong>Room A-02</strong>
+                        <span>2 Beds</span>
+                    </div>
+
+                </div>
+
+
+                <div class="room-price">
+
+                    <span>Monthly Price</span>
+
+                    <strong>₱4,500</strong>
+
+                </div>
+
+
+                <div class="room-status occupied-status">
+
+                    <i class="fa-solid fa-circle"></i>
+                    Occupied
+
+                </div>
+
+
+                <button class="edit-room"
+                        onclick="editRoom('Room A-02', 4500)">
+
+                    <i class="fa-solid fa-pen"></i>
+
+                </button>
+
+            </div>
+
+
+            <!-- ROOM A-03 -->
+
+            <div class="room-card">
+
+                <div class="room-number">
+
+                    <i class="fa-solid fa-door-closed"></i>
+
+                    <div>
+                        <strong>Room A-03</strong>
+                        <span>1 Bed</span>
+                    </div>
+
+                </div>
+
+
+                <div class="room-price">
+
+                    <span>Monthly Price</span>
+
+                    <strong>₱4,000</strong>
+
+                </div>
+
+
+                <div class="room-status available-status">
+
+                    <i class="fa-solid fa-circle"></i>
+                    Available
+
+                </div>
+
+
+                <button class="edit-room"
+                        onclick="editRoom('Room A-03', 4000)">
+
+                    <i class="fa-solid fa-pen"></i>
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+</section>
+
+
+<!-- =========================
+     EDIT PROPERTY
+========================= -->
+
+<section id="editProperty" class="screen">
+
+    <header class="page-header">
+
+        <button class="back-button"
+                onclick="showScreen('properties')">
+
+            <i class="fa-solid fa-arrow-left"></i>
+            Back
+
+        </button>
+
+        <h1>Edit Property</h1>
+
+        <p>Update your property information</p>
+
+    </header>
+
+
+    <main class="content">
+
+        <form class="edit-form"
+              onsubmit="saveProperty(event)">
+
+
+            <div class="form-group">
+
+                <label>Property Name</label>
+
+                <input
+                    type="text"
+                    id="propertyName"
+                    value="Sunrise Residences"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Location</label>
+
+                <input
+                    type="text"
+                    id="propertyLocation"
+                    value="Jaro, Iloilo City"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Monthly Price</label>
+
+                <div class="price-input">
+
+                    <span>₱</span>
+
+                    <input
+                        type="number"
+                        id="propertyPrice"
+                        value="4500"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Description</label>
+
+                <textarea
+                    id="propertyDescription"
+                    rows="5">Comfortable rental accommodation located near WVSU.</textarea>
+
+            </div>
+
+
+            <!-- AMENITIES -->
+
+            <div class="form-group">
+
+                <label>Amenities</label>
+
+                <div class="amenity-options">
+
+                    <label class="check-option">
+
+                        <input
+                            type="checkbox"
+                            checked>
+
+                        <span>
+                            <i class="fa-solid fa-wifi"></i>
+                            Wi-Fi
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-option">
+
+                        <input
+                            type="checkbox"
+                            checked>
+
+                        <span>
+                            <i class="fa-solid fa-snowflake"></i>
+                            Air Conditioning
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-option">
+
+                        <input
+                            type="checkbox">
+
+                        <span>
+                            <i class="fa-solid fa-car"></i>
+                            Parking
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-option">
+
+                        <input
+                            type="checkbox">
+
+                        <span>
+                            <i class="fa-solid fa-shirt"></i>
+                            Laundry
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-option">
+
+                        <input
+                            type="checkbox">
+
+                        <span>
+                            <i class="fa-solid fa-kitchen-set"></i>
+                            Kitchen
+                        </span>
+
+                    </label>
+
+
+                    <label class="check-option">
+
+                        <input
+                            type="checkbox">
+
+                        <span>
+                            <i class="fa-solid fa-bath"></i>
+                            Private Bathroom
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="save-btn">
+
+                <i class="fa-solid fa-check"></i>
+                Save Changes
+
+            </button>
+
+        </form>
+
+    </main>
+
+</section>
+
+
+<!-- =========================
+     EDIT ROOM MODAL
+========================= -->
+
+<div id="roomModal" class="modal">
+
+    <div class="modal-box">
+
+        <button class="close-modal"
+                onclick="closeRoomModal()">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+
+        <h2>Edit Room</h2>
+
+        <p>Update room information</p>
+
+
+        <div class="form-group">
+
+            <label>Room Number</label>
+
+            <input
+                type="text"
+                id="roomNumber">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Monthly Price</label>
+
+            <div class="price-input">
+
+                <span>₱</span>
+
+                <input
+                    type="number"
+                    id="roomPrice">
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Availability</label>
+
+            <select id="roomAvailability">
+
+                <option value="available">
+                    Available
+                </option>
+
+                <option value="occupied">
+                    Occupied
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <button
+            class="save-btn"
+            onclick="saveRoom()">
+
+            <i class="fa-solid fa-check"></i>
+            Save Room
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     ADD PROPERTY MODAL
+========================= -->
+
+<div id="propertyModal" class="modal">
+
+    <div class="modal-box">
+
+        <button class="close-modal"
+                onclick="closePropertyModal()">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+
+        <h2>Add Property</h2>
+
+        <p>Add a new rental accommodation</p>
+
+
+        <div class="form-group">
+
+            <label>Property Name</label>
+
+            <input
+                type="text"
+                placeholder="Example: Sunrise Residences">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Location</label>
+
+            <input
+                type="text"
+                placeholder="Example: Jaro, Iloilo City">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Monthly Price</label>
+
+            <div class="price-input">
+
+                <span>₱</span>
+
+                <input
+                    type="number"
+                    placeholder="4500">
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Total Rooms</label>
+
+            <input
+                type="number"
+                placeholder="12">
+
+        </div>
+
+
+        <button
+            class="save-btn"
+            onclick="closePropertyModal()">
+
+            <i class="fa-solid fa-check"></i>
+            Add Property
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     BOTTOM NAV
+========================= -->
+
+<nav class="bottom-nav">
+
+    <button
+        class="nav-active"
+        onclick="showScreen('dashboard')">
+
+        <i class="fa-solid fa-chart-line"></i>
+
+        <span>Dashboard</span>
+
+    </button>
+
+
+    <button
+        onclick="showScreen('properties')">
+
+        <i class="fa-solid fa-house"></i>
+
+        <span>Properties</span>
+
+    </button>
+
+
+    <button
+        onclick="showScreen('rooms')">
+
+        <i class="fa-solid fa-door-open"></i>
+
+        <span>Rooms</span>
+
+    </button>
+
+
+    <button>
+
+        <i class="fa-solid fa-message"></i>
+
+        <span>Messages</span>
+
+    </button>
+
+
+    <button>
+
+        <i class="fa-solid fa-user"></i>
+
+        <span>Profile</span>
+
+    </button>
+
+</nav>
+
+
+<script src="owner.js"></script>
+
+</body>
+</html>
