@@ -1012,6 +1012,96 @@ tr:last-child td {
 }
 
 
+
+
+/* =========================
+   REPORTS
+========================= */
+
+#reports {
+    padding: 20px;
+}
+
+#reports .section-header {
+    margin-bottom: 25px;
+}
+
+#reports .section-header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+
+/* REPORT STATISTICS GRID */
+
+#reports .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+
+/* STAT CARD */
+
+#reports .stat-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e5e5;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#reports .stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+
+/* CARD TITLE */
+
+#reports .stat-card h3 {
+    margin: 0 0 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #666;
+}
+
+
+/* CARD VALUE */
+
+#reports .stat-card strong {
+    display: block;
+    font-size: 28px;
+    font-weight: 700;
+    color: #162e4d;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+
+    #reports .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    #reports .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #reports {
+        padding: 15px;
+    }
+
+}
+
+
 /* =========================
    MESSAGE
 ========================= */
@@ -1120,66 +1210,57 @@ tr:last-child td {
 
 }
 
-
 /* =========================
-   PROFILE
+   ADMIN PROFILE
 ========================= */
 
-.profile-box {
-
-    max-width: 600px;
-
-}
-
-
-.profile-header {
-
-    text-align: center;
-
+#profile {
     padding: 20px;
-
 }
 
+#profile .profile-box {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 35px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
 
-.profile-avatar {
-
+#profile .profile-avatar {
     width: 85px;
     height: 85px;
-
+    margin: 0 auto 20px;
     border-radius: 50%;
-
-    background: var(--navy);
-
-    color: white;
-
-    margin: auto;
-
+    background: #162e4d;
     display: flex;
-
-    justify-content: center;
-
     align-items: center;
-
-    font-size: 30px;
-
-    margin-bottom: 15px;
-
+    justify-content: center;
 }
 
-
-.profile-header h2 {
-
-    color: var(--navy);
-
+#profile .profile-avatar i {
+    font-size: 38px;
+    color: #ffffff;
 }
 
+#profile .profile-header h2 {
+    margin: 10px 0 5px;
+    color: #162e4d;
+}
 
-.profile-header p {
+#profile .profile-header p {
+    margin: 0 0 20px;
+    color: #666;
+}
 
-    color: var(--muted);
-
+#profile .badge-admin {
+    display: inline-block;
+    padding: 7px 14px;
+    border-radius: 20px;
+    background: #162e4d;
+    color: #ffffff;
     font-size: 13px;
-
 }
 
 
@@ -1357,18 +1438,6 @@ tr:last-child td {
 
     <button
         class="nav-item"
-        onclick="showScreen('bookings', this)"
-    >
-
-        <i class="fa-solid fa-calendar-check"></i>
-
-        Bookings
-
-    </button>
-
-
-    <button
-        class="nav-item"
         onclick="showScreen('reports', this)"
     >
 
@@ -1495,7 +1564,7 @@ tr:last-child td {
     id="dashboard"
     class="screen active"
 
-
+>
     <div class="stats">
 
 
@@ -1766,7 +1835,7 @@ tr:last-child td {
 <section
     id="properties"
     class="screen"
-
+>
 
     <div class="card">
 
@@ -1875,10 +1944,23 @@ tr:last-child td {
 
                         <td>
 
-                            <span class="badge badge-pending">
-                                Pending
-                            </span>
+   <?php
+$status = strtolower($property['status'] ?? 'pending');
 
+$statusClasses = [
+    'approved'  => 'badge-approved',
+    'active'    => 'badge-approved',
+    'pending'   => 'badge-pending',
+    'suspended' => 'badge-suspended',
+    'inactive'  => 'badge-suspended'
+];
+
+$badgeClass = $statusClasses[$status] ?? 'badge-pending';
+?>
+
+<span class="badge <?= $badgeClass ?>">
+    <?= htmlspecialchars(ucfirst($status)) ?>
+</span>
                         </td>
 
                         <td>
@@ -1886,18 +1968,18 @@ tr:last-child td {
                             <div class="action-buttons">
 
                                 <button
-                                    class="btn btn-success"
-                                    onclick="approveProperty(this)"
-                                >
-                                    Approve
-                                </button>
+    class="btn btn-success"
+    onclick="approveProperty(<?= (int)$property['id'] ?>, this)"
+>
+    Approve
+</button>
 
-                                <button
-                                    class="btn btn-danger"
-                                    onclick="suspendProperty(this)"
-                                >
-                                    Suspend
-                                </button>
+                               <button
+    class="btn btn-danger"
+    onclick="suspendProperty(<?= (int)$property['id'] ?>, this)"
+>
+    Suspend
+                   </button>
 
                             </div>
 
@@ -1963,7 +2045,7 @@ tr:last-child td {
 <section
     id="users"
     class="screen"
-
+>
 
     <div class="card">
 
@@ -2096,86 +2178,162 @@ tr:last-child td {
 
 
 
-<!-- =========================
-     BOOKINGS
-========================= -->
-
-<section
-    id="bookings"
-    class="screen"
-
-
-    <div class="card">
-
-        <div class="card-header">
-
-            <div>
-
-                <h2>
-                    Bookings
-                </h2>
-
-                <p>
-                    Monitor rental bookings.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="empty">
-
-            <i class="fa-solid fa-calendar-check"></i>
-
-            <p>
-                Booking management will appear here once the bookings table is connected.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
 
 <!-- =========================
      REPORTS
 ========================= -->
 
-<section
-    id="reports"
-    class="screen"
+<section id="reports" class="screen">
+
+    <div class="section-header">
+        <h2>Reports</h2>
+    </div>
+
+    <div class="stats-grid">
+
+        <?php
+        // USERS
+        $totalUsers = 0;
+        $totalRenters = 0;
+        $totalOwners = 0;
+
+        $result = $conn->query("SELECT COUNT(*) AS total FROM users");
+        if ($result) {
+            $totalUsers = $result->fetch_assoc()['total'];
+        }
+
+        $result = $conn->query("
+            SELECT COUNT(*) AS total 
+            FROM users 
+            WHERE user_type = 'renter'
+        ");
+        if ($result) {
+            $totalRenters = $result->fetch_assoc()['total'];
+        }
+
+        $result = $conn->query("
+            SELECT COUNT(*) AS total 
+            FROM users 
+            WHERE user_type = 'owner'
+        ");
+        if ($result) {
+            $totalOwners = $result->fetch_assoc()['total'];
+        }
 
 
-    <div class="card">
+        // PROPERTIES
+        $totalProperties = 0;
 
-        <div class="card-header">
+        $result = $conn->query("
+            SELECT COUNT(*) AS total 
+            FROM properties
+        ");
 
-            <div>
+        if ($result) {
+            $totalProperties = $result->fetch_assoc()['total'];
+        }
 
-                <h2>
-                    Reports
-                </h2>
 
-                <p>
-                    Review reported users and properties.
-                </p>
+        // BOOKINGS
+        $totalBookings = 0;
+        $pendingBookings = 0;
+        $approvedBookings = 0;
+        $rejectedBookings = 0;
+        $totalRevenue = 0;
 
-            </div>
+        $result = $conn->query("
+            SELECT COUNT(*) AS total 
+            FROM bookings
+        ");
 
+        if ($result) {
+            $totalBookings = $result->fetch_assoc()['total'];
+        }
+
+        $result = $conn->query("
+            SELECT COUNT(*) AS total 
+            FROM bookings 
+            WHERE status = 'pending'
+        ");
+
+        if ($result) {
+            $pendingBookings = $result->fetch_assoc()['total'];
+        }
+
+        $result = $conn->query("
+            SELECT COUNT(*) AS total 
+            FROM bookings 
+            WHERE status = 'approved'
+        ");
+
+        if ($result) {
+            $approvedBookings = $result->fetch_assoc()['total'];
+        }
+
+        $result = $conn->query("
+            SELECT COUNT(*) AS total 
+            FROM bookings 
+            WHERE status = 'rejected'
+        ");
+
+        if ($result) {
+            $rejectedBookings = $result->fetch_assoc()['total'];
+        }
+
+        $result = $conn->query("
+            SELECT COALESCE(SUM(amount), 0) AS total 
+            FROM bookings 
+            WHERE status = 'approved'
+        ");
+
+        if ($result) {
+            $totalRevenue = $result->fetch_assoc()['total'];
+        }
+        ?>
+
+        <div class="stat-card">
+            <h3>Total Users</h3>
+            <strong><?= (int)$totalUsers ?></strong>
         </div>
 
+        <div class="stat-card">
+            <h3>Renters</h3>
+            <strong><?= (int)$totalRenters ?></strong>
+        </div>
 
-        <div class="empty">
+        <div class="stat-card">
+            <h3>Owners</h3>
+            <strong><?= (int)$totalOwners ?></strong>
+        </div>
 
-            <i class="fa-solid fa-flag"></i>
+        <div class="stat-card">
+            <h3>Properties</h3>
+            <strong><?= (int)$totalProperties ?></strong>
+        </div>
 
-            <p>
-                No reports to display.
-            </p>
+        <div class="stat-card">
+            <h3>Total Bookings</h3>
+            <strong><?= (int)$totalBookings ?></strong>
+        </div>
 
+        <div class="stat-card">
+            <h3>Pending Bookings</h3>
+            <strong><?= (int)$pendingBookings ?></strong>
+        </div>
+
+        <div class="stat-card">
+            <h3>Approved Bookings</h3>
+            <strong><?= (int)$approvedBookings ?></strong>
+        </div>
+
+        <div class="stat-card">
+            <h3>Rejected Bookings</h3>
+            <strong><?= (int)$rejectedBookings ?></strong>
+        </div>
+
+        <div class="stat-card">
+            <h3>Total Revenue</h3>
+            <strong>₱<?= number_format((float)$totalRevenue, 2) ?></strong>
         </div>
 
     </div>
@@ -2187,129 +2345,108 @@ tr:last-child td {
 <!-- =========================
      MESSAGES
 ========================= -->
+<section id="messages" class="screen">
 
-<section
-    id="messages"
-    class="screen"
+    <div class="section-header">
+        <h2>Messages</h2>
+    </div>
 
+    <div class="messages-container">
 
-    <div class="card">
+        <?php
+        $adminId = (int)$_SESSION['user_id'];
 
-        <div class="card-header">
+        $messageQuery = "
+            SELECT 
+                m.id,
+                m.sender_id,
+                m.receiver_id,
+                m.message,
+                u.fullname AS sender_name,
+                u.user_type AS sender_type
+            FROM messages m
+            LEFT JOIN users u
+                ON m.sender_id = u.id
+            WHERE m.receiver_id = $adminId
+               OR m.sender_id = $adminId
+            ORDER BY m.id DESC
+        ";
 
-            <div>
+        $messageResult = $conn->query($messageQuery);
 
-                <h2>
-                    Messages
-                </h2>
+        if ($messageResult && $messageResult->num_rows > 0):
 
-                <p>
-                    Communicate with Nestify users.
-                </p>
+            while ($msg = $messageResult->fetch_assoc()):
 
-            </div>
+                $isAdminSender = ((int)$msg['sender_id'] === $adminId);
+        ?>
 
-        </div>
+            <div class="message-card <?= $isAdminSender ? 'admin-message' : 'user-message' ?>">
 
+                <div class="message-header">
 
-        <?php if (count($messages) > 0): ?>
-
-
-            <?php foreach ($messages as $message): ?>
-
-                <div class="message-item">
-
-                    <div class="message-top">
-
-                        <span class="message-name">
-
-                            <?= htmlspecialchars(
-                                $message['fullname']
-                            ) ?>
-
-                            <span class="badge badge-<?= $message['user_type'] === 'owner' ? 'owner' : 'renter' ?>">
-
-                                <?= htmlspecialchars(
-                                    ucfirst($message['user_type'])
-                                ) ?>
-
-                            </span>
-
-                        </span>
-
-
-                        <span class="message-time">
-
-                            <?= htmlspecialchars(
-                                $message['created_at']
-                            ) ?>
-
-                        </span>
-
-                    </div>
-
-
-                    <p class="message-text">
-
+                    <strong>
                         <?= htmlspecialchars(
-                            $message['message']
+                            $isAdminSender
+                                ? 'You'
+                                : ($msg['sender_name'] ?? 'Unknown User')
                         ) ?>
+                    </strong>
 
-                    </p>
+                    <span>
+                        <?= htmlspecialchars(
+                            $isAdminSender
+                                ? 'Admin'
+                                : ucfirst($msg['sender_type'] ?? 'User')
+                        ) ?>
+                    </span>
 
+                </div>
+
+                <div class="message-body">
+                    <?= nl2br(htmlspecialchars($msg['message'])) ?>
+                </div>
+
+                <?php if (!$isAdminSender): ?>
 
                     <form
-                        class="reply-form"
-                        action="admin_send_message.php"
+                        action="send_admin_message.php"
                         method="POST"
+                        class="reply-form"
                     >
 
                         <input
                             type="hidden"
                             name="receiver_id"
-                            value="<?= htmlspecialchars(
-                                $message['sender_id']
-                            ) ?>"
+                            value="<?= (int)$msg['sender_id'] ?>"
                         >
-
 
                         <input
                             type="text"
                             name="message"
-                            placeholder="Reply to this user..."
+                            placeholder="Write a reply..."
                             required
                         >
 
-
-                        <button
-                            type="submit"
-                            class="btn btn-primary"
-                        >
-
-                            <i class="fa-solid fa-paper-plane"></i>
-
+                        <button type="submit" class="btn btn-success">
+                            Reply
                         </button>
 
                     </form>
 
-                </div>
-
-            <?php endforeach; ?>
-
-
-        <?php else: ?>
-
-
-            <div class="empty">
-
-                <i class="fa-solid fa-message"></i>
-
-                <p>
-                    No messages yet.
-                </p>
+                <?php endif; ?>
 
             </div>
 
+        <?php
+            endwhile;
+
+        else:
+        ?>
+
+            <div class="no-messages">
+                No messages found.
+            </div>
 
         <?php endif; ?>
 
@@ -2317,45 +2454,34 @@ tr:last-child td {
 
 </section>
 
-
-
 <!-- =========================
      PROFILE
 ========================= -->
 
-<section
-    id="profile"
-    class="screen"
+<section id="profile" class="screen">
 
+    <div class="section-header">
+        <h2>Profile</h2>
+    </div>
 
     <div class="card profile-box">
 
         <div class="profile-header">
 
             <div class="profile-avatar">
-
                 <i class="fa-solid fa-user-tie"></i>
-
             </div>
-
 
             <h2>
                 <?= htmlspecialchars($admin_name) ?>
             </h2>
 
-
             <p>
                 <?= htmlspecialchars($admin_email) ?>
             </p>
 
-
-            <br>
-
-
             <span class="badge badge-admin">
-
                 Administrator
-
             </span>
 
         </div>
@@ -2364,11 +2490,9 @@ tr:last-child td {
 
 </section>
 
-
 </div>
 
 </main>
-
 
 
 <script>
@@ -2502,52 +2626,82 @@ function searchTable(inputId, tableId) {
 /* =========================
    PROPERTY APPROVE
 ========================= */
+function updatePropertyStatus(propertyId, status, button) {
 
-function approveProperty(button) {
+    const formData = new FormData();
 
-    const row =
-        button.closest("tr");
+    formData.append("property_id", propertyId);
+    formData.append("status", status);
 
-    const status =
-        row.querySelector(".badge");
+    fetch("update_property_status.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.text())
+    .then(result => {
 
+        if (result.trim() === "success") {
 
-    status.textContent = "Approved";
+            const row = button.closest("tr");
+            const badge = row.querySelector(".badge");
 
-    status.className =
-        "badge badge-approved";
+            if (status === "approved") {
 
+                badge.textContent = "Approved";
+                badge.className = "badge badge-approved";
 
-    button.disabled = true;
+            } else if (status === "suspended") {
 
-    button.style.opacity = ".5";
+                badge.textContent = "Suspended";
+                badge.className = "badge badge-suspended";
 
+            }
+
+            button.disabled = true;
+            button.style.opacity = ".5";
+
+        } else {
+
+            alert("Failed to update property.");
+
+        }
+
+    })
+    .catch(error => {
+
+        console.error(error);
+
+        alert("Something went wrong.");
+
+    });
 }
 
 
-/* =========================
-   PROPERTY SUSPEND
-========================= */
+function approveProperty(propertyId, button) {
 
-function suspendProperty(button) {
+    if (!confirm("Approve this property?")) {
+        return;
+    }
 
-    const row =
-        button.closest("tr");
-
-    const status =
-        row.querySelector(".badge");
-
-
-    status.textContent = "Suspended";
-
-    status.className =
-        "badge badge-suspended";
+    updatePropertyStatus(
+        propertyId,
+        "approved",
+        button
+    );
+}
 
 
-    button.disabled = true;
+function suspendProperty(propertyId, button) {
 
-    button.style.opacity = ".5";
+    if (!confirm("Suspend this property?")) {
+        return;
+    }
 
+    updatePropertyStatus(
+        propertyId,
+        "suspended",
+        button
+    );
 }
 
 

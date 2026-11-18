@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 session_start();
 
 $servername = "localhost";
@@ -55,12 +58,16 @@ if ($user['user_type'] === 'admin') {
     header("Location: admindash.php");
     exit;
 
-} elseif ($user['user_type'] === 'owner') {
+}
 
-    header("Location: owner.php");
+ elseif ($user['user_type'] === 'owner') {
+
+    header("Location: ownerdashboard.php");
     exit;
 
-} elseif ($user['user_type'] === 'renter') {
+} 
+
+elseif ($user['user_type'] === 'renter') {
 
     header("Location: renter.php");
     exit;

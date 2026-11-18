@@ -321,75 +321,6 @@
         </div>
 
     </div>
-
-
-    <script>
-
-        function editInformation() {
-
-            window.location.href = "property.html";
-
-        }
-
-
-        function submitApplication() {
-
-            const confirmation = confirm(
-                "Are you sure you want to submit your application for verification?"
-            );
-
-            if (confirmation) {
-
-                window.location.href = "verification-status.html";
-
-            }
-
-        }
-
-    </script>
-
-
-<script>
-
-    // Get property information from localStorage
-    document.getElementById("reviewPropertyName").textContent =
-        localStorage.getItem("propertyName") || "Not provided";
-
-    document.getElementById("reviewPropertyAddress").textContent =
-        localStorage.getItem("propertyAddress") || "Not provided";
-
-    document.getElementById("reviewPropertyType").textContent =
-        localStorage.getItem("propertyType") || "Not provided";
-
-    document.getElementById("reviewUnits").textContent =
-        (localStorage.getItem("units") || "Not provided") + " Units";
-
-    document.getElementById("reviewContactPerson").textContent =
-        localStorage.getItem("contactPerson") || "Not provided";
-
-    document.getElementById("reviewContactNumber").textContent =
-        localStorage.getItem("contactNumber") || "Not provided";
-
-
-    function editInformation() {
-        window.location.href = "property.html";
-    }
-
-
-    function submitApplication() {
-
-        const confirmation = confirm(
-            "Are you sure you want to submit your application for verification?"
-        );
-
-        if (confirmation) {
-            window.location.href = "verification-status.html";
-        }
-
-    }
-
-</script>
-
 <script>
 
     // PERSONAL INFORMATION
@@ -418,9 +349,6 @@
 
     document.getElementById("reviewContactPerson").textContent =
         localStorage.getItem("contactPerson") || "Not provided";
-
-    document.getElementById("reviewContactNumber").textContent =
-        localStorage.getItem("contactNumber") || "Not provided";
 
 
     // EDIT INFORMATION

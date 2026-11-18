@@ -1,0 +1,187 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f2ed;
+    color: #162e4d;
+}
+
+.rentals-container {
+    width: min(1100px, 92%);
+    margin: 35px auto;
+}
+
+.back-link {
+    color: #162e4d;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.rentals-header {
+    margin: 25px 0;
+}
+
+.rentals-header h1 {
+    margin-bottom: 8px;
+}
+
+.rentals-header p {
+    color: #687486;
+}
+
+.rental-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 35px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: 0 3px 12px #162e4d0d;
+}
+
+.stat-card span,
+.stat-card strong {
+    display: block;
+}
+
+.stat-card span {
+    color: #687486;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.stat-card strong {
+    font-size: 28px;
+}
+
+.rentals-section h2 {
+    margin-bottom: 18px;
+}
+
+.rentals-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.rental-card {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px #162e4d0d;
+}
+
+.rental-card img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    background: #e4e7eb;
+}
+
+.rental-content {
+    padding: 20px;
+}
+
+.rental-content h3 {
+    margin: 0 0 8px;
+}
+
+.rental-content p {
+    color: #687486;
+    margin: 8px 0;
+    overflow-wrap: anywhere;
+}
+
+.rental-price {
+    color: #162e4d !important;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+@media (max-width: 650px) {
+    .rental-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .rentals-list {
+        grid-template-columns: 1fr;
+    }
+
+    .rentals-container {
+        margin: 22px auto;
+    }
+}
+
+.rental-status {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.status-pending {
+    background: #fff1cc;
+    color: #805b00;
+}
+
+.status-approved {
+    background: #d9f5e5;
+    color: #176b3a;
+}
+
+.status-rejected,
+.status-cancelled {
+    background: #ffe1e1;
+    color: #a12626;
+}
+
+.status-completed {
+    background: #e1e9f8;
+    color: #254a80;
+}
+
+
+.cancel-rental-button {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 10px 16px;
+    border: 1px solid #c0392b;
+    border-radius: 8px;
+    background: white;
+    color: #c0392b;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.cancel-rental-button:hover {
+    background: #c0392b;
+    color: white;
+}
+
+.cancel-rental-button:focus-visible {
+    outline: 2px solid #162e4d;
+    outline-offset: 3px;
+}
+
+.rental-period {
+    color: #687486;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.rental-state {
+    color: #176b3a;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 8px;
+}

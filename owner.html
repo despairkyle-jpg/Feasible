@@ -199,7 +199,7 @@
 
         <h1>Create your account</h1>
 
-        <form id="signupForm" action="signup_owner.php" method="POST">
+       <form id="signupForm" action="signup_owner.php" method="POST">
 
     <div class="input-group">
         <label for="fullname">Full Name</label>
@@ -265,19 +265,40 @@
     </button>
 
 </form>
+
+
 <script>
-    document.getElementById("signupForm").addEventListener("submit", function(event) {
+const fullnameInput = document.getElementById("fullname");
+const emailInput = document.getElementById("email");
+const mobileInput = document.getElementById("mobile");
+const signupForm = document.getElementById("signupForm");
 
-        const password = document.getElementById("password").value;
-        const confirmPassword = document.getElementById("confirm-password").value;
+// Save information while typing
+fullnameInput.addEventListener("input", function() {
+    localStorage.setItem("fullname", this.value.trim());
+});
 
-        if (password !== confirmPassword) {
-            event.preventDefault();
-            alert("Passwords do not match.");
-            return;
-        }
+emailInput.addEventListener("input", function() {
+    localStorage.setItem("email", this.value.trim());
+});
 
-    });
+mobileInput.addEventListener("input", function() {
+    localStorage.setItem("mobile", this.value.trim());
+});
+
+// Check password before submitting
+signupForm.addEventListener("submit", function(event) {
+
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+
+    if (password !== confirmPassword) {
+        event.preventDefault();
+        alert("Passwords do not match.");
+        return;
+    }
+
+});
 </script>
 
 </body>

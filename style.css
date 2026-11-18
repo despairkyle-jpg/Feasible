@@ -30,7 +30,9 @@ input {
   overflow: hidden;
 }
 .screen {
-  display: none;
+  display: block;
+  
+  
   min-height: 100vh;
   padding-bottom: 96px;
 }
@@ -346,6 +348,7 @@ input[type="range"] {
   margin: auto;
 }
 .rental-card {
+  cursor: pointer;
   background: #fff;
   border-radius: 27px;
   overflow: hidden;
@@ -688,6 +691,7 @@ color:rgb(46, 46, 53);
    width: 11px;
 }
 
+
 .room-options {
     display: none;
     margin-top: 10px;
@@ -726,24 +730,89 @@ color:rgb(46, 46, 53);
     font-size: 13px;
     color: #777;
 }
-
-#dateBox {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  cursor: pointer;
+/* Reservation Details Card */
+.reservation-details-card {
+    padding: 24px;
+    border-radius: 16px;
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
 }
 
-#dateBox > b {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+/* Card heading matches Selected Room */
+.reservation-details-card h3 {
+    color: #162e4d;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
 }
 
-#dateBox > .fa-chevron-down {
-  margin-left: auto;
+/* Spacing between fields */
+.reservation-field {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 20px;
+}
+
+.reservation-field:last-child {
+    margin-bottom: 0;
+}
+
+/* Labels */
+.reservation-field label {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #162e4d;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* Calendar and people icons */
+.reservation-field label i {
+    color: #d2aa4a;
+    font-size: 16px;
+    width: 18px;
+}
+
+/* Date and persons fields */
+.reservation-field input,
+.reservation-field select {
+    width: 100%;
+    min-height: 52px;
+    padding: 0 15px;
+    border: 1px solid #dedede;
+    border-radius: 10px;
+    background: #f9fafb;
+    color: #162e4d;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Focus effect */
+.reservation-field input:focus,
+.reservation-field select:focus {
+    border-color: #d2aa4a;
+    box-shadow: 0 0 0 3px rgba(210, 170, 74, 0.15);
+    background: #ffffff;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    .reservation-details-card {
+        padding: 18px;
+    }
+
+    .reservation-field input,
+    .reservation-field select {
+        min-height: 48px;
+        font-size: 14px;
+    }
 }
 .summary {
   font-size: 22px;
@@ -1125,6 +1194,7 @@ button, input, select { font: inherit; }
 }
 
 .back-btn1{
+  cursor: pointer;
   background:rgb(210, 209, 209);
   margin-top: 18px;
   border: #1d3049;
@@ -1650,10 +1720,9 @@ h1 { margin: 0 0 8px; font-size: 31px; line-height: 1.1; color: var(--navy); fon
     cursor: pointer;
 }
 
-
-
-/*PROFILE*/
-
+/* =========================================
+   PROFILE
+========================================= */
 
 .profile-header {
     text-align: center;
@@ -1663,86 +1732,1758 @@ h1 { margin: 0 0 8px; font-size: 31px; line-height: 1.1; color: var(--navy); fon
 .profile-avatar {
     width: 85px;
     height: 85px;
+
     margin: 0 auto 15px;
-    border-radius: 50%;
-    background: #162e4d;
-    color: white;
 
     display: flex;
     align-items: center;
     justify-content: center;
+
+    border-radius: 50%;
+
+    background: #162e4d;
+    color: #ffffff;
 
     font-size: 35px;
 }
 
 .profile-header h2 {
     margin: 5px 0;
+
     color: #162e4d;
+
+    font-size: 22px;
+    font-weight: 800;
 }
 
 .profile-header p {
     margin: 0;
-    color: #777;
+
+    color: #777777;
+
+    font-size: 13px;
 }
+
+
+/* PROFILE MENU */
 
 .profile-menu {
     padding: 0 15px;
 }
 
+
+/* PROFILE ITEM */
+
 .profile-item {
+    width: 100%;
+
     display: flex;
     align-items: center;
+
     gap: 15px;
 
     padding: 18px;
+
     margin-bottom: 10px;
 
-    background: white;
-    border-radius: 12px;
+    background: #ffffff;
+
+    border: 1px solid #eeeeee;
+    border-radius: 14px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
 }
 
-.profile-item > i {
+.profile-item:hover {
+    transform: translateY(-1px);
+
+    border-color: #d2aa4a;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+}
+
+
+/* PROFILE ICON */
+
+.profile-item > i:first-child {
     width: 25px;
+
+    flex-shrink: 0;
+
     text-align: center;
+
     color: #d2aa4a;
+
     font-size: 20px;
+}
+
+
+/* PROFILE TEXT */
+
+.profile-item > div {
+    flex: 1;
 }
 
 .profile-item strong {
     display: block;
+
     color: #162e4d;
+
+    font-size: 15px;
+    font-weight: 800;
 }
 
 .profile-item span {
     display: block;
+
     margin-top: 4px;
-    color: #777;
+
+    color: #777777;
+
+    font-size: 12px;
+}
+
+
+/* PROFILE ARROW */
+
+.profile-arrow {
+    width: auto !important;
+
+    color: #aaaaaa !important;
+
+    font-size: 12px !important;
+}
+
+
+/* =========================================
+   MODERN ACCOUNT PAGE
+========================================= */
+
+
+/* PAGE HEADER */
+
+.account-page-header {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 14px;
+
+    margin-bottom: 22px;
+}
+
+.account-page-header > div {
+    flex: 1;
+}
+
+.account-page-header h2 {
+    margin: 0;
+
+    color: #162e4d;
+
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.account-page-header p {
+    margin: 4px 0 0;
+
+    color: #7b7f85;
+
     font-size: 13px;
 }
 
+/* =========================================
+   ACCOUNT BACK BUTTON
+========================================= */
+
+.account-back-btn {
+    width: 42px !important;
+    height: 42px !important;
+
+    min-width: 42px !important;
+    max-width: 42px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    flex-shrink: 0;
+
+    border: 1px solid #e1e4e8 !important;
+    border-radius: 12px !important;
+
+    background: #ffffff !important;
+    color: #162e4d !important;
+
+    font-size: 15px !important;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.account-back-btn i {
+    margin: 0 !important;
+    font-size: 15px !important;
+}
+
+.account-back-btn:hover {
+    background: #f4f2ed !important;
+    border-color: #d2aa4a !important;
+    color: #162e4d !important;
+
+    transform: translateX(-2px);
+}
+
+
+/* =========================================
+   ACCOUNT PROFILE CARD
+========================================= */
+
+.account-profile-card {
+    position: relative;
+
+    overflow: hidden;
+
+    margin-bottom: 18px;
+
+    padding: 24px;
+
+    border-radius: 18px;
+
+    background: linear-gradient(
+        135deg,
+        #162e4d,
+        #1e416b
+    );
+
+    box-shadow: 0 8px 24px rgba(22, 46, 77, 0.15);
+}
+
+
+/* Decorative circle */
+
+.account-profile-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    right: -50px;
+    top: -70px;
+
+    border-radius: 50%;
+
+    background: rgba(210, 170, 74, 0.12);
+}
+
+
+/* PROFILE TOP */
+
+.account-profile-top {
+    position: relative;
+
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+
+    gap: 17px;
+}
+
+
+/* ACCOUNT AVATAR */
+
+.account-avatar {
+    width: 68px;
+    height: 68px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    color: #162e4d;
+
+    font-size: 25px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ACCOUNT NAME */
+
+.account-profile-name {
+    min-width: 0;
+}
+
+.account-profile-name h3 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 18px;
+    font-weight: 800;
+
+    word-break: break-word;
+}
+
+.account-profile-name p {
+    margin: 4px 0 9px;
+
+    color: rgba(255, 255, 255, 0.75);
+
+    font-size: 12px;
+
+    word-break: break-word;
+}
+
+
+/* RENTER BADGE */
+
+.account-badge {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    background: rgba(210, 170, 74, 0.18);
+
+    border: 1px solid rgba(210, 170, 74, 0.4);
+
+    color: #f0cf79;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   PERSONAL INFORMATION CARD
+========================================= */
+
+.account-section {
+    margin-bottom: 18px;
+
+    padding: 20px;
+
+    background: #ffffff;
+
+    border: 1px solid #e8e8e8;
+
+    border-radius: 18px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+
+/* SECTION TITLE */
+
+.account-section-title {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 18px;
+}
+
+.account-section-icon {
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: #f7f1df;
+
+    color: #b18a2d;
+
+    font-size: 16px;
+}
+
+.account-section-title h3 {
+    margin: 0;
+
+    color: #162e4d;
+
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.account-section-title p {
+    margin: 3px 0 0;
+
+    color: #888888;
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   ACCOUNT INFORMATION
+========================================= */
+
+.account-info-list {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.account-info-item {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 14px 0;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+.account-info-item:first-child {
+    padding-top: 0;
+}
+
+.account-info-item:last-child {
+    padding-bottom: 0;
+
+    border-bottom: none;
+}
+
+
+/* INFORMATION ICON */
+
+.account-info-icon {
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: #f5f6f8;
+
+    color: #162e4d;
+
+    font-size: 14px;
+}
+
+
+/* INFORMATION TEXT */
+
+.account-info-content {
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+.account-info-content span {
+    color: #929292;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.account-info-content strong {
+    color: #252b32;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    word-break: break-word;
+}
+
+
+/* =========================================
+   ACCOUNT SECURITY
+========================================= */
+
+.account-security-card {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 17px;
+
+    margin-bottom: 20px;
+
+    background: #ffffff;
+
+    border: 1px solid #e8e8e8;
+
+    border-radius: 16px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+
+/* SECURITY ICON */
+
+.security-icon {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #e9f5ee;
+
+    color: #318453;
+
+    font-size: 17px;
+}
+
+
+/* SECURITY TEXT */
+
+.security-content {
+    flex: 1;
+}
+
+.security-content h3 {
+    margin: 0;
+
+    color: #162e4d;
+
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.security-content p {
+    margin: 3px 0 0;
+
+    color: #888888;
+
+    font-size: 11px;
+}
+
+
+/* SECURITY ARROW */
+
+.security-arrow {
+    flex-shrink: 0;
+
+    color: #aaaaaa;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   RENTER - MY RENTAL
+========================================= */
+
+.renter-rental-header {
+    display: flex;
+    align-items: center;
+
+    height: 58px;
+
+    padding: 0 18px;
+    margin-bottom: 15px;
+}
+
+
+/* BACK BUTTON */
+
+.renter-rental-back {
+    width: 40px !important;
+    height: 40px !important;
+
+    min-width: 40px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    border: none !important;
+    border-radius: 50% !important;
+
+    background: transparent !important;
+
+    color: #162e4d !important;
+
+    font-size: 18px !important;
+
+    cursor: pointer;
+}
+
+
+/* TITLE */
+
+.renter-rental-header h2 {
+    flex: 1;
+
+    margin: 0;
+    padding-left: 5px;
+
+    color: #162e4d;
+
+    font-size: 22px;
+    font-weight: 800;
+}
+
+
+/* MORE BUTTON */
+
+.renter-rental-more {
+    width: 40px !important;
+    height: 40px !important;
+
+    min-width: 40px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    border: none !important;
+    border-radius: 50% !important;
+
+    background: transparent !important;
+
+    color: #162e4d !important;
+
+    font-size: 18px !important;
+
+    cursor: pointer;
+}
+
+
+/* =========================================
+   RENTAL CARD
+========================================= */
+
+.renter-rental-card {
+    overflow: hidden;
+
+    margin: 0 15px 25px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 18px;
+
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
+}
+
+
+/* =========================================
+   PROPERTY IMAGE
+========================================= */
+
+.renter-rental-image {
+    width: 100%;
+    height: 190px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        135deg,
+        #dfeaf0,
+        #f4f2ed
+    );
+
+    color: #162e4d;
+
+    font-size: 55px;
+}
+
+
+/* =========================================
+   PROPERTY INFORMATION
+========================================= */
+
+.renter-rental-property {
+    padding: 18px 20px 16px;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+
+.renter-rental-property h3 {
+    margin: 0 0 6px;
+
+    color: #162e4d;
+
+    font-size: 19px;
+    font-weight: 800;
+
+    word-break: break-word;
+}
+
+
+.renter-rental-price {
+    margin: 0;
+
+    color: #333;
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+
+.renter-rental-price span {
+    color: #888;
+
+    font-size: 13px;
+    font-weight: 500;
+}
+
+
+/* =========================================
+   INFORMATION ROWS
+========================================= */
+
+.renter-rental-info {
+    padding: 4px 20px;
+}
+
+
+.renter-rental-info-row {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 15px 0;
+
+    border: none !important;
+    border-bottom: 1px solid #eeeeee !important;
+
+    background: transparent !important;
+
+    text-align: left;
+
+    cursor: pointer;
+}
+
+
+.renter-rental-info-row:last-child {
+    border-bottom: none !important;
+}
+
+
+/* ICON */
+
+.renter-rental-info-icon {
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: #f7f1df;
+
+    color: #b18a2d;
+
+    font-size: 16px;
+}
+
+
+/* TEXT */
+
+.renter-rental-info-text {
+    min-width: 0;
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.renter-rental-info-text strong {
+    color: #162e4d;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+.renter-rental-info-text span {
+    overflow: hidden;
+
+    color: #888;
+
+    font-size: 11px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* ARROW */
+
+.renter-rental-arrow {
+    flex-shrink: 0;
+
+    color: #aaa;
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   VIEW DETAILS BUTTON
+========================================= */
+
+.renter-rental-details-btn {
+    width: calc(100% - 40px);
+
+    margin: 15px 20px 20px;
+
+    padding: 13px;
+
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    border: none !important;
+    border-radius: 11px !important;
+
+    background: #162e4d !important;
+
+    color: #ffffff !important;
+
+    font-size: 14px !important;
+    font-weight: 700 !important;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.renter-rental-details-btn:hover {
+    background: #1e416b !important;
+}
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.renter-rental-empty {
+    margin: 20px 15px;
+
+    padding: 40px 25px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border: 1px solid #e8e8e8;
+
+    border-radius: 18px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+
+.renter-rental-empty-icon {
+    width: 65px;
+    height: 65px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #f7f1df;
+
+    color: #b18a2d;
+
+    font-size: 25px;
+}
+
+
+.renter-rental-empty h3 {
+    margin: 0 0 7px;
+
+    color: #162e4d;
+
+    font-size: 17px;
+}
+
+
+.renter-rental-empty p {
+    margin: 0 0 20px;
+
+    color: #888;
+
+    font-size: 12px;
+}
+
+
+.renter-rental-find-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 11px 18px;
+
+    border: none !important;
+    border-radius: 10px !important;
+
+    background: #162e4d !important;
+
+    color: #ffffff !important;
+
+    font-size: 13px !important;
+    font-weight: 700 !important;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   MAINTENANCE
+========================= */
+
+/* =========================
+   TABS
+========================= */
+
+.maintenance-tabs {
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 28px;
+}
+
+.maintenance-tab {
+    flex: 1;
+    padding: 14px 8px;
+
+    border: none;
+    border-bottom: 3px solid transparent;
+
+    background: transparent;
+
+    color: #999;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.maintenance-tab.active {
+    color: #162e4d;
+    border-bottom-color: #162e4d;
+}
+
+
+/* =========================
+   TAB CONTENT
+========================= */
+
+.maintenance-tab-content {
+    display: none;
+}
+
+.maintenance-tab-content.active {
+    display: block;
+}
+
+
+/* =========================
+   FORM GROUP
+========================= */
+
+.maintenance-form-group {
+    margin-bottom: 24px;
+}
+
+.maintenance-form-group label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #162e4d;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.maintenance-form-group label span {
+    color: #999;
+    font-weight: 400;
+}
+
+
+/* =========================
+   CATEGORY
+========================= */
+
+.maintenance-form-group select {
+    width: 100%;
+    height: 52px;
+
+    padding: 0 15px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #e1e4e8;
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #162e4d;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+
+    cursor: pointer;
+}
+
+.maintenance-form-group select:focus {
+    border-color: #d2aa4a;
+}
+
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.maintenance-form-group textarea {
+    width: 100%;
+    min-height: 135px;
+
+    padding: 15px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #e1e4e8;
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #162e4d;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    resize: none;
+
+    outline: none;
+}
+
+.maintenance-form-group textarea:focus {
+    border-color: #d2aa4a;
+}
+
+.maintenance-form-group textarea::placeholder {
+    color: #aaa;
+}
+
+
+/* =========================
+   PHOTO UPLOAD
+========================= */
+
+.maintenance-photo-upload {
+    width: 105px;
+    height: 90px;
+
+    display: flex !important;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    box-sizing: border-box;
+
+    border: 1px dashed #cfcfcf;
+    border-radius: 10px;
+
+    background: #fafafa;
+
+    color: #777;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.maintenance-photo-upload:hover {
+    border-color: #d2aa4a;
+    background: #fffdf7;
+}
+
+.maintenance-photo-upload i {
+    font-size: 24px;
+    color: #162e4d;
+}
+
+.maintenance-photo-upload span {
+    margin: 0 !important;
+    color: #777;
+    font-size: 11px;
+}
+
+
+/* =========================
+   SUBMIT BUTTON
+========================= */
+
+.maintenance-submit-btn {
+    width: 100%;
+    height: 52px;
+
+    margin-top: 5px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #162e4d;
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.maintenance-submit-btn:hover {
+    background: #203d63;
+}
+
+.maintenance-submit-btn:active {
+    transform: scale(0.98);
+}
+
+
+/* =========================
+   MY REQUESTS
+========================= */
+
+.my-maintenance-empty {
+    padding: 50px 20px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border: 1px solid #e8e8e8;
+    border-radius: 14px;
+}
+
+.my-maintenance-empty i {
+    display: block;
+
+    margin-bottom: 15px;
+
+    color: #d2aa4a;
+
+    font-size: 38px;
+}
+
+.my-maintenance-empty h3 {
+    margin: 0 0 7px;
+
+    color: #162e4d;
+
+    font-size: 16px;
+}
+
+.my-maintenance-empty p {
+    margin: 0;
+
+    color: #888;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   REVIEWS PAGE
+========================= */
+
+.review-page-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.review-page-header > div {
+    flex: 1;
+}
+
+.review-page-header h2 {
+    margin: 0;
+    color: #162e4d;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.review-page-header p {
+    margin: 4px 0 0;
+    color: #888;
+    font-size: 13px;
+}
+
+
+/* =========================
+   REVIEW CONTENT
+========================= */
+
+.review-page-content {
+    width: 100%;
+}
+
+.review-page-title {
+    margin: 0 0 8px;
+    color: #162e4d;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.review-page-description {
+    margin: 0 0 28px;
+    color: #777;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   RATING ITEMS
+========================= */
+
+.review-rating-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-bottom: 22px;
+}
+
+.review-rating-label {
+    flex: 1;
+
+    color: #162e4d;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* =========================
+   STAR GROUP
+========================= */
+
+.review-star-group {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+
+    flex-shrink: 0;
+}
+
+.review-star-group button {
+    width: 27px;
+    height: 27px;
+
+    padding: 0;
+
+    border: none;
+    background: transparent;
+
+    color: #d8d8d8;
+
+    font-size: 25px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition: 0.15s ease;
+}
+
+.review-star-group button.active {
+    color: #d2aa4a;
+}
+
+.review-star-group button:hover {
+    color: #d2aa4a;
+    transform: scale(1.08);
+}
+
+
+/* =========================
+   COMMENT
+========================= */
+
+.review-comment-box {
+    width: 100%;
+    min-height: 105px;
+
+    box-sizing: border-box;
+
+    padding: 14px;
+
+    margin-top: 4px;
+    margin-bottom: 20px;
+
+    border: 1px solid #e1e4e8;
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #162e4d;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    resize: none;
+    outline: none;
+}
+
+.review-comment-box:focus {
+    border-color: #d2aa4a;
+}
+
+.review-comment-box::placeholder {
+    color: #999;
+}
+
+
+/* =========================
+   SUBMIT
+========================= */
+
+.review-submit-button {
+    width: 100%;
+    height: 52px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #162e4d;
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.review-submit-button:hover {
+    background: #203d63;
+}
+
+.review-submit-button:active {
+    transform: scale(0.98);
+}
+
+/* =========================
+   ACCOUNT SETTINGS
+========================= */
+
+.account-settings-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.account-settings-header > div {
+    flex: 1;
+}
+
+.account-settings-header h2 {
+    margin: 0;
+    color: #162e4d;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.account-settings-header p {
+    margin: 4px 0 0;
+    color: #888;
+    font-size: 13px;
+}
+
+
+/* =========================
+   SETTINGS CONTENT
+========================= */
+
+.account-settings-content {
+    width: 100%;
+}
+
+
+/* =========================
+   SETTINGS CARD
+========================= */
+
+.account-settings-card {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 16px;
+
+    margin-bottom: 12px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.account-settings-card:hover {
+    border-color: #d2aa4a;
+    transform: translateY(-1px);
+}
+
+
+/* ICON */
+
+.account-settings-icon {
+    width: 42px;
+    height: 42px;
+
+    min-width: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 14px;
+
+    border-radius: 10px;
+
+    background: #f4f2ed;
+    color: #162e4d;
+
+    font-size: 17px;
+}
+
+
+/* TEXT */
+
+.account-settings-text {
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+
+    flex: 1;
+}
+
+.account-settings-text strong {
+    color: #162e4d;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.account-settings-text span {
+    color: #888;
+
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+
+/* ARROW */
+
+.account-settings-arrow {
+    color: #a0a0a0;
+
+    font-size: 13px;
+
+    margin-left: 10px;
+}
+
+
+ /* =========================
+   HELP & SUPPORT
+========================= */
+
+.help-support-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.help-support-header > div {
+    flex: 1;
+}
+
+.help-support-header h2 {
+    margin: 0;
+    color: #162e4d;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.help-support-header p {
+    margin: 4px 0 0;
+    color: #888;
+    font-size: 13px;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.help-support-content {
+    width: 100%;
+}
+
+
+/* =========================
+   SUPPORT CARD
+========================= */
+
+.help-support-card {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 16px;
+
+    margin-bottom: 12px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.help-support-card:hover {
+    border-color: #d2aa4a;
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   ICON
+========================= */
+
+.help-support-icon {
+    width: 42px;
+    height: 42px;
+
+    min-width: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 14px;
+
+    border-radius: 10px;
+
+    background: #f4f2ed;
+    color: #162e4d;
+
+    font-size: 17px;
+}
+
+
+/* =========================
+   TEXT
+========================= */
+
+.help-support-text {
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+
+    flex: 1;
+}
+
+.help-support-text strong {
+    color: #162e4d;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.help-support-text span {
+    color: #888;
+
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+
+/* =========================
+   ARROW
+========================= */
+
+.help-support-arrow {
+    color: #a0a0a0;
+
+    font-size: 13px;
+
+    margin-left: 10px;
+}
+
+
+/* =========================
+   VERSION
+========================= */
+
+.help-support-version {
+    margin-top: 28px;
+
+    text-align: center;
+
+    color: #162e4d;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.help-support-version span {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #999;
+
+    font-size: 11px;
+    font-weight: 400;
+}
+
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
 .logout-btn {
     display: block;
+
     width: calc(100% - 30px);
+
     margin: 25px 15px;
 
     padding: 14px;
 
     border: none;
+
     border-radius: 10px;
 
     background: #162e4d;
-    color: white;
+
+    color: #ffffff;
 
     font-size: 16px;
     font-weight: bold;
+
     cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.logout-btn:hover {
+    background: #1e416b;
 }
 
 .logout-btn i {
     margin-right: 8px;
 }
-
-
 
 
 .reviews-heading { display: flex; justify-content: space-between; align-items: center; gap: 15px; }
@@ -1810,41 +3551,112 @@ h1 { margin: 0 0 8px; font-size: 31px; line-height: 1.1; color: var(--navy); fon
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
+/* Background overlay */
 .modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(13,24,39,.55);
-  display: none;
-  place-items: center;
-  z-index: 100;
-  padding: 20px;
-}
-.modal.open { display: grid; }
-.modal-box {
-  width: min(470px, 100%);
-  background: #fff;
-  border-radius: 28px;
-  padding: 28px;
-  position: relative;
-}
-.modal-box h2 { margin: 0 0 6px; color: var(--navy); }
-.modal-box p { margin: 0 0 20px; color: #8e969e; }
-.modal-box label { display: block; font-weight: 800; margin: 12px 0 7px; }
-.modal-box input, .modal-box select {
-  width: 100%;
-  padding: 13px;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-}
-.modal-close {
-  position: absolute; right: 15px; top: 12px;
-  border: 0; background: none; font-size: 32px; cursor: pointer;
-}
-.confirm-btn {
-  width: 100%; margin-top: 20px; border: 0; border-radius: 15px;
-  padding: 15px; background: var(--gold); color: #fff; font-weight: 900; cursor: pointer;
+    display: none;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(13, 24, 39, 0.65);
+
+    /* Center the popup */
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 9999;
+
+    /* Allow scrolling on small screens */
+    overflow-y: auto;
 }
 
+/* Show modal */
+.modal.show {
+    display: flex;
+}
+
+/* Popup card */
+.modal-box {
+    position: relative;
+    width: 100%;
+    max-width: 470px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    box-sizing: border-box;
+    pointer-events: auto;
+    background: #fff;
+    border-radius: 24px;
+    padding: 30px;
+
+    margin: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+/* Close button */
+.modal-close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    pointer-events: auto;
+    border: none;
+    z-index: 2;
+    background: transparent;
+    font-size: 28px;
+    cursor: pointer;
+    color: #162e4d;
+}
+
+/* Form controls */
+.modal-box input,
+.modal-box select {
+    width: 100%;
+    padding: 12px 14px;
+    margin: 8px 0 18px;
+    border: 1px solid #d9dee7;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+/* Modal heading */
+.modal-box h2 {
+    color: #162e4d;
+    font-size: 23px;
+    margin: 0 35px 12px 0;
+}
+
+/* Continue button */
+.modal-box .confirm-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: #162e4d;
+    color: white;
+    z-index: 2;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Phone responsiveness */
+@media (max-width: 480px) {
+    .modal {
+        padding: 12px;
+    }
+
+    .modal-box {
+        padding: 24px 20px;
+        border-radius: 18px;
+        max-height: calc(100dvh - 24px);
+    }
+
+    .modal-box h2 {
+        font-size: 20px;
+    }
+}
 @media (min-width: 900px) {
   body { padding: 35px 0; }
   .property-shell { border-radius: 30px; }
@@ -1984,4 +3796,64 @@ h1 { margin: 0 0 8px; font-size: 31px; line-height: 1.1; color: var(--navy); fon
     }
 
 }
+
+/* BOOKING ACTION */
+
+.booking-action {
+    width: 100%;
+    padding-bottom: 30px;
+    box-sizing: border-box;
+}
+
+.booking-action .primary {
+    width: 100%;
+}
+
+/* SPACE BETWEEN NOTICE AND BUTTON */
+
+.booking-content .notice {
+    margin-bottom: 15px !important;
+}
+
+
+
+.payment-action {
+    width: 100%;
+    padding-bottom: 30px;
+    box-sizing: border-box;
+}
+
+.payment-action .primary {
+    width: 100%;
+}
+
+/* SPACE BETWEEN NOTICE AND BUTTON */
+
+.payment-content .notice {
+    margin-bottom: 15px !important;
+}
+
+#property1 {
+    display: block;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/*AMENITY DESIGN*/
+
+.amenity1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.amenity-icon {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+}
+
+
+
+
 
